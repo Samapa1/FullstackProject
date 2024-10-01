@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/books
+Content-Type: application/json
+
+{
+    "author": "Mary Shelley",
+    "title": "Frankenstein",
+    "year": 1818,
+    "number_of_books": 3,
+    "available": 3
+}
