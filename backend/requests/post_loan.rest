@@ -2,6 +2,6 @@ POST http://localhost:3003/api/loans
 Content-Type: application/json
 
 {
-    "userId": 1,
-    "bookId": 1
+    "userId": 2,
+    "bookId": 2
 }

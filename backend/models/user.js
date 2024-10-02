@@ -23,10 +23,6 @@ User.init({
     type: DataTypes.TEXT,
     allowNull: false,
     unique: true
-  },
-  password: {
-    type: DataTypes.TEXT,
-    allowNull: false
   }
 
 }, {

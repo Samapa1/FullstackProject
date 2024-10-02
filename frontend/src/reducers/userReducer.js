@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import bookService from '../services/books'
 
 const initialState = []
 
@@ -18,12 +17,12 @@ const initialState = []
 
 export const { setUser, updateUser } = userSlice.actions
 
-export const initializeUser = () => {
-  return async dispatch => {
-    const user = await bookService.getAll()
-    dispatch(setUser(user))
-  }
-}
+// export const initializeUser = () => {
+//   return async dispatch => {
+//     const user = 
+//     dispatch(setUser(user))
+//   }
+// }
 
 
 export default userSlice.reducer

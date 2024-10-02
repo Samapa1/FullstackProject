@@ -4,6 +4,7 @@ import { useSelector} from 'react-redux'
 import { initializeBooks } from './reducers/bookReducer'
 import Booklist from './components/BookList'
 import Book from './components/Book'
+import User from './components/User'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -25,6 +26,7 @@ const App = () => {
      <h1>Book app</h1>
      <Booklist/>
     {showFirst()}
+    <User/>
      </div>
   )
 }
