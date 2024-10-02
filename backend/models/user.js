@@ -27,11 +27,7 @@ User.init({
   password: {
     type: DataTypes.TEXT,
     allowNull: false
-  },
-  borrowed_books: {
-    type: DataTypes.ARRAY(DataTypes.TEXT),
-    references: { model: 'books', key: 'id' },
-  },
+  }
 
 }, {
   sequelize,

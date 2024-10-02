@@ -1,6 +1,3 @@
 PUT http://localhost:3003/api/books/1
 Content-Type: application/json
 
-{
-    "available": 3
-}
