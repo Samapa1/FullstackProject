@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import loginService from '../services/login'
 
 const initialState = []
 
@@ -17,12 +18,12 @@ const initialState = []
 
 export const { setUser, updateUser } = userSlice.actions
 
-// export const initializeUser = () => {
-//   return async dispatch => {
-//     const user = 
-//     dispatch(setUser(user))
-//   }
-// }
+export const loginUser = (loginData) => {
+  return async dispatch => {
+    const user = await loginService.login(loginData)
+    dispatch(setUser(user))
+  }
+}
 
 
 export default userSlice.reducer

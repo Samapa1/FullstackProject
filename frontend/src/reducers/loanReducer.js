@@ -27,9 +27,7 @@ export const initializeLoans = () => {
 
 export const addLoan = (newObject) => {
     return async dispatch => {
-      console.log("loanreducer")
       const loan = await loanService.create(newObject)
-      console.log(loan)
       dispatch(appendLoan(loan))
     }
   }

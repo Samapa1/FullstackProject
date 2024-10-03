@@ -5,6 +5,7 @@ const booksRouter = require ('./controllers/books')
 const usersRouter = require ('./controllers/users')
 const loansRouter = require ('./controllers/loans')
 const statusRouter = require ('./controllers/status')
+const loginRouter = require ('./controllers/login')
 
 const { connectToDatabase } = require('./util/db')
 
@@ -21,6 +22,8 @@ app.use('/api/users', usersRouter)
 app.use('/api/loans', loansRouter)
 
 app.use('/api/status', statusRouter)
+
+app.use('/api/login', loginRouter)
 
 
 const start = async () => {

@@ -1,10 +1,16 @@
+import { useParams } from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { addLoan } from "../reducers/loanReducer.js";
 import { useState, useEffect} from 'react'
+import { useSelector} from 'react-redux'
 import statusService from "../services/status"
 
-const Book = ( {book} ) => {  
+const Book = (  ) => {  
+    const id = useParams().id
+
     const [available, changeAvailability] = useState(true)
+    const allBooks = useSelector(state => state.books)
+    const book = allBooks.find(book => book.id === Number(id))
 
     useEffect(() => {
         isAvailable()
