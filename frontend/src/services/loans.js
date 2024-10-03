@@ -13,5 +13,10 @@ const create = async (newObject) => {
     return response.data;
 };
 
+let token = null
+
+const setToken = (createdToken) => {
+  token = `Bearer ${createdToken}`
+}
   
-export default { getAll, create }
+export default { getAll, create, setToken }

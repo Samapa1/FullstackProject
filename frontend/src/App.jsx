@@ -4,8 +4,9 @@ import {
 } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-// import { useSelector} from 'react-redux'
 import { initializeBooks } from './reducers/bookReducer'
+import { initializeUser } from './reducers/userReducer'
+import { initializeLoans } from './reducers/loanReducer'
 import Booklist from './components/BookList'
 import Book from './components/Book'
 import User from './components/User'
@@ -25,13 +26,13 @@ const App = () => {
     dispatch(initializeBooks()) 
   }, [dispatch]) 
 
-  // const firstBook = useSelector(state => state.books.find(book => book.title === "The Stranger" ))
+  useEffect(() => {
+    dispatch(initializeUser());
+  }, [dispatch]);
 
-  // const showFirst = () => {
-  //   if (firstBook) {
-  //     return  <Book book={firstBook}/>
-  //   }
-  // }
+  useEffect(() => {
+    dispatch(initializeLoans());
+  }, [dispatch]);
 
   const padding = {
     padding: 5
