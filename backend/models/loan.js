@@ -12,11 +12,13 @@ Loan.init({
   },
   userId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: { model: 'users', key: 'id' }
   },
   bookId: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    references: { model: 'books', key: 'id' }
     },
   borrowingDate: {
     type: DataTypes.DATE,

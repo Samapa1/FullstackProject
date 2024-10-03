@@ -9,10 +9,10 @@ const User = () => {
 
     const userLoans = allLoans.filter(loan => loan.userId === user.id)
     console.log(userLoans)
-    const borrowedBookids = userLoans.map(loan => loan.bookId)
-    console.log(borrowedBookids)
-    const borrowedBooks = allBooks.filter (book => borrowedBookids.includes(book.id))
-    console.log(borrowedBooks)
+    // const borrowedBookids = userLoans.map(loan => loan.bookId)
+    // console.log(borrowedBookids)
+    // const borrowedBooks = allBooks.filter (book => borrowedBookids.includes(book.id))
+    // console.log(borrowedBooks)
    
     if (user) {
         return (

@@ -9,3 +9,5 @@ Date              Hours                    Tasks
 2.10.24           2                        Updating frontend to work with backend 
 3.10.24           1                        Setting up login functionality
 3.10.24           1                        Setting up React Router  
+3.10.24           2                        Working on user component (frontend) 
+3.10.24           1.5                      Working on database relations
