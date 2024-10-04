@@ -1,19 +1,26 @@
 import { useSelector} from 'react-redux'
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux'
+import { getUserData } from '../reducers/userReducer'
+import Loan from './Loan';
 
 const User = () => {
+    const dispatch = useDispatch()
 
     const user = useSelector((state) => state.user);
-    const allLoans = useSelector((state) => state.loans);
-    const allBooks = useSelector((state) => state.books);
+    useEffect(() => {
+        dispatch(getUserData()) 
+      }, [dispatch]) 
 
+    console.log(user)
 
-    const userLoans = allLoans.filter(loan => loan.userId === user.id)
-    console.log(userLoans)
-    // const borrowedBookids = userLoans.map(loan => loan.bookId)
-    // console.log(borrowedBookids)
-    // const borrowedBooks = allBooks.filter (book => borrowedBookids.includes(book.id))
-    // console.log(borrowedBooks)
-   
+   const showBooks = () => {
+    if (user.books) {
+        const booksToShow = user.books.map (book => <Loan key ={book.id} book = {book}/>)
+        return booksToShow
+    }
+   }
+
     if (user) {
         return (
             <div>
@@ -21,6 +28,8 @@ const User = () => {
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <p>Borrowed books:</p>
+                {showBooks()}
+                
             </div>
         )
     }

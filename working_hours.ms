@@ -11,3 +11,4 @@ Date              Hours                    Tasks
 3.10.24           1                        Setting up React Router  
 3.10.24           2                        Working on user component (frontend) 
 3.10.24           1.5                      Working on database relations
+4.10.24           2                        Developing lending functionality (returning loans) on frontend and backend 

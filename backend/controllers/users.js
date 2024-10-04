@@ -35,27 +35,23 @@ router.put('/:id', async (req, res) => {
     }
   })
 
-// router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
-//     const user = await User.findByPk(req.params.id, { 
-//         attributes: { exclude: ['createdAt', 'updatedAt'] } ,
-//         include:[{
-//             model: Book,
-//             as: 'loans',
-//             attributes: { exclude: ['userId', 'createdAt', 'updatedAt']},
-//             through: {
-//             attributes: ['id'],
-//             },
+    const user = await User.findByPk(req.params.id, { 
+        attributes: { exclude: ['createdAt', 'updatedAt'] } ,
+        include: [
+            {
+                model: Book,
+                attributes: ['title', 'author']
+              }
+            ]
+    })
 
-//     }]
-
-//     })
-
-//     if (user) {
-//         res.json(user)
-//     } else {
-//         res.status(404).end()
-//     }
-// })
+    if (user) {
+        res.json(user)
+    } else {
+        res.status(404).end()
+    }
+})
 
 module.exports = router

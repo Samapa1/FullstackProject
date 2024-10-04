@@ -13,10 +13,15 @@ const create = async (newObject) => {
     return response.data;
 };
 
+const remove = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`)
+  return response.data
+}
+
 let token = null
 
 const setToken = (createdToken) => {
   token = `Bearer ${createdToken}`
 }
   
-export default { getAll, create, setToken }
+export default { getAll, create, remove, setToken }
