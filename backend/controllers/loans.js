@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
     if (Number(numberOfBooks) > Number(numberOfBorrowed)) {
         const borrowingDate = new Date()
         const dueDate = setDueDate()
+        console.log(req.body)
         const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
         res.json(newloan)
     }

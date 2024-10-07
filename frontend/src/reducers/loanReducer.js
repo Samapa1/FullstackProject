@@ -12,6 +12,7 @@ const initialState = []
       },
       appendLoan(state, action) {
         state.push(action.payload)
+        return state
       },
       deleteLoan(state, action) {
         const id = action.payload;

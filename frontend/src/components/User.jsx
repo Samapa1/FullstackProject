@@ -1,7 +1,7 @@
 import { useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
-import { getUserData } from '../reducers/userReducer'
+import { getUserLoans } from '../reducers/userReducer'
 import Loan from './Loan';
 
 const User = () => {
@@ -9,10 +9,9 @@ const User = () => {
 
     const user = useSelector((state) => state.user);
     useEffect(() => {
-        dispatch(getUserData()) 
+        dispatch(getUserLoans()) 
       }, [dispatch]) 
 
-    console.log(user)
 
    const showBooks = () => {
     if (user.books) {

@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { loginUser } from "../reducers/userReducer.js"
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -13,6 +15,7 @@ const Login = () => {
     event.preventDefault()
   
     try {
+      navigate("/");
       await dispatch(loginUser({ username, password }))
       setUsername('')
       setPassword('')
