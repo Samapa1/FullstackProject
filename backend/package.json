@@ -7,7 +7,8 @@
     "server": "json-server -p3001 --watch db.json",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migration:down": "node util/rollback.js"
   },
   "author": "Saija Pajari",
   "license": "ISC",
@@ -18,7 +19,8 @@
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "umzug": "^3.8.2"
   },
   "devDependencies": {
     "json-server": "^1.0.0-beta.3",

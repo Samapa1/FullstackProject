@@ -38,7 +38,7 @@ router.put('/:id', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
     const user = await User.findByPk(req.params.id, { 
-        attributes: { exclude: ['createdAt', 'updatedAt'] } ,
+        attributes: { } ,
         include: [
             {
                 model: Book,

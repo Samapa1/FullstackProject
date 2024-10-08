@@ -20,15 +20,20 @@ User.init({
     allowNull: false
     },
   email: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      isEmail: {
+          msg: "Validation isEmail on field email failed"
+      }
+  }
   }
 
 }, {
   sequelize,
   underscored: true,
-  timestamps: true,
+  timestamps: false,
   modelName: 'user'
 })
 

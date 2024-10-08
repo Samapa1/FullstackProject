@@ -14,3 +14,5 @@ Date              Hours                    Tasks
 4.10.24           2                        Developing lending functionality (returning loans) in frontend and backen
 7.10.24           2                        Creating log out-functionality and developing lending functionality
 7.10.24           3                        Solving rendering issues (returning loans)
+8.10.24           4                        Adding error-handling middleware and tokenextractor (making lending and returning books possible only with a valid token).
+8.10.24           1                        Working on database migrations                       

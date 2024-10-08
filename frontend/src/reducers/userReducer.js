@@ -41,6 +41,7 @@ export const getUserData = () => {
       const userData = await userService.getOne(user.id)
       console.log(userData)
       dispatch(setUser(userData))
+      loanService.setToken(user.token)
     }
     else {
       console.log("not found")
