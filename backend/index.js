@@ -1,11 +1,13 @@
 const express = require('express')
 const cors = require('cors')
+require('express-async-errors')
 const app = express()
 const booksRouter = require ('./controllers/books')
 const usersRouter = require ('./controllers/users')
 const loansRouter = require ('./controllers/loans')
 const statusRouter = require ('./controllers/status')
 const loginRouter = require ('./controllers/login')
+const middleware = require('./util/middleware');
 
 const { connectToDatabase } = require('./util/db')
 
@@ -25,13 +27,15 @@ app.use('/api/status', statusRouter)
 
 app.use('/api/login', loginRouter)
 
-
 const start = async () => {
   await connectToDatabase()
   app.listen(3003, () => {
     console.log(`Server running on port ${3003}`)
   })
 }
+
+
+app.use(middleware.errorHandler)
 
 start()
 

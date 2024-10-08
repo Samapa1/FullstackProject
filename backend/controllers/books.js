@@ -1,5 +1,8 @@
 const router = require('express').Router()
+const { response } = require('express')
 const { Book } = require('../models')
+const { tokenExtractor } = require('../util/middleware')
+
 
 router.get('/', async (req, res) => {
     const books = await Book.findAll()
@@ -15,9 +18,9 @@ router.put('/:id', async (req, res) => {
   }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', tokenExtractor, async (req, res) => {
   const book = await Book.create({...req.body})
   res.json(book)
-})
+  })
 
 module.exports = router

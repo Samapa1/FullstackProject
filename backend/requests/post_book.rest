@@ -1,10 +1,10 @@
 POST http://localhost:3003/api/books
 Content-Type: application/json
+Authorization: xxx
 
 {
-    "author": "Mary Shelley",
-    "title": "Frankenstein",
-    "year": 1818,
-    "number_of_books": 3,
-    "available": 3
+    "author": "J.K.Rowling",
+    "title": "Harry Potter and the Philosopher's Stone 2",
+    "year": 1997,
+    "number_of_books": 2
 }

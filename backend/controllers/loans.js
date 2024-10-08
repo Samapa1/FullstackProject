@@ -1,13 +1,14 @@
 const router = require('express').Router()
 const { Loan } = require('../models')
 const { Book } = require('../models')
+const { tokenExtractor } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
     const loans = await Loan.findAll()
     res.json(loans)
   })
 
-router.post('/', async (req, res) => {
+router.post('/', tokenExtractor, async (req, res) => {
     const setDueDate = () => {
         let date = new Date()
         date.setDate(date.getDate() + 7);
@@ -38,7 +39,7 @@ router.post('/', async (req, res) => {
  
 })
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', tokenExtractor, async (req, res) => {
     console.log("deletoidaan")
     const loan = await Loan.findByPk(req.params.id)
     console.log(loan)
