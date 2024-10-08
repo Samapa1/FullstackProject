@@ -11,14 +11,11 @@ const initialState = null
     reducers: {
       setUser(state, action) {
         return action.payload
-      },
-      setUserLoans(state, action) {
-        return action.payload
       }
     }
   })
 
-export const { setUser, setUserLoans } = userSlice.actions
+export const { setUser } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -26,8 +23,6 @@ export const loginUser = (loginData) => {
     dispatch(setUser(user))
     window.localStorage.setItem("loggedUser", JSON.stringify(user))
     loanService.setToken(user.token)
-    // console.log(user)
-    // console.log(JSON.parse(window.localStorage.getItem("loggedUser")))
   }
 }
 
@@ -38,32 +33,14 @@ export const logoutUser = () => {
   }
 }
 
-export const initializeUser = () => {
-  return async dispatch => {
-    const userJSON = window.localStorage.getItem("loggedUser")
-    if (userJSON) {
-      const user = JSON.parse(userJSON)
-      loanService.setToken(user.token)
-      const userData = await userService.getOne(user.id)
-      dispatch(setUser(userData))
-    }
-    else {
-      console.log("not found")
-    }
-
-  }
-}
-
-
-export const getUserLoans = () => {
+export const getUserData = () => {
   return async dispatch => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
       const user = JSON.parse(userJSON)
       const userData = await userService.getOne(user.id)
-      console.log("calling getuserloans")
       console.log(userData)
-      dispatch(setUserLoans(userData))
+      dispatch(setUser(userData))
     }
     else {
       console.log("not found")

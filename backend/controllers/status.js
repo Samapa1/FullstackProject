@@ -16,12 +16,10 @@ router.get('/:id', async (req, res) => {
     }
   
     if (Number(numberOfBooks) > Number(numberOfBorrowed)) {
-        console.log("available")
         return res.json("available")
     }
 
     else 
-        console.log("unnavailable")
         return res.json("unavailable").end()
 })
 

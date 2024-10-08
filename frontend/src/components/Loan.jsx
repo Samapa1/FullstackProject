@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux'
 import { removeLoan } from '../reducers/loanReducer'
-import { getUserLoans } from '../reducers/userReducer'
+import { getUserData } from '../reducers/userReducer'
 
 const Loan = ( {book }) => {
     const dispatch = useDispatch()
 
     const returnBook = async (id) => {
         await dispatch(removeLoan(id))
-        await dispatch(getUserLoans()) 
+        await dispatch(getUserData()) 
        }
    
     return (

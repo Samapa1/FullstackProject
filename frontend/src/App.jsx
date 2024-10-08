@@ -5,7 +5,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { initializeBooks } from './reducers/bookReducer'
-import { initializeUser } from './reducers/userReducer'
+import { getUserData } from './reducers/userReducer'
 import { initializeLoans } from './reducers/loanReducer'
 import Booklist from './components/BookList'
 import Book from './components/Book'
@@ -28,7 +28,7 @@ const App = () => {
   }, [dispatch]) 
 
   useEffect(() => {
-    dispatch(initializeUser());
+    dispatch(getUserData());
   }, [dispatch]);
 
   useEffect(() => {

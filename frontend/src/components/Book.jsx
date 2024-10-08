@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { addLoan } from "../reducers/loanReducer.js"
-import { getUserLoans } from "../reducers/userReducer"
+import { getUserData } from "../reducers/userReducer"
 import { useState, useEffect, useCallback} from 'react'
 import { useSelector} from 'react-redux'
 import statusService from "../services/status"
@@ -18,7 +18,7 @@ const Book = (  ) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getUserLoans()) 
+        dispatch(getUserData()) 
       }, [borrowed, dispatch]) 
   
     const isAvailable = useCallback(async () => {
@@ -42,21 +42,6 @@ const Book = (  ) => {
        
     }, [book, user])
 
-    
-    // const isBorrowed = useCallback(() => {
-    //     console.log("kutsutaan isBorrowed")
-    //     if (user.books.find(userbook => userbook.title === book.title )) {
-    //         console.log("loopin sisällä")
-    //         changeBorrowed(true)
-
-    //     }
-    //     else {
-    //         console.log("setting false")
-    //         changeBorrowed(false)
-    //     }
-    // }, [book, user])
-   
-
 
     useEffect(() => {
         isAvailable()
@@ -68,7 +53,7 @@ const Book = (  ) => {
             userId: user.id,
             bookId: book.id
         }))
-        await dispatch(getUserLoans()) 
+        await dispatch(getUserData()) 
         isAvailable()
 
     }
