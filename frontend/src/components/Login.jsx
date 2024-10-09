@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { loginUser } from "../reducers/userReducer.js"
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
+import Notification from "./Notification"
+import { setNotification } from  "../reducers/notificationReducer.js"
 
 
 const Login = () => {
@@ -17,11 +19,14 @@ const Login = () => {
     try {
       navigate("/");
       await dispatch(loginUser({ username, password }))
+      await dispatch(setNotification( {data: `${username} logged in`, type: 'info'}, 3000))
       setUsername('')
       setPassword('')
 
     } catch (exception) {
-      console.log(exception) 
+      console.log(exception)
+      navigate("/login"); 
+      await dispatch(setNotification( {data: 'Invalid username or password', type: 'error'}, 3000))
     }
 
 
@@ -30,6 +35,7 @@ const Login = () => {
 
   return (
     <>
+    <Notification/>
       <h2>Log in to application</h2>
       <form onSubmit={handleLogin}>
         <div>

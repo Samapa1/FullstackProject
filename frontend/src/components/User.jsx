@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
+import Notification from './Notification';
 
 const User = () => {
     const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const User = () => {
     if (user) {
         return (
             <div key= {user.id}>
+                 <Notification/>
                 User information: 
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>

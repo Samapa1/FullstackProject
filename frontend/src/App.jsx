@@ -12,10 +12,12 @@ import Book from './components/Book'
 import User from './components/User'
 import Login from './components/Login'
 import Logout from './components/Logout'
+import Notification  from './components/Notification'
 
 const Home = () => {
   return ( 
     <div>
+      <Notification/>
       <h1>Book app</h1>
     </div>
 )}
@@ -40,6 +42,8 @@ const App = () => {
   }
 
   const user = useSelector((state) => state.user);
+  const notification = useSelector((state) => state.notification);
+  console.log(notification)
 
 
   return (

@@ -4,7 +4,9 @@ import { addLoan } from "../reducers/loanReducer.js"
 import { getUserData } from "../reducers/userReducer"
 import { useState, useEffect, useCallback} from 'react'
 import { useSelector} from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
+import Notification from './Notification.jsx'
 
 const Book = (  ) => {  
     const id = useParams().id
@@ -54,6 +56,7 @@ const Book = (  ) => {
             bookId: book.id
         }))
         await dispatch(getUserData()) 
+        await dispatch(setNotification( {data: `${book.title} borrowed`, type: 'info'}, 3000))
         isAvailable()
 
     }
@@ -61,6 +64,7 @@ const Book = (  ) => {
     if (available && !borrowed) {
     return (
         <div>
+            <Notification/>
             <h2>{book.title}</h2>
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
@@ -74,6 +78,7 @@ const Book = (  ) => {
     if (borrowed)
     return (
         <div>
+             <Notification/>
             <h2>{book.title}</h2>
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
@@ -83,6 +88,7 @@ const Book = (  ) => {
 
     return (
         <div>
+             <Notification/>
             <h2>{book.title}</h2>
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
