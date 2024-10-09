@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { User } = require('../models')
 const { Book } = require('../models')
 const { sequelize } = require('../util/db')
+const bcrypt = require('bcrypt')
 
 router.get('/', async (req, res) => {
     const users = await User.findAll({
@@ -16,9 +17,27 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    console.log({...req.body})
-    const user = await User.create({...req.body})
-    res.json(user)
+    const { name, email, username, password } = req.body
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(password, saltRounds)
+
+    try {
+        const user = await User.create({
+            name,  
+            email,
+            username,
+            passwordHash
+        })
+    
+        res.json(user)
+    } catch (err) {
+        console.log(err)
+        if (err.errors[0].path === 'username') {
+            res.status(400).json({ message: "username already in use" })
+        }
+        // throw err
+    }
+
 })
 
 router.put('/:id', async (req, res) => {

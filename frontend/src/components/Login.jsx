@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 import { loginUser } from "../reducers/userReducer.js"
 import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
@@ -58,6 +59,10 @@ const Login = () => {
         </div>
         <button type="submit">log in</button>
       </form>
+      <div>
+        <br/>
+        <Link to={`/register`}>Do not have an account yet? Please register.</Link>
+      </div>
     </>
   )
 }

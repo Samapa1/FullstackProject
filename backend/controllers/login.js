@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const router = require('express').Router()
+const bcrypt = require('bcrypt')
 const User = require('../models/user')
 
 
@@ -11,7 +12,9 @@ router.post('/', async (req, res) => {
     }
   })
 
-  const passwordCorrect = req.body.password === 'testing'
+  console.log(user.passwordHash)
+
+  const passwordCorrect = await bcrypt.compare(req.body.password, user.passwordHash)
 
   if (!(user && passwordCorrect)) {
     return res.status(401).json({

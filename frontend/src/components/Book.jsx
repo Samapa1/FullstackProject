@@ -34,6 +34,7 @@ const Book = (  ) => {
     }, [book])
         
     useEffect(() => {
+        if (user.books) {
         if (user.books.find(userbook => userbook.title === book.title )) {
             changeBorrowed(true)
 
@@ -41,7 +42,7 @@ const Book = (  ) => {
         else {
             changeBorrowed(false)
         }
-       
+    }
     }, [book, user])
 
 

@@ -17,3 +17,4 @@ Date              Hours                    Tasks
 8.10.24           4                        Adding error-handling middleware and tokenextractor (making lending and returning books possible only with a valid token).
 8.10.24           1                        Working on database migrations                       
 9.10.24           2                        Adding notifications (for login, lending and returning books)
+9.10.24           2                        Setting up registration functionality 

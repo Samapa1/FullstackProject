@@ -11,11 +11,11 @@ const initialState = null
     reducers: {
       setUser(state, action) {
         return action.payload
-      }
+      },
     }
   })
 
-export const { setUser } = userSlice.actions
+export const { setUser, appendUser } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -47,6 +47,14 @@ export const getUserData = () => {
       console.log("not found")
     }
 
+  }
+}
+
+export const addUser = ( newUser ) => {
+  return async dispatch => {
+    const addedUser = await userService.create(newUser)
+    console.log(addedUser)
+    dispatch(setUser(addedUser))
   }
 }
 

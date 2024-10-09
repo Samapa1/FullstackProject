@@ -28,6 +28,10 @@ User.init({
           msg: "Validation isEmail on field email failed"
       }
   }
+  },
+  passwordHash: {
+    type: DataTypes.TEXT,
+    allowNull: false,
   }
 
 }, {
