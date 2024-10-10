@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
 import loanService from '../services/loans'
+import reservationService from '../services/reservations'
 import userService from '../services/users'
 
 const initialState = null
@@ -23,6 +24,7 @@ export const loginUser = (loginData) => {
     dispatch(setUser(user))
     window.localStorage.setItem("loggedUser", JSON.stringify(user))
     loanService.setToken(user.token)
+    reservationService.setToken(user.token)
   }
 }
 
@@ -38,23 +40,19 @@ export const getUserData = () => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
       const user = JSON.parse(userJSON)
+      console.log("user")
+      console.log(user)
       const userData = await userService.getOne(user.id)
       console.log(userData)
       dispatch(setUser(userData))
       loanService.setToken(user.token)
+      reservationService.setToken(user.token)
+
     }
     else {
       console.log("not found")
     }
 
-  }
-}
-
-export const addUser = ( newUser ) => {
-  return async dispatch => {
-    const addedUser = await userService.create(newUser)
-    console.log(addedUser)
-    dispatch(setUser(addedUser))
   }
 }
 

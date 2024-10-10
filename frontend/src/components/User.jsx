@@ -20,7 +20,7 @@ const User = () => {
         return booksToShow
     }
    }
-
+   console.log(user)
     if (user) {
         return (
             <div key= {user.id}>

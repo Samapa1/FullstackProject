@@ -19,3 +19,5 @@ Date              Hours                    Tasks
 9.10.24           2                        Adding notifications (for login, lending and returning books)
 9.10.24           3                        Setting up passwords and registration functionality 
 10.10.24          1                        Adding password validation (for registration)
+10.10.24          1                        Developing registration functionality
+10.10.24          3                        Setting up reservation functionality (backend and frontend)

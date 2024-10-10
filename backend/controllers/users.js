@@ -1,16 +1,20 @@
 const router = require('express').Router()
 const { User } = require('../models')
 const { Book } = require('../models')
+const { Reservation } = require('../models')
 const { sequelize } = require('../util/db')
 const bcrypt = require('bcrypt')
 
 router.get('/', async (req, res) => {
     const users = await User.findAll({
         include: [
-        {
+            {
             model: Book,
             attributes: ['title', 'author'],
-          }
+            },
+            {
+            model: Reservation
+            }
         ]
     })
     res.json(users)
@@ -61,7 +65,10 @@ router.get('/:id', async (req, res) => {
             {
                 model: Book,
                 attributes: ['title', 'author']
-              }
+            },
+            {
+                model: Reservation
+            }
             ]
     })
 

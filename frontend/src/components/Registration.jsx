@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { addUser } from "../reducers/userReducer"
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
+import userService from '../services/users'
 
 
 const Registration= () => {
@@ -53,9 +53,9 @@ const Registration= () => {
             password: password
 
         }
-        await dispatch(addUser(userObject))
+        await userService.create(userObject)
         await dispatch(setNotification({data: `Registration ok`, type: 'info'}, 3000))
-        navigate("/"); 
+        navigate("/login"); 
       
 
     } catch (exception) {
