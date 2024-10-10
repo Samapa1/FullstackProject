@@ -15,17 +15,34 @@ const Registration= () => {
   const [password2, setPassword2] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  
+  const validPassword = (password) => {
+    if (password.length < 8) {
+      return false
+    }
+    for (let i = 0; i <password.length; i++) {
+      if (["0","1","2","3","4","5","6","7","8","9"].includes(password[i])) {
+        return true
+      }
+    }
+    return false
+  }
 
   const handleRegistration = async (event) => {
     event.preventDefault()
 
-    if (password !== password2) {
-        await dispatch(setNotification({data: `Passwords don't match`, type: 'error'}, 3000))
-        setPassword('')
-        setPassword2('')
-        return
+    if (!validPassword(password)) {
+      await dispatch(setNotification({data: `Password must have at least 8 characters (including at least one number)`, type: 'error'}, 4000))
+      return
+    } 
 
-    }
+    if (password !== password2) {
+      await dispatch(setNotification({data: `Passwords don't match`, type: 'error'}, 3000))
+      setPassword('')
+      setPassword2('')
+      return
+
+  }
   
     try {
         
@@ -36,14 +53,12 @@ const Registration= () => {
             password: password
 
         }
-        
         await dispatch(addUser(userObject))
         await dispatch(setNotification({data: `Registration ok`, type: 'info'}, 3000))
         navigate("/"); 
       
 
     } catch (exception) {
-        console.log("virhe")
         console.log(exception)
         await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
     }

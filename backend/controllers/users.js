@@ -32,10 +32,9 @@ router.post('/', async (req, res) => {
         res.json(user)
     } catch (err) {
         console.log(err)
-        if (err.errors[0].path === 'username') {
+        if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {
             res.status(400).json({ message: "username already in use" })
         }
-        // throw err
     }
 
 })

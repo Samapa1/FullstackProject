@@ -18,3 +18,4 @@ Date              Hours                    Tasks
 8.10.24           1                        Working on database migrations                       
 9.10.24           2                        Adding notifications (for login, lending and returning books)
 9.10.24           3                        Setting up passwords and registration functionality 
+10.10.24          1                        Adding password validation (for registration)
