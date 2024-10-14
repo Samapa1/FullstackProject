@@ -5,6 +5,7 @@ const Booklist = () => {
 
     const user = useSelector(state => state.user)
     const allBooks = useSelector(state => state.books)
+    console.log(allBooks)
 
     
     return (

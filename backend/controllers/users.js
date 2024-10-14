@@ -67,8 +67,10 @@ router.get('/:id', async (req, res) => {
                 attributes: ['title', 'author']
             },
             {
-                model: Reservation
-            }
+                model: Book,
+                as: 'reservedBooks',
+                attributes: {}
+            },
             ]
     })
 

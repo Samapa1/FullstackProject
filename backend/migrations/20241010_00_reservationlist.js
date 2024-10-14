@@ -20,9 +20,9 @@ module.exports = {
       references: { model: 'users', key: 'id' }
     })
     await queryInterface.addColumn('reservations', 'book_id', {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: { model: 'books', key: 'id' }
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'books', key: 'id' }
     })
   },
   down: async ({ context: queryInterface }) => {

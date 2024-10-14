@@ -9,11 +9,16 @@ const initialState = []
     reducers: {
       appendReservation(state, action) {
         state.push(action.payload)
+      },
+      deleteReservation(state, action) {
+        const id = action.payload
+        const reservations = state.filter (reservation => reservation.id !== id)
+        return reservations
       }
     },
   })
 
-export const { appendReservation } = reservationSlice.actions
+export const { appendReservation, deleteReservation } = reservationSlice.actions
 
 
 export const addReservation = (reservationData) => {
@@ -24,5 +29,13 @@ export const addReservation = (reservationData) => {
     }
   }
 
+export const removeReservation = (id) => {
+  return async dispatch => {
+    console.log(id)
+    console.log("removing")
+    await reservationService.remove(id)
+    dispatch(deleteReservation(id))
+  }
+}
 
 export default reservationSlice.reducer

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
+import Reservation from './Reservation';
 import Notification from './Notification';
 
 const User = () => {
@@ -20,7 +21,15 @@ const User = () => {
         return booksToShow
     }
    }
-   console.log(user)
+   
+   const showReservations = () => {
+    if (user.reservedBooks) {
+        console.log(user.reservedBooks)
+        const reservations = user.reservedBooks.map(reservedBook=> <Reservation key ={reservedBook.id} reservedBook = {reservedBook}/>)
+        return reservations
+    }
+   }
+
     if (user) {
         return (
             <div key= {user.id}>
@@ -30,6 +39,8 @@ const User = () => {
                 <p>Email: {user.email}</p>
                 <p>Borrowed books:</p>
                 {showBooks()}
+                <p>Reservations:</p>
+                {showReservations()}
                 
             </div>
         )

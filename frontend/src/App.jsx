@@ -57,7 +57,6 @@ const App = () => {
         <Link style={padding} to="/user">my page</Link></>
       : <Link style={padding} to="/login">log in</Link>
       }   
-      {/* <Link style={padding} to="/user">my page</Link> */}
     </div>
     <Routes>
       <Route path="/books" element={<Booklist />} />

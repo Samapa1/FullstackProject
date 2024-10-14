@@ -21,3 +21,4 @@ Date              Hours                    Tasks
 10.10.24          1                        Adding password validation (for registration)
 10.10.24          1                        Developing registration functionality
 10.10.24          3                        Setting up reservation functionality (backend and frontend)
+14.10.24          3                        Developing reservation functionality (removing reservation, database relations)

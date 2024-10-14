@@ -15,6 +15,15 @@ router.post('/', tokenExtractor, async (req, res) => {
     console.log(newReservation)
     res.json(newReservation) 
 })
+
+
+router.delete('/:id', tokenExtractor, async (req, res) => {
+    const reservation = await Reservation.findByPk(req.params.id)
+    if (reservation) {
+        await reservation.destroy()
+        res.status(204).end()
+    }
+})
  
 
 module.exports = router
