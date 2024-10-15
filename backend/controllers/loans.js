@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const { Loan } = require('../models')
 const { Book } = require('../models')
+const { Reservation } = require('../models')
 const { tokenExtractor } = require('../util/middleware')
 
 router.get('/', async (req, res) => {
@@ -42,8 +43,17 @@ router.post('/', tokenExtractor, async (req, res) => {
 router.delete('/:id', tokenExtractor, async (req, res) => {
     console.log("deletoidaan")
     const loan = await Loan.findByPk(req.params.id)
+    const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
     console.log(loan)
-    if (loan) {
+    if (loan && reservation) {
+        console.log(reservation)
+        await loan.destroy()
+        console.log("varattu")
+        reservation.available = true
+        await reservation.save()
+        res.status(204).end()
+    }
+    else if (loan ) {
         await loan.destroy()
         res.status(204).end()
     }

@@ -4,7 +4,7 @@ module.exports = {
     up: async ({ context: queryInterface }) => {
       await queryInterface.addColumn('reservations', 'available', {
         type: DataTypes.BOOLEAN,
-        default: false,
+        defaultValue: false,
       })
     },
     down: async ({ context: queryInterface }) => {

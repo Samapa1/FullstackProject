@@ -12,7 +12,7 @@ import Notification from './Notification.jsx'
 const Book = (  ) => {  
     const id = useParams().id
 
-    const [available, changeAvailability] = useState(true)
+    const [available, changeAvailability] = useState(null)
     const [borrowed, changeBorrowed] = useState(null)
     const [reserved, changeReserved] = useState(null)
     const allBooks = useSelector(state => state.books)
@@ -29,6 +29,8 @@ const Book = (  ) => {
   
     const isAvailable = useCallback(async () => {
         let bookStatus = await statusService.getStatus(book.id)
+        console.log("Bookstatus")
+        console.log(bookStatus)
         if (bookStatus === "available") {
             changeAvailability(true)
         }
@@ -49,15 +51,19 @@ const Book = (  ) => {
     }
     }, [book, user])
 
-    useEffect(() => {
-        if (user.reservations) {
-        if (user.reservations.find(reservation => reservation.bookId === book.id )) {
-            changeReserved(true)
+    console.log(user.reservedBooks)
 
-        }
-        else {
-            changeReserved(false)
-        }
+    useEffect(() => {
+        if (user.reservedBooks) {
+            console.log("effect")
+            if (user.reservedBooks.find(reservedBook => reservedBook.id === book.id )) {
+                console.log("checking reservations")
+                changeReserved(true)
+
+            }
+            else {
+                changeReserved(false)
+            }
         }
     }, [book, user])
 
@@ -113,6 +119,7 @@ const Book = (  ) => {
     )
     }
 
+    console.log(reserved)
     if (reserved) {
         return (
             <div>

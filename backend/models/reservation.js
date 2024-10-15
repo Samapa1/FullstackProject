@@ -20,10 +20,10 @@ Reservation.init({
     allowNull: false,
     references: { model: 'books', key: 'id' }
   },
-  // dueDate: {
-  //   type: DataTypes.DATE,
-  //   allowNull: true
-  // }
+  available: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  }
 }, {
   sequelize,
   underscored: true,
