@@ -33,7 +33,6 @@ const start = async () => {
   await connectToDatabase()
 }
 
-
 app.use(middleware.errorHandler)
 
 start()
