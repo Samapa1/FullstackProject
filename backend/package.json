@@ -6,8 +6,9 @@
   "scripts": {
     "server": "json-server -p3001 --watch db.json",
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "test": "NODE_ENV=test node --test",
+    "start:test": "NODE_ENV=test node index.js",
     "migration:down": "node util/rollback.js"
   },
   "author": "Saija Pajari",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "json-server": "^1.0.0-beta.3",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
   }
 }

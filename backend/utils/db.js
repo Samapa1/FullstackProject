@@ -1,8 +1,10 @@
 const Sequelize = require('sequelize')
 require('dotenv').config()
 const { Umzug, SequelizeStorage } = require('umzug')
+const { DATABASE_URL } = require('./config.js')
 
-const sequelize = new Sequelize(process.env.DATABASE_URL)
+
+const sequelize = new Sequelize(DATABASE_URL)
 
 const migrationConf = {
   migrations: {

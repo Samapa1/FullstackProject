@@ -1,0 +1,9 @@
+  services:  
+    testdb:
+      image: postgres
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_PASSWORD: testexample
+      volumes: 
+        - ./postgres_data:/testdata

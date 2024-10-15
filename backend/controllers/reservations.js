@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { Reservation } = require('../models')
-const { tokenExtractor } = require('../util/middleware')
+const { tokenExtractor } = require('../utils/middleware')
 
 router.get('/', async (req, res) => {
     const reservations = await Reservation.findAll()

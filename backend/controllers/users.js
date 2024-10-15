@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { User } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
-const { sequelize } = require('../util/db')
+const { sequelize } = require('../utils/db')
 const bcrypt = require('bcrypt')
 
 router.get('/', async (req, res) => {
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
             passwordHash
         })
     
-        res.json(user)
+        res.status(201).json(user)
     } catch (err) {
         console.log(err)
         if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {

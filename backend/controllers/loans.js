@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { Loan } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
-const { tokenExtractor } = require('../util/middleware')
+const { tokenExtractor } = require('../utils/middleware')
 
 router.get('/', async (req, res) => {
     const loans = await Loan.findAll()
