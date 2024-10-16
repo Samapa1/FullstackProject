@@ -4,9 +4,7 @@ import { renderWithProviders } from '../../utils/test-utils'
 import { renderWithRouter } from '../../utils/test-utils'
 
 test('renders login page', () => {
-  renderWithProviders(<Login/>)
-  renderWithRouter(<Login/>, {route: '/login'})
-
+  renderWithProviders(renderWithRouter(<Login/>, { route: '/login'}))
 
   expect (screen.getByText('Log in to application'))
 })
