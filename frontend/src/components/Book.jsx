@@ -20,8 +20,6 @@ const Book = (  ) => {
     const user = useSelector(state => state.user)
     
     const dispatch = useDispatch();
-    console.log("reserved")
-    console.log(reserved)
 
     useEffect(() => {
         dispatch(getUserData()) 
@@ -51,13 +49,10 @@ const Book = (  ) => {
     }
     }, [book, user])
 
-    console.log(user.reservedBooks)
 
     useEffect(() => {
         if (user.reservedBooks) {
-            console.log("effect")
             if (user.reservedBooks.find(reservedBook => reservedBook.id === book.id )) {
-                console.log("checking reservations")
                 changeReserved(true)
 
             }
@@ -74,6 +69,7 @@ const Book = (  ) => {
 
     
     const borrow = async () => {
+        console.log("borrowing")
         await dispatch (addLoan({
             userId: user.id,
             bookId: book.id
@@ -119,7 +115,6 @@ const Book = (  ) => {
     )
     }
 
-    console.log(reserved)
     if (reserved) {
         return (
             <div>

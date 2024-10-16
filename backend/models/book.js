@@ -22,7 +22,7 @@ Book.init({
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  number_of_books: {
+  numberOfBooks: {
     type: DataTypes.INTEGER,
     allowNull: false
   }
