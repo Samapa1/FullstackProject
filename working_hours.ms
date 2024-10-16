@@ -23,5 +23,7 @@ Date              Hours                    Tasks
 10.10.24          3                        Setting up reservation functionality (backend and frontend)
 14.10.24          4                        Developing reservation functionality (removing reservation, database relations, picking up resevations)
 15.10.24          2                        Developing reservation functionality (picking up reservations, frontend and backend) 
-15.10.24          3                        Testing backend        
+15.10.24          3                        Testing backend (setting up integration tests)       
 16.10.24          1.5                      Developing database relations and refactoring the code
+16.10.24          1.5                      Learning to test React components that use Redux and React Router
+16.10.24          1                        Setting up Frontend unit tests
