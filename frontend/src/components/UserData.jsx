@@ -32,117 +32,80 @@ const UserData = () => {
     const [password, setPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [newPassword2, setNewPassword2] = useState('')
-    const [visible, setVisible] = useState(false)
-
 
     const handleChanges = async (event) => {
-        event.preventDefault()
-        console.log("handling changes")
-        await dispatch(updateUser({...user, name: nameOfTheUser, email: email}))
-        await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
-    }
-
-    const handlePassword = async (event) => {
         event.preventDefault()
         console.log("handling changes")
         if (newPassword === newPassword2) {
             if (validPassword(newPassword) && validPassword(newPassword2)) {
                 console.log("valid")
                 console.log(user)
-                await dispatch(updateUser({...user, password: newPassword}))
-                await dispatch(setNotification( {data: `Password saved succesfully`, type: 'info'}, 3000))
+                await dispatch(updateUser({...user, name: nameOfTheUser, email: email, password: newPassword}))
+                await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
             }
         }
-        // await dispatch(updateUser({...user, name: nameOfTheUser, email: email}))
-        // await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
+        else {
+            console.log("something went wrong")
+        }
     }
 
-    if (!visible) {
+
+
     return (
         <div>
             <Notification/>
             <form onSubmit={handleChanges}>
             <div>
-            name
-            <input
-                type="text"
-                value={nameOfTheUser}
-                name="nameOfTheUser"
-                onChange={({ target }) => setName(target.value)}
-            />
+                name
+                <input
+                    type="text"
+                    value={nameOfTheUser}
+                    name="nameOfTheUser"
+                    onChange={({ target }) => setName(target.value)}
+                />
             </div>
             <div>
-            email
-            <input
-                type="text"
-                value={email}
-                name="email"
-                onChange={({ target }) => setEmail(target.value)}
-            />
+                email
+                <input
+                    type="text"
+                    value={email}
+                    name="email"
+                    onChange={({ target }) => setEmail(target.value)}
+                />
+            </div>
+            <div>
+                current password
+                <input
+                    type="text"
+                    value={password}
+                    name="newPassword"
+                    onChange={({ target }) => setPassword(target.value)}
+                />
+            </div>
+            <div>
+                new password
+                <input
+                    type="text"
+                    value={newPassword}
+                    name="newPassword"
+                    onChange={({ target }) => setNewPassword(target.value)}
+                />
+            </div>
+            <div>
+                type password again
+                <input
+                    type="text"
+                    value={newPassword2}
+                    name="newPassword2"
+                    onChange={({ target }) => setNewPassword2(target.value)}
+                />
             </div>
             <button type="submit">Save changes</button>
         </form>
-        <div><button onClick = {() => setVisible(true)}>Change password</button></div>
       </div>
-    )}
+    )
 
-return (
-    <div>
-        <Notification/>
-            <form onSubmit={handleChanges}>
-            <div>
-            name
-            <input
-                type="text"
-                value={nameOfTheUser}
-                name="nameOfTheUser"
-                onChange={({ target }) => setName(target.value)}
-            />
-            </div>
-            <div>
-            email
-            <input
-                type="text"
-                value={email}
-                name="email"
-                onChange={({ target }) => setEmail(target.value)}
-            />
-            </div>
-            <button type="submit">Save changes</button>
-        </form>
-        <div><button onClick = {() => setVisible(true)}>Change password</button></div>
-        <form on submit = {handlePassword}>
-        <div>
-            current password
-            <input
-            type="text"
-            value={password}
-            name="newPassword"
-            onChange={({ target }) => setPassword(target.value)}
-            />
-        </div>
-        <div>
-            new password
-            <input
-            type="text"
-            value={newPassword}
-            name="newPassword"
-            onChange={({ target }) => setNewPassword(target.value)}
-            />
-        </div>
-        <div>
-            type password again
-            <input
-            type="text"
-            value={newPassword2}
-            name="newPassword2"
-            onChange={({ target }) => setNewPassword2(target.value)}
-            />
-        </div>
-        <button type="submit">Save changes</button>
-        </form>
-    </div>
-)
+   
 
 }
 
