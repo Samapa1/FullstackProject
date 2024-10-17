@@ -4,18 +4,19 @@ const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 
+
+const setDueDate = () => {
+    let date = new Date()
+    date.setDate(date.getDate() + 7);
+    return date
+} 
+
 router.get('/', async (req, res) => {
     const loans = await Loan.findAll()
     res.json(loans)
   })
 
 router.post('/', tokenExtractor, async (req, res) => {
-    const setDueDate = () => {
-        let date = new Date()
-        date.setDate(date.getDate() + 7);
-        return date
-    } 
-
     const book = await Book.findByPk(req.body.bookId, {
         include: [
             {
@@ -38,11 +39,9 @@ router.post('/', tokenExtractor, async (req, res) => {
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
     const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
-    console.log(loan)
+
     if (loan && reservation) {
-        console.log(reservation)
         await loan.destroy()
-        console.log("varattu")
         reservation.available = true
         await reservation.save()
         res.status(204).end()
@@ -54,26 +53,17 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
 })
 
 
-router.put('/:id', tokenExtractor, async (req, res) => {
-
-    const setDueDate = () => {
-        let date = new Date()
-        date.setDate(date.getDate() + 7);
-        return date
-    } 
-
+router.post('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
     const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
 
     if (loan && !reservation) {
-        console.log("no reservations")
         loan.dueDate = setDueDate()
         loan.borrowingDate = new Date()
         await loan.save() 
         res.json(loan)
     }
     else {
-        console.log("reservations")
         res.status(400).end()
     }
 })

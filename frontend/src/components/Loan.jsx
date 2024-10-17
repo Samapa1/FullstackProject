@@ -15,10 +15,8 @@ const Loan = ( {book }) => {
         }
     }
 
-    const renewCurrentLoan = async (updatedObject) => {
-        console.log("renewing")
-        console.log(updatedObject.id)
-        await dispatch(renewLoan(updatedObject))
+    const renewCurrentLoan = async (id) => {
+        await dispatch(renewLoan(id))
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${book.title} loan renewed`, type: 'info'}, 3000))
     }
@@ -28,7 +26,7 @@ const Loan = ( {book }) => {
         <p>
             {book.title} by {book.author} due date: {book.loan.dueDate} 
             <button onClick= {() => returnBook(book.loan.id)}> Return </button>
-            <button onClick= {() => renewCurrentLoan(book.loan)}> Renew </button>
+            <button onClick= {() => renewCurrentLoan(book.loan.id)}> Renew </button>
         </p> 
     </div>
     )

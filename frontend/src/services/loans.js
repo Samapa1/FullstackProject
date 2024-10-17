@@ -30,11 +30,11 @@ const remove = async (id) => {
   return response.data
 }
 
-const update = async (updatedObject) => {
+const update = async (id) => {
   const config = {
     headers: { Authorization: token },
   }
-  const response = await axios.put(`${baseUrl}/${updatedObject.id}`, updatedObject, config)
+  const response = await axios.post(`${baseUrl}/${id}`, null, config)
   return response.data
 }
 
