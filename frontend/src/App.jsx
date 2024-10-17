@@ -14,6 +14,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Registration from './components/Registration'
 import Notification  from './components/Notification'
+import UserData from './components/UserData'
 
 const Home = () => {
   return ( 
@@ -65,6 +66,7 @@ const App = () => {
       <Route path="/register" element={<Registration/>} />
       <Route path="/logout" element={<Logout />} />
       <Route path="/user" element={<User />} />
+      <Route path="/userdata" element={<UserData />} />
       <Route path="/" element={<Home />} />
     </Routes>
   </Router>

@@ -16,7 +16,7 @@ const initialState = null
     }
   })
 
-export const { setUser, appendUser } = userSlice.actions
+export const { setUser } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -40,10 +40,7 @@ export const getUserData = () => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
       const user = JSON.parse(userJSON)
-      console.log("user")
-      console.log(user)
       const userData = await userService.getOne(user.id)
-      console.log(userData)
       dispatch(setUser(userData))
       loanService.setToken(user.token)
       reservationService.setToken(user.token)
@@ -55,5 +52,13 @@ export const getUserData = () => {
 
   }
 }
+
+  export const updateUser = (userObject) => {
+    return async dispatch => {
+      console.log(userObject)
+      const updatedUser = await userService.update(userObject)
+      dispatch(setUser(updatedUser))
+    }
+  }
 
 export default userSlice.reducer

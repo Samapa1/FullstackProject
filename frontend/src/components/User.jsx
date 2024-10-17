@@ -1,10 +1,13 @@
 import { useSelector} from 'react-redux'
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
 import Reservation from './Reservation';
 import Notification from './Notification';
+
+
 
 const User = () => {
     const dispatch = useDispatch()
@@ -34,14 +37,14 @@ const User = () => {
         return (
             <div key= {user.id}>
                  <Notification/>
-                User information: 
+                User: 
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
+                <Link to="/userdata">Change user details</Link>
                 <p>Borrowed books:</p>
                 {showBooks()}
                 <p>Reservations:</p>
                 {showReservations()}
-                
             </div>
         )
     }
