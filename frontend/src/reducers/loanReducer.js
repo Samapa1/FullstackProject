@@ -18,11 +18,18 @@ const initialState = []
         const id = action.payload;
         const updatedLoans = state.filter (loan => loan.id !== id)
         return updatedLoans
-      }
+      },
+      renew(state, action) {
+        const updatedLoan = action.payload;
+        const updatedLoans = state.map(loan => {if (loan.id === updatedLoan.id) {updatedLoan} else {loan} } )
+        console.log(updatedLoans)
+        return updatedLoans
+      },
+
     },
   })
 
-export const { setLoans, appendLoan, deleteLoan } = loanSlice.actions
+export const { setLoans, appendLoan, deleteLoan, renew } = loanSlice.actions
 
 export const initializeLoans = () => {
   return async dispatch => {
@@ -44,6 +51,14 @@ export const removeLoan = (id) => {
   return async dispatch => {
     await loanService.remove(id)
     dispatch(deleteLoan(id))
+  }
+}
+
+export const renewLoan = (updatedObject) => {
+  return async dispatch => {
+   const updatedLoan = await loanService.update(updatedObject)
+   console.log(updatedLoan)
+   dispatch(renew(updatedLoan))
   }
 }
 

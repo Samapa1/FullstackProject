@@ -53,4 +53,29 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     }
 })
 
+
+router.put('/:id', tokenExtractor, async (req, res) => {
+
+    const setDueDate = () => {
+        let date = new Date()
+        date.setDate(date.getDate() + 7);
+        return date
+    } 
+
+    const loan = await Loan.findByPk(req.params.id)
+    const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
+
+    if (loan && !reservation) {
+        console.log("no reservations")
+        loan.dueDate = setDueDate()
+        loan.borrowingDate = new Date()
+        await loan.save() 
+        res.json(loan)
+    }
+    else {
+        console.log("reservations")
+        res.status(400).end()
+    }
+})
+
 module.exports = router

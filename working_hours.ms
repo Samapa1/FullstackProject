@@ -27,3 +27,5 @@ Date              Hours                    Tasks
 16.10.24          1.5                      Developing database relations and refactoring the code
 16.10.24          1.5                      Learning to test React components that use Redux and React Router
 16.10.24          1                        Setting up Frontend unit tests
+16.10.24          1                        Setting up renewal functionality (frontend and backend)
+17.10.24          1.5                      Developing renewal functionality (frontend and backend)

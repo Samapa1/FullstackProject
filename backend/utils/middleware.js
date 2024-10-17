@@ -2,13 +2,14 @@ const jwt = require('jsonwebtoken')
 
 const tokenExtractor = async (req, res, next) => {
     const authorization = req.get('authorization')
- 
+     
     if (authorization && authorization.startsWith('Bearer ')) {
             req.decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
             console.log(req.decodedToken)
 
     } 
     else {
+        console.log("authorizationerror")
         return res.status(401).json({ error: 'token missing or invalid' })
   }
 

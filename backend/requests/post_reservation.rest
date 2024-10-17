@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/reservations
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImxlaWxhIiwiaWQiOjgsImlhdCI6MTcyODU1OTUzMH0.QTfltw0fQk7Tn4zoeWxa5uCKO_kyUfKA42RACElAVik
+Authorization: Bearer xxx
 
 {   "userId": 8,
     "bookId": 1
