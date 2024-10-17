@@ -1,15 +1,17 @@
 const jwt = require('jsonwebtoken')
+const { User } = require('../models')
 
 const tokenExtractor = async (req, res, next) => {
     const authorization = req.get('authorization')
      
     if (authorization && authorization.startsWith('Bearer ')) {
-            req.decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
-            console.log(req.decodedToken)
-
+      req.decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
+      if (req.decodedToken.id) {
+        req.user = await User.findByPk(req.decodedToken.id)
+      }
+      
     } 
     else {
-        console.log("authorizationerror")
         return res.status(401).json({ error: 'token missing or invalid' })
   }
 
@@ -29,4 +31,4 @@ const errorHandler = (error, req, res, next) => {
     next(error)
   }
 
-module.exports = { tokenExtractor, errorHandler }
+module.exports = { tokenExtractor, errorHandler}

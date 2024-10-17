@@ -4,7 +4,6 @@ const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 
-
 const setDueDate = () => {
     let date = new Date()
     date.setDate(date.getDate() + 7);
@@ -17,6 +16,10 @@ router.get('/', async (req, res) => {
   })
 
 router.post('/', tokenExtractor, async (req, res) => {
+    console.log(req.body)
+    if (req.body.userId !== req.user.id) {
+        res.status(403).end()
+    }
     const book = await Book.findByPk(req.body.bookId, {
         include: [
             {

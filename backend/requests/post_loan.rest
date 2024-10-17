@@ -1,8 +1,7 @@
 POST http://localhost:3003/api/loans
 Content-Type: application/json
-Authorization: xxx
-
+Authorization: Bearer xxx
 {
-    "userId": 1,
-    "bookId": 13
+    "userId": 2,
+    "bookId": 3
 }
