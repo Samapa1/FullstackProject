@@ -10,8 +10,7 @@ const Reservation = ( { reservedBook }) => {
   
 
     const remove = async (id) => {
-        console.log(reservedBook)
-        console.log(reservedBook.id)
+       if (window.confirm(`Cancel book reservation (${reservedBook.title} by ${reservedBook.author})?`))
         await dispatch(removeReservation(id))
         await dispatch(getUserData()) 
        }

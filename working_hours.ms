@@ -29,3 +29,4 @@ Date              Hours                    Tasks
 16.10.24          1                        Setting up Frontend unit tests
 16.10.24          1                        Setting up renewal functionality (frontend and backend)
 17.10.24          1.5                      Developing renewal functionality (frontend and backend)
+17.10.24          1                        Fixing loan reducer and adding window confirms for returning and cancelling reservation.

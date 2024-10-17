@@ -15,14 +15,16 @@ const initialState = []
         return state
       },
       deleteLoan(state, action) {
+        console.log(JSON.parse(JSON.stringify(state)))
         const id = action.payload;
         const updatedLoans = state.filter (loan => loan.id !== id)
         return updatedLoans
       },
       renew(state, action) {
+        console.log(JSON.parse(JSON.stringify(state)))
         const updatedLoan = action.payload;
-        const updatedLoans = state.map(loan => {if (loan.id === updatedLoan.id) {updatedLoan} else {loan} } )
-        console.log(updatedLoans)
+        const updatedLoans = state.map(loan => (loan.id === updatedLoan.id) ? updatedLoan : 
+      loan )
         return updatedLoans
       },
 
