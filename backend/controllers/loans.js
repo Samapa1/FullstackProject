@@ -32,7 +32,6 @@ router.post('/', tokenExtractor, async (req, res) => {
     if ((book.numberOfBooks) > (book.loans.length)) {
         const borrowingDate = new Date()
         const dueDate = setDueDate()
-        console.log(req.body)
         const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
         res.json(newloan)
     }
@@ -42,6 +41,10 @@ router.post('/', tokenExtractor, async (req, res) => {
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
     const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
+
+    if (loan.userId !== req.user.id) {
+        res.status(403).end()
+    }
 
     if (loan && reservation) {
         await loan.destroy()
@@ -59,6 +62,10 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
 router.post('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
     const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
+
+    if (loan.userId !== req.user.id) {
+        res.status(403).end()
+    }
 
     if (loan && !reservation) {
         loan.dueDate = setDueDate()

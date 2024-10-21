@@ -1,4 +1,3 @@
-DELETE http://localhost:3003/api/loans/49
+DELETE http://localhost:3003/api/reservations/13
 Content-Type: application/json
 Authorization: Bearer xxx
-

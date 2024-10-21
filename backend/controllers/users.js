@@ -2,8 +2,8 @@ const router = require('express').Router()
 const { User } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
-const { sequelize } = require('../utils/db')
 const bcrypt = require('bcrypt')
+const { tokenExtractor } = require('../utils/middleware')
 
 router.get('/', async (req, res) => {
     const users = await User.findAll({
@@ -43,19 +43,20 @@ router.post('/', async (req, res) => {
 
 })
 
-router.post('/:id', async (req, res) => {
+router.post('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
     const saltRounds = 10
-
-    if (user) { 
-        console.log(req.body)
-        user.name = req.body.name
-        user.email = req.body.email
-        user.passwordHash = await bcrypt.hash(req.body.password, saltRounds)
-        await user.save()
-        res.json(user)
-   
+    if (user.id !== req.user.id) {
+        console.log("wrong user")
+        res.status(403).end()
     }
+
+    user.name = req.body.name
+    user.email = req.body.email
+    user.passwordHash = await bcrypt.hash(req.body.password, saltRounds)
+    await user.save()
+    res.json(user)
+   
   })
 
 router.get('/:id', async (req, res) => {

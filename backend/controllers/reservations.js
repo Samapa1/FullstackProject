@@ -8,21 +8,22 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
-    console.log(req.body)
-    console.log("reqbody")
+    if (req.body.userId !== req.user.id) {
+        res.status(403).end()
+    }
     const newReservation = await Reservation.create({...req.body})
-    console.log("reservationDetails")
-    console.log(newReservation)
     res.json(newReservation) 
 })
 
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const reservation = await Reservation.findByPk(req.params.id)
-    if (reservation) {
-        await reservation.destroy()
-        res.status(204).end()
+    if (reservation.userId !== req.user.id) {
+        res.status(403).end()
     }
+
+    await reservation.destroy()
+    res.status(204).end()
 })
  
 
