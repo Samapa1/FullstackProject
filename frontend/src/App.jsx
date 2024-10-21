@@ -3,6 +3,7 @@ import {
   Routes, Route, Link
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { useState } from "react"
 import { useEffect } from 'react'
 import { initializeBooks } from './reducers/bookReducer'
 import { getUserData } from './reducers/userReducer'
@@ -16,11 +17,37 @@ import Registration from './components/Registration'
 import Notification  from './components/Notification'
 import UserData from './components/UserData'
 
-const Home = () => {
+const Home = ({user}) => {
+
+  // const [reservations, setReservations] = useState([])
+  
+  //   console.log("userdetails")
+  //   console.log(user)
+
+    if (user && user.reservedBooks) {
+      console.log("user.reservedbook")
+      console.log(user.reservedBooks)
+      if (user.reservedBooks.length >0) {
+      // setReservations(user.reservedBooks)
+  
+
+      return ( 
+        <div>
+          <Notification/>
+          <h1>Welcome to the book app</h1>
+          <p>Here you can borrow books and return your loans.</p>
+          <p>You have reservations that are ready for collection. Please remember to borrown them at your own page.</p>
+        </div>
+    )}
+  }
+
+    // }
+
   return ( 
     <div>
       <Notification/>
-      <h1>Book app</h1>
+      <h1>Welcome to the book app</h1>
+      <p>Here you can borrow books and return your loans.</p>
     </div>
 )}
 
@@ -67,7 +94,7 @@ const App = () => {
       <Route path="/logout" element={<Logout />} />
       <Route path="/user" element={<User />} />
       <Route path="/userdata" element={<UserData />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home user= {user} />} />
     </Routes>
   </Router>
     

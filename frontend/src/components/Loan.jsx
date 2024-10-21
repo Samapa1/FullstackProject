@@ -16,9 +16,16 @@ const Loan = ( {book }) => {
     }
 
     const renewCurrentLoan = async (id) => {
-        await dispatch(renewLoan(id))
-        await dispatch(getUserData()) 
-        await dispatch(setNotification( {data: `${book.title} loan renewed`, type: 'info'}, 3000))
+        try {
+            await dispatch(renewLoan(id))
+            await dispatch(getUserData()) 
+            await dispatch(setNotification( {data: `${book.title} loan renewed`, type: 'info'}, 3000))
+        }
+        catch(exception) {
+            console.log(exception)
+            await dispatch(setNotification( {data: `${book.title} is reserved!`, type: 'info'}, 3000))
+        }
+
     }
    
     return (

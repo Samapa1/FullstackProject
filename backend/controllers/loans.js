@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
   })
 
 router.post('/', tokenExtractor, async (req, res) => {
+    console.log("reqbody")
     console.log(req.body)
     if (req.body.userId !== req.user.id) {
         res.status(403).end()
@@ -49,7 +50,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
         res.status(403).end()
     }
 
-    if (loan && reservation) {
+    else if (loan && reservation) {
         await loan.destroy()
         reservation.available = true
         await reservation.save()
@@ -70,7 +71,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         res.status(403).end()
     }
 
-    if (loan && !reservation) {
+    else if (loan && !reservation) {
         loan.dueDate = setDueDate()
         loan.borrowingDate = new Date()
         await loan.save() 

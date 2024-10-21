@@ -24,6 +24,7 @@ export const { setBooks, appendBook, selectedBook } = bookSlice.actions
 export const initializeBooks = () => {
   return async dispatch => {
     const books = await bookService.getAll()
+    console.log("bookReducer")
     dispatch(setBooks(books))
   }
 }

@@ -34,3 +34,4 @@ Date              Hours                    Tasks
 17.10.24          1                        Developing tokenExtractor middleware and loans router
 21.10.24          1                        Developing routers (loans, users and reservations)
 21.10.24          1                        Developing Reservation functionality
+21.10.24          3                        Fixing frontend (Reservation and Home components) and backend user-router

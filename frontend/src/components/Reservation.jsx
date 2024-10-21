@@ -20,9 +20,10 @@ const Reservation = ( { reservedBook }) => {
             userId: reservedBook.reservation.userId,
             bookId: reservedBook.reservation.bookId
         }))
+        await dispatch(removeReservation(reservedBook.reservation.id))
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${reservedBook.title} borrowed`, type: 'info'}, 3000))
-        await remove(reservedBook.reservation.id)
+     
 
     }
        

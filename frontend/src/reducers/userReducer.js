@@ -11,7 +11,10 @@ const initialState = null
     initialState,
     reducers: {
       setUser(state, action) {
-        return action.payload
+        console.log("action.payload")
+        console.log(action.payload)
+        const updatedUser = action.payload
+        return updatedUser
       },
     }
   })
@@ -36,11 +39,14 @@ export const logoutUser = () => {
 }
 
 export const getUserData = () => {
+  console.log("getUserData")
   return async dispatch => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
       const user = JSON.parse(userJSON)
       const userData = await userService.getOne(user.id)
+      console.log("getUserData")
+      console.log(userData.reservedBooks)
       dispatch(setUser(userData))
       loanService.setToken(user.token)
       reservationService.setToken(user.token)
