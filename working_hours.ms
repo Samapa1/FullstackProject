@@ -32,3 +32,5 @@ Date              Hours                    Tasks
 17.10.24          1                        Fixing loan reducer and adding window confirms for returning and cancelling reservation.
 17.10.24          2.5                      Developing userdata updating functionality (frontend and backend)
 17.10.24          1                        Developing tokenExtractor middleware and loans router
+21.10.24          1                        Developing routers (loans, users and reservations)
+21.10.24          1                        Developing Reservation functionality

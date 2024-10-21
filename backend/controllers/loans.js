@@ -40,6 +40,9 @@ router.post('/', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
+    console.log("reservations")
+    const reservations = await Reservation.findAll( { where: {bookId: loan.bookId, available: false}, order: [['createdAt', 'ASC']] }, )
+    console.log(reservations)
     const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
 
     if (loan.userId !== req.user.id) {

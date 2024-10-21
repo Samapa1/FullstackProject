@@ -9,6 +9,14 @@ module.exports = {
             primaryKey: true,
             autoIncrement: true
           },
+        created_at: {
+            type: DataTypes.DATE,
+            allowNull: false
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+            allowNull: false
+        }
           // dueDate: {
           //   type: DataTypes.DATE,
           //   allowNull: true
