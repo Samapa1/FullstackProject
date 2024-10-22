@@ -1,9 +1,10 @@
 POST http://localhost:3003/api/books
 Content-Type: application/json
 Authorization: Bearer xxx
+
 {
     "author": "S.T Davids",
-    "title": "Tales of the Reindeer 2",
+    "title": "Tales of the Reindeer 3",
     "year": 2013,
     "numberOfBooks": 2
 }
