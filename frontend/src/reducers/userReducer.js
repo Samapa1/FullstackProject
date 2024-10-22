@@ -3,6 +3,7 @@ import loginService from '../services/login'
 import loanService from '../services/loans'
 import reservationService from '../services/reservations'
 import userService from '../services/users'
+import logoutService from '../services/logout'
 
 const initialState = null
 
@@ -27,12 +28,14 @@ export const loginUser = (loginData) => {
     loanService.setToken(user.token)
     reservationService.setToken(user.token)
     userService.setToken(user.token)
+    logoutService.setToken(user.token)
   }
 }
 
 export const logoutUser = () => {
   return async dispatch => {
     window.localStorage.removeItem("loggedUser")
+    await logoutService.logout()
     dispatch(setUser(null))
   }
 }
@@ -48,6 +51,7 @@ export const getUserData = () => {
       loanService.setToken(user.token)
       reservationService.setToken(user.token)
       userService.setToken(user.token)
+      logoutService.setToken(user.token)
 
     }
     else {
