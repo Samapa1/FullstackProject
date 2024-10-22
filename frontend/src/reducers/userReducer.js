@@ -28,6 +28,7 @@ export const loginUser = (loginData) => {
     window.localStorage.setItem("loggedUser", JSON.stringify(user))
     loanService.setToken(user.token)
     reservationService.setToken(user.token)
+    userService.setToken(user.token)
   }
 }
 

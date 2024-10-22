@@ -59,13 +59,12 @@ router.post('/:id', tokenExtractor, async (req, res) => {
    
   })
 
-router.get('/:id', async (req, res) => {
-    console.log(req.params.id)
-    console.log(req.user)
-    // if (req.params.id !== req.user.id) {
-    //     console.log("wrong user")
-    //     res.status(403).end()
-    // }
+router.get('/:id', tokenExtractor, async (req, res) => {
+  
+    if (Number(req.params.id) !== Number(req.user.id)) {
+        console.log("wrong user")
+        res.status(403).end()
+    }
     
     const user = await User.findByPk(req.params.id, { 
         attributes: { } ,
@@ -81,17 +80,17 @@ router.get('/:id', async (req, res) => {
             },
             ]
     })
-
+    
     if (user) {
-        res.json(user)
-        // res.json({
-        //     username: user.username, 
-        //     name: user.name,
-        //     email: user.email,
-        //     books: user.books,
-        //     reservedBooks: user.reservedBooks 
+        res.send({
+            id: user.id,
+            username: user.username, 
+            name: user.name,
+            email: user.email,
+            books: user.books,
+            reservedBooks: user.reservedBooks 
 
-        // })
+        })
     } else {
         res.status(404).end()
     }

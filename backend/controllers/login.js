@@ -2,17 +2,28 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const router = require('express').Router()
 const User = require('../models/user')
+const { Book } = require('../models')
 
 
 router.post('/', async (req, res) => {
-
+  console.log(req.body.username)
+  console.log(req.body)
   const user = await User.findOne({
     where: {
       username:  req.body.username
-    }
+    },
+    include: [
+      {
+          model: Book,
+          attributes: ['title', 'author']
+      },
+      {
+          model: Book,
+          as: 'reservedBooks',
+          attributes: {}
+      },
+      ]
   })
-
-  console.log(user.passwordHash)
 
   const passwordCorrect = await bcrypt.compare(req.body.password, user.passwordHash)
 
@@ -33,7 +44,7 @@ router.post('/', async (req, res) => {
 
   res
   .status(200)
-  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id })
+  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, reservedBooks: user.reservedBooks, books: user.books })
   
 
 })

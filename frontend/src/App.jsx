@@ -20,13 +20,13 @@ import UserData from './components/UserData'
 const Home = ({user}) => {
   console.log("Home")
   let reservationsForCollection = false
-
+  
     if (user && user.reservedBooks) {
       if (user.reservedBooks.find(book => book.reservation.available === true)) {
         reservationsForCollection = true
       }
     }
-
+  
   return ( 
     <div>
       <Notification/>
