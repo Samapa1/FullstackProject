@@ -27,11 +27,15 @@ User.init({
       isEmail: {
           msg: "Validation isEmail on field email failed"
       }
-  }
+    }
   },
   passwordHash: {
     type: DataTypes.TEXT,
     allowNull: false,
+  },
+  admin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
   }
 
 }, {

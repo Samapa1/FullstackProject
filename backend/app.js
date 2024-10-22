@@ -7,6 +7,7 @@ const usersRouter = require ('./controllers/users')
 const loansRouter = require ('./controllers/loans')
 const statusRouter = require ('./controllers/status')
 const loginRouter = require ('./controllers/login')
+const logoutRouter = require ('./controllers/logout')
 const reservationRouter = require ('./controllers/reservations')
 const middleware = require('./utils/middleware');
 
@@ -25,6 +26,8 @@ app.use('/api/loans', loansRouter)
 app.use('/api/status', statusRouter)
 
 app.use('/api/login', loginRouter)
+
+app.use('/api/logout', logoutRouter)
 
 app.use('/api/reservations', reservationRouter)
 

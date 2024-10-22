@@ -59,7 +59,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
    
   })
 
-router.get('/:id', tokenExtractor, async (req, res) => {
+router.get('/:id', tokenExtractor, async (req, res, next) => {
   
     if (Number(req.params.id) !== Number(req.user.id)) {
         console.log("wrong user")

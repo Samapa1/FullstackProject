@@ -1,10 +1,9 @@
 POST http://localhost:3003/api/books
 Content-Type: application/json
 Authorization: Bearer xxx
-
 {
-    "author": "J.K.Rowling",
-    "title": "Harry Potter and the Philosopher's Stone",
-    "year": 1997,
-    "number_of_books": 2
+    "author": "S.T Davids",
+    "title": "Tales of the Reindeer 2",
+    "year": 2013,
+    "numberOfBooks": 2
 }
