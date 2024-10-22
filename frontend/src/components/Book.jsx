@@ -18,6 +18,7 @@ const Book = (  ) => {
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
     const user = useSelector(state => state.user)
+    const reservations = useSelector(state => state.reservations)
     
     const dispatch = useDispatch();
 
@@ -122,6 +123,7 @@ const Book = (  ) => {
                 <h2>{book.title}</h2>
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
+                <p>reservations: {reservations.length}</p>
                 <p>You have reserved the book.</p>
             </div>
         )
@@ -134,6 +136,7 @@ const Book = (  ) => {
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
             <p>not available (all items are borrowed)</p>
+            <p>reservations: {reservations.length}</p>
             <div>
                 <button onClick= {reserve}>Reserve</button>
             </div>
