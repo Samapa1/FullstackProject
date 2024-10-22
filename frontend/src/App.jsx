@@ -18,36 +18,23 @@ import Notification  from './components/Notification'
 import UserData from './components/UserData'
 
 const Home = ({user}) => {
-
-  // const [reservations, setReservations] = useState([])
-  
-  //   console.log("userdetails")
-  //   console.log(user)
+  console.log("Home")
+  let reservationsForCollection = false
 
     if (user && user.reservedBooks) {
-      console.log("user.reservedbook")
-      console.log(user.reservedBooks)
-      if (user.reservedBooks.length >0) {
-      // setReservations(user.reservedBooks)
-  
-
-      return ( 
-        <div>
-          <Notification/>
-          <h1>Welcome to the book app</h1>
-          <p>Here you can borrow books and return your loans.</p>
-          <p>You have reservations that are ready for collection. Please remember to borrown them at your own page.</p>
-        </div>
-    )}
-  }
-
-    // }
+      if (user.reservedBooks.find(book => book.reservation.available === true)) {
+        reservationsForCollection = true
+      }
+    }
 
   return ( 
     <div>
       <Notification/>
       <h1>Welcome to the book app</h1>
       <p>Here you can borrow books and return your loans.</p>
+      {reservationsForCollection ? 
+      <p>You have reservations that are ready for collection. Please remember to borrow them at your own page!</p>
+      : ''}
     </div>
 )}
 
@@ -73,6 +60,9 @@ const App = () => {
   const user = useSelector((state) => state.user);
   const notification = useSelector((state) => state.notification);
   console.log(notification)
+
+  console.log("user")
+  console.log(user)
 
 
   return (
