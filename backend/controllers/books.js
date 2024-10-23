@@ -9,33 +9,40 @@ router.get('/', async (req, res) => {
   })
 
 router.put('/:id', async (req, res) => {
+
   const book = await Book.findByPk(req.params.id)
+
   if (book) { 
     book.available = req.body.available
     await book.save()
     res.json(book)
   }
+  else {
+    res.status(404)
+  }
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
-  if (req.user.admin === true) {
-    const book = await Book.create({...req.body})
-    res.json(book)
+  if (req.user.admin !== true) {
+    return res.status(403).json({error: 'Only admins are allowed to add books.'})
   }
-  else {
-    res.status(403).end()
-  }
-  })
+
+  const book = await Book.create({...req.body})
+  res.json(book)
+})
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
-  if (req.user.admin === true) {
-    const book = await Book.findByPk(req.params.id)
+  if (req.user.admin !== true) {
+    return res.status(403).json({error: 'Only admins are allowed to delete books.'})
+  }
+
+  const book = await Book.findByPk(req.params.id)
+
+  if (book) {
     await book.destroy()
-    res.status(204).end()
   }
-  else {
-    res.status(403).end()
-  }
-  })
+
+  res.status(204).end()
+})
 
 module.exports = router

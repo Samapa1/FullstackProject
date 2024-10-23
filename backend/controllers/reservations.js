@@ -2,7 +2,11 @@ const router = require('express').Router()
 const { Reservation } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 
-router.get('/', async (req, res) => {
+router.get('/', tokenExtractor, async (req, res) => {
+    if (req.user.admin !== true) {
+        return res.status(403).json({error: 'Only admins are allowed to view reservations.'})
+    }
+
     const reservations = await Reservation.findAll()
     res.json(reservations)
 })

@@ -38,3 +38,5 @@ Date              Hours                    Tasks
 22.10.24          1.5                      Developing Home component and login router           
 22.10.24          1                        Adding token-based authorization for updating and getting user data     
 22.10.24          2.5                      Adding sessions and admin-users (backend) and connecting logout-functionality with frontend       
+23.10.24          1                        Refactoring, adding authentication for getting user, loan and reservation data 
+23.10.24          1                        Developing error handling

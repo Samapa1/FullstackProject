@@ -1,1 +1,2 @@
 GET http://localhost:3003/api/reservations
+Authorization: Bearer xxx

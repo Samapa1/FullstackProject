@@ -5,7 +5,11 @@ const { Reservation } = require('../models')
 const bcrypt = require('bcrypt')
 const { tokenExtractor } = require('../utils/middleware')
 
-router.get('/', async (req, res) => {
+router.get('/', tokenExtractor, async (req, res) => {
+    if (req.user.admin !== true) {
+        return res.status(403).json({error: 'Only admins are allowed to view users.'})
+    }
+
     const users = await User.findAll({
         include: [
             {
@@ -47,7 +51,6 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
     const saltRounds = 10
     if (user.id !== req.user.id) {
-        console.log("wrong user")
         res.status(403).end()
     }
 
@@ -59,10 +62,9 @@ router.post('/:id', tokenExtractor, async (req, res) => {
    
   })
 
-router.get('/:id', tokenExtractor, async (req, res, next) => {
+router.get('/:id', tokenExtractor, async (req, res) => {
   
     if (Number(req.params.id) !== Number(req.user.id)) {
-        console.log("wrong user")
         res.status(403).end()
     }
     

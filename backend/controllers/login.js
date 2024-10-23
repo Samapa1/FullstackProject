@@ -7,8 +7,6 @@ const { Book } = require('../models')
 
 
 router.post('/', async (req, res) => {
-  console.log(req.body.username)
-  console.log(req.body)
   const user = await User.findOne({
     where: {
       username:  req.body.username

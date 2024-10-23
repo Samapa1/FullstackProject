@@ -10,14 +10,16 @@ const setDueDate = () => {
     return date
 } 
 
-router.get('/', async (req, res) => {
+router.get('/', tokenExtractor, async (req, res) => {
+    if (req.user.admin !== true) {
+        return res.status(403).json({error: 'Only admins are allowed to view loans.'})
+    }
+
     const loans = await Loan.findAll()
     res.json(loans)
-  })
+})
 
 router.post('/', tokenExtractor, async (req, res) => {
-    console.log("reqbody")
-    console.log(req.body)
     if (req.body.userId !== req.user.id) {
         res.status(403).end()
     }
@@ -27,7 +29,6 @@ router.post('/', tokenExtractor, async (req, res) => {
             model: Loan
             }
         ]
-
     })
  
     if ((book.numberOfBooks) > (book.loans.length)) {
@@ -41,22 +42,23 @@ router.post('/', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
-    console.log("reservations")
-    const reservations = await Reservation.findAll( { where: {bookId: loan.bookId, available: false}, order: [['createdAt', 'ASC']] }, )
-    console.log(reservations)
-    const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
+    const reservations = await Reservation.findAll({ 
+        where: {bookId: loan.bookId, available: false}, 
+        order: [['createdAt', 'ASC']] 
+    })
 
     if (loan.userId !== req.user.id) {
         res.status(403).end()
     }
 
-    else if (loan && reservation) {
+    else if (loan && reservations[0]) {
+        console.log(reservations[0])
         await loan.destroy()
-        reservation.available = true
-        await reservation.save()
+        reservations[0].available = true
+        await reservations[0].save()
         res.status(204).end()
     }
-    else if (loan ) {
+    else if (loan) {
         await loan.destroy()
         res.status(204).end()
     }
@@ -65,7 +67,9 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
 
 router.post('/:id', tokenExtractor, async (req, res) => {
     const loan = await Loan.findByPk(req.params.id)
-    const reservation = await Reservation.findOne( { where: {bookId: loan.bookId, available: false} } )
+    const reservation = await Reservation.findOne({ 
+        where: {bookId: loan.bookId, available: false} 
+    })
 
     if (loan.userId !== req.user.id) {
         res.status(403).end()
@@ -75,10 +79,10 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         loan.dueDate = setDueDate()
         loan.borrowingDate = new Date()
         await loan.save() 
-        res.json(loan)
+        res.status(200).json(loan)
     }
     else {
-        res.status(400).end()
+        res.status(409).end({error: 'The loan cannot be renewed.'})
     }
 })
 
