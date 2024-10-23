@@ -18,7 +18,7 @@ router.put('/:id', async (req, res) => {
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
-  if (req.user.admin === "true") {
+  if (req.user.admin === true) {
     const book = await Book.create({...req.body})
     res.json(book)
   }
@@ -28,7 +28,7 @@ router.post('/', tokenExtractor, async (req, res) => {
   })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
-  if (req.user.admin === "true") {
+  if (req.user.admin === true) {
     const book = await Book.findByPk(req.params.id)
     await book.destroy()
     res.status(204).end()

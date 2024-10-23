@@ -5,6 +5,6 @@ Authorization: Bearer xxx
 {
     "author": "S.T Davids",
     "title": "Tales of the Reindeer 3",
-    "year": 2013,
+    "year": 2016,
     "numberOfBooks": 2
 }
