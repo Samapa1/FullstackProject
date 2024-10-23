@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import loginService from '../services/login'
-import loanService from '../services/loans'
-import reservationService from '../services/reservations'
 import userService from '../services/users'
 import logoutService from '../services/logout'
+import apiService from '../services/apiservice'
 
 const initialState = null
 
@@ -25,10 +24,7 @@ export const loginUser = (loginData) => {
     const user = await loginService.login(loginData)
     dispatch(setUser(user))
     window.localStorage.setItem("loggedUser", JSON.stringify(user))
-    loanService.setToken(user.token)
-    reservationService.setToken(user.token)
-    userService.setToken(user.token)
-    logoutService.setToken(user.token)
+    apiService.setToken(user.token)
   }
 }
 
@@ -41,18 +37,13 @@ export const logoutUser = () => {
 }
 
 export const getUserData = () => {
-  console.log("getUserData")
   return async dispatch => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
       const user = JSON.parse(userJSON)
+      apiService.setToken(user.token)
       const userData = await userService.getOne(user.id)
       dispatch(setUser(userData))
-      loanService.setToken(user.token)
-      reservationService.setToken(user.token)
-      userService.setToken(user.token)
-      logoutService.setToken(user.token)
-
     }
     else {
       console.log("not found")
@@ -63,7 +54,6 @@ export const getUserData = () => {
 
   export const updateUser = (userObject) => {
     return async dispatch => {
-      console.log(userObject)
       const updatedUser = await userService.update(userObject)
       dispatch(setUser(updatedUser))
     }

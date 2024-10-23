@@ -25,12 +25,7 @@ const Notification = () => {
         marginRight: 800
     }
   
-//   .messagestyle.error {
-//     color: rgb(226, 11, 11);
-//     background: rgb(250, 212, 219);
-//   }
     const message = useSelector((state) => state.notification)
-    console.log(message.data)
 
     if (message.data === null) {
       return

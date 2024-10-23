@@ -40,3 +40,6 @@ Date              Hours                    Tasks
 22.10.24          2.5                      Adding sessions and admin-users (backend) and connecting logout-functionality with frontend       
 23.10.24          1                        Refactoring, adding authentication for getting user, loan and reservation data 
 23.10.24          1                        Developing error handling
+23.10.24          1.5                      Setting up e2e tests (playwright)
+23.10.24          0.5                      Fixing userReducer
+23.10.24          1.5                      Refactoring frontend

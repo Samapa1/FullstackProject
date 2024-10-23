@@ -3,11 +3,9 @@ import {
   Routes, Route, Link
 } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from "react"
 import { useEffect } from 'react'
 import { initializeBooks } from './reducers/bookReducer'
 import { getUserData } from './reducers/userReducer'
-import { initializeLoans } from './reducers/loanReducer'
 import Booklist from './components/BookList'
 import Book from './components/Book'
 import User from './components/User'
@@ -49,21 +47,12 @@ const App = () => {
     dispatch(getUserData());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(initializeLoans());
-  }, [dispatch]);
-
   const padding = {
     padding: 5
   }
 
   const user = useSelector((state) => state.user);
-  const notification = useSelector((state) => state.notification);
-  console.log(notification)
-
-  console.log("user")
-  console.log(user)
-
+  // const notification = useSelector((state) => state.notification);
 
   return (
     <Router>
