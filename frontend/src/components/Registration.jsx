@@ -75,6 +75,7 @@ const Registration= () => {
       <div>
           name
           <input
+            data-testid="name"
             type="text"
             value={name}
             name="name"
@@ -84,6 +85,7 @@ const Registration= () => {
         <div>
           email
           <input
+            data-testid="email"
             type="text"
             value={email}
             name="name"
@@ -93,6 +95,7 @@ const Registration= () => {
         <div>
           username
           <input
+            data-testid="username"
             type="text"
             value={username}
             name="Username"
@@ -102,6 +105,7 @@ const Registration= () => {
         <div>
           password
           <input
+            data-testid="password"
             type="text"
             value={password}
             name="Password"
@@ -111,6 +115,7 @@ const Registration= () => {
         <div>
           confirm password
           <input
+            data-testid="password2"
             type="text"
             value={password2}
             name="Password2"

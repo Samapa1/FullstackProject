@@ -9,6 +9,7 @@ const statusRouter = require ('./controllers/status')
 const loginRouter = require ('./controllers/login')
 const logoutRouter = require ('./controllers/logout')
 const reservationRouter = require ('./controllers/reservations')
+const testingRouter = require('./controllers/testing')
 const middleware = require('./utils/middleware');
 
 const { connectToDatabase } = require('./utils/db')
@@ -30,6 +31,10 @@ app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
 
 app.use('/api/reservations', reservationRouter)
+
+if (process.env.NODE_ENV === "test") {
+  app.use('/api/testing', testingRouter)
+}
 
 
 const start = async () => {

@@ -43,3 +43,4 @@ Date              Hours                    Tasks
 23.10.24          1.5                      Setting up e2e tests (playwright)
 23.10.24          0.5                      Fixing userReducer
 23.10.24          1.5                      Refactoring frontend
+24.10.24          3                        Developing e2e tests (playwright)
