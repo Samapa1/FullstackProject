@@ -27,7 +27,7 @@ describe('Book app', () => {
     await expect(page.getByText('invalid username or password')).toBeVisible()
   })
 
-  test('registration succeeds', async ({ page }) => {
+  test('registration succeeds', async ({ page, request }) => {
     await page.getByText('log in').click()
     await page.getByText('Do not have an account yet? Please register.').click()
     await page.getByTestId('name').fill('timothy davids')
@@ -35,6 +35,7 @@ describe('Book app', () => {
     await page.getByTestId('username').fill('timothy')
     await page.getByTestId('password').fill('mysecret12')
     await page.getByTestId('password2').fill('mysecret12')
+    await page.getByText('register', { exact: true }).click()
     await expect(page.getByText('Registration ok')).toBeVisible()
 
   })
