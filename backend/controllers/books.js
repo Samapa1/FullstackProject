@@ -26,9 +26,15 @@ router.post('/', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to add books.'})
   }
+  try {
+    const book = await Book.create({...req.body})
+    res.status(201).json(book)
+  }
+  catch (err) {
+    console.log(err.errors[0].message)
+    res.status(400).json({message: err.errors[0].message })
+  }
 
-  const book = await Book.create({...req.body})
-  res.json(book)
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {

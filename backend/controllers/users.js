@@ -89,6 +89,7 @@ router.get('/:id', tokenExtractor, async (req, res) => {
             username: user.username, 
             name: user.name,
             email: user.email,
+            admin: user.admin,
             books: user.books,
             reservedBooks: user.reservedBooks 
 

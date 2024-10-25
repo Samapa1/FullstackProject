@@ -44,7 +44,7 @@ router.post('/', async (req, res) => {
 
   res
   .status(200)
-  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, reservedBooks: user.reservedBooks, books: user.books })
+  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, admin: user.admin, reservedBooks: user.reservedBooks, books: user.books })
   
 
 })

@@ -11,8 +11,27 @@ Book.init({
     autoIncrement: true
   },
   author: {
-    type: DataTypes.TEXT,
-    allowNull: false
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+        notNull: {
+            msg: 'Please enter author',
+        },
+        notEmpty: {
+            msg: 'Please enter author',
+        },
+        max:{
+            args: [20],
+            msg: 'Maximum 20 characters allowed in the author name'
+        },
+        min:{
+            args: [3],
+            msg: 'Minimum 3 characters required in the author name'
+        },
+        notAlpha: {
+            msg: 'Only letters allowed in the author name',
+        }
+    }
   },
   title: {
     type: DataTypes.TEXT,
