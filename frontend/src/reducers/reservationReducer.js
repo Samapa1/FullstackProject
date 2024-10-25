@@ -38,4 +38,12 @@ export const removeReservation = (id) => {
   }
 }
 
+export const collectReservation = (data) => {
+  return async dispatch => {
+    console.log("collecting")
+    await reservationService.collect(data)
+    dispatch(deleteReservation(data.reservationId))
+  }
+}
+
 export default reservationSlice.reducer

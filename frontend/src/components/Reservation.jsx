@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { removeReservation } from '../reducers/reservationReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
-import { addLoan } from '../reducers/loanReducer.js'
+import { collectReservation } from '../reducers/reservationReducer'
 
 
 const Reservation = ( { reservedBook }) => {
@@ -16,15 +16,13 @@ const Reservation = ( { reservedBook }) => {
        }
 
        const borrow = async () => {
-        await dispatch (addLoan({
+        await dispatch(collectReservation({
+            reservationId: reservedBook.reservation.id,
             userId: reservedBook.reservation.userId,
             bookId: reservedBook.reservation.bookId
         }))
-        await dispatch(removeReservation(reservedBook.reservation.id))
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${reservedBook.title} borrowed`, type: 'info'}, 3000))
-     
-
     }
        
     if (reservedBook.reservation.available) {

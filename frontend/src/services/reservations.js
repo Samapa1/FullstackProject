@@ -15,6 +15,14 @@ const create = async (reservationData) => {
   return response.data;
 };
 
+const collect = async (data) => {
+  const loanData = {
+    userId: data.userId,
+    bookId: data.bookId
+  }
+  const response = await axios.post(`${baseUrl}/${data.reservationId}`, loanData, apiService.getConfig())
+  return response.data
+}
 
 const remove = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, apiService.getConfig())
@@ -24,4 +32,4 @@ const remove = async (id) => {
 
 
 
-export default { create, remove }
+export default { create, remove, collect }

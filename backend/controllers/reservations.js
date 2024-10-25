@@ -1,6 +1,14 @@
 const router = require('express').Router()
 const { Reservation } = require('../models')
+const { Loan } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
+const { sequelize } = require('../utils/db')
+
+const setDueDate = () => {
+    let date = new Date()
+    date.setDate(date.getDate() + 7);
+    return date
+}
 
 router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
@@ -17,6 +25,32 @@ router.post('/', tokenExtractor, async (req, res) => {
     }
     const newReservation = await Reservation.create({...req.body})
     res.json(newReservation) 
+})
+
+router.post('/:id', tokenExtractor, async (req, res) => {
+    if (req.body.userId !== req.user.id) {
+        res.status(403).end()
+    }
+    const reservation = await Reservation.findByPk(req.params.id)
+
+    if (reservation.available !== true) {
+        res.status(403).end()
+    }
+    try {
+        const result = await sequelize.transaction(async t => {
+            const borrowingDate = new Date()
+            const dueDate = setDueDate()
+            const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
+            // const reservation = await Reservation.findByPk(req.params.id)
+            await reservation.destroy()
+            console.log("transaction succeeding")
+            res.json(newloan)
+        });
+      
+      } catch (error) {
+        console.log("transaction error")
+      }
+   
 })
 
 

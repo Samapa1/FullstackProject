@@ -3,6 +3,7 @@ const { Loan } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
+const { sequelize } = require('../utils/db')
 
 const setDueDate = () => {
     let date = new Date()
@@ -53,10 +54,21 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
 
     else if (loan && reservations[0]) {
         console.log(reservations[0])
-        await loan.destroy()
-        reservations[0].available = true
-        await reservations[0].save()
-        res.status(204).end()
+        try {
+            const result = await sequelize.transaction(async t => {
+                await loan.destroy()
+                reservations[0].available = true
+                await reservations[0].save()
+                console.log("transaction succeeding")
+                res.status(204).end()
+            });
+          
+          } catch (error) {
+            console.log("transaction error")
+          }
+
+
+     
     }
     else if (loan) {
         await loan.destroy()

@@ -44,3 +44,4 @@ Date              Hours                    Tasks
 23.10.24          0.5                      Fixing userReducer
 23.10.24          1.5                      Refactoring frontend
 24.10.24          3.5                      Developing and fixing e2e tests (playwright)
+25.10.24          1                        Adding transactions and developing reservation functionality
