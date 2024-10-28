@@ -13,6 +13,7 @@ import Login from './components/Login'
 import Logout from './components/Logout'
 import Registration from './components/Registration'
 import Notification  from './components/Notification'
+import BookForm from './components/BookForm'
 import UserData from './components/UserData'
 
 const Home = ({user}) => {
@@ -63,7 +64,7 @@ const App = () => {
       ? <><Link style={padding} to="/logout">log out</Link>
         <Link style={padding} to="/user">my page</Link></>
       : <Link style={padding} to="/login">log in</Link>
-      }   
+      } 
     </div>
     <Routes>
       <Route path="/books" element={<Booklist />} />
@@ -74,6 +75,7 @@ const App = () => {
       <Route path="/user" element={<User />} />
       <Route path="/userdata" element={<UserData />} />
       <Route path="/" element={<Home user= {user} />} />
+      <Route path="/addBook" element={<BookForm/>} />
     </Routes>
   </Router>
     

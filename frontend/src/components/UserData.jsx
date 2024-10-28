@@ -13,12 +13,8 @@ const UserData = () => {
         if (password.length < 8) {
           return false
         }
-        for (let i = 0; i <password.length; i++) {
-          if (["0","1","2","3","4","5","6","7","8","9"].includes(password[i])) {
-            return true
-          }
-        }
-        return false
+    
+        return ([/\d/.test(password)])
       }
     
     const dispatch = useDispatch()

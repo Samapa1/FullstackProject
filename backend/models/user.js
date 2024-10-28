@@ -13,11 +13,19 @@ User.init({
   username: {
     type: DataTypes.TEXT,
     allowNull: false,
-    unique: true
+    unique: true,
+    len: {
+      args: [5],
+      msg: 'Minimum 5 characters required in the username'
+    }
   },
   name: {
     type: DataTypes.TEXT,
-    allowNull: false
+    allowNull: false,
+    len: {
+      args: [3],
+      msg: 'Minimum 3 characters required in the name'
+    }
     },
   email: {
     type: DataTypes.STRING,

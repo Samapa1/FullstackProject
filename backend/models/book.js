@@ -20,30 +20,47 @@ Book.init({
         notEmpty: {
             msg: 'Please enter author',
         },
-        max:{
-            args: [20],
-            msg: 'Maximum 20 characters allowed in the author name'
-        },
-        min:{
-            args: [3],
-            msg: 'Minimum 3 characters required in the author name'
-        },
-        notAlpha: {
-            msg: 'Only letters allowed in the author name',
+        len: {
+          args: [3],
+          msg: 'Minimum 3 characters required in the author name'
         }
-    }
-  },
+    },
+  }, 
   title: {
-    type: DataTypes.TEXT,
-    allowNull: false
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      notNull: {
+          msg: 'Please enter title',
+      },
+      notEmpty: {
+          msg: 'Please enter titler',
+      },
+      len: {
+        args: [3],
+        msg: 'Minimum 3 characters required in the title'
+      }
+  }
   },
   year: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      max: {
+        args: [2024],
+        msg: 'Year should not be greater than the current year'
+      }
+    }
   },
   numberOfBooks: {
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      min: {
+        args: [1],
+        msg: 'Number of books can not be zero'
+      }
+    }
   }
 
 }, {

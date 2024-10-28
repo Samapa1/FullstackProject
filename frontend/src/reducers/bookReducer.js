@@ -30,13 +30,19 @@ export const initializeBooks = () => {
 }
 
 export const selectBook = () => {
-    return async dispatch => {
-      const books = await bookService.getAll()
-      console.log(books[0])
-      dispatch(selectedBook(books[0]))
-    }
+  return async dispatch => {
+    const books = await bookService.getAll()
+    console.log(books[0])
+    dispatch(selectedBook(books[0]))
   }
+}
 
+export const addBook = (bookObject) => {
+  return async dispatch => {
+    const newBook = await bookService.create(bookObject)
+    dispatch(appendBook(newBook))
+  }
+}
 
 export default bookSlice.reducer
 
