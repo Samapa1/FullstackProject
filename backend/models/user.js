@@ -11,22 +11,38 @@ User.init({
     autoIncrement: true
   },
   username: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
-    len: {
-      args: [5],
-      msg: 'Minimum 5 characters required in the username'
+    validate: {
+      notNull: {
+        msg: 'Please enter username',
+      },
+      notEmpty: {
+          msg: 'Please enter username',
+      },
+      len: {
+        args: [5],
+        msg: 'Minimum 5 characters required in the username'
+      }
     }
   },
   name: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
-    len: {
-      args: [3],
-      msg: 'Minimum 3 characters required in the name'
+    validate: {
+      notNull: {
+        msg: 'Please enter name',
+      },
+      notEmpty: {
+          msg: 'Please enter name',
+      },
+      len: {
+        args: [3],
+        msg: 'Minimum 3 characters required in the name'
+      }
     }
-    },
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -38,7 +54,7 @@ User.init({
     }
   },
   passwordHash: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   admin: {

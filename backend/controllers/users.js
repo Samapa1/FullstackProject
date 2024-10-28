@@ -5,6 +5,15 @@ const { Reservation } = require('../models')
 const bcrypt = require('bcrypt')
 const { tokenExtractor } = require('../utils/middleware')
 
+
+const validPassword = (password) => {
+    if (password.length < 8) {
+      return false
+    }
+
+    return ([/\d/.test(password)])
+  }
+
 router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
         return res.status(403).json({error: 'Only admins are allowed to view users.'})
@@ -39,10 +48,12 @@ router.post('/', async (req, res) => {
     
         res.status(201).json(user)
     } catch (err) {
-        console.log(err)
         if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {
             res.status(400).json({ message: "username already in use" })
         }
+        else {
+            res.status(400).json({ message: err.errors[0].message })
+        }  
     }
 
 })
@@ -54,12 +65,29 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         res.status(403).end()
     }
 
-    user.name = req.body.name
-    user.email = req.body.email
-    user.passwordHash = await bcrypt.hash(req.body.password, saltRounds)
-    await user.save()
-    res.json(user)
-   
+    const passwordCorrect = await bcrypt.compare(req.body.oldPassword, user.passwordHash)
+
+    if (!passwordCorrect) {
+        return res.status(401).json({ message: 'wrong password' })
+    }
+
+    if (!validPassword(req.body.newPassword)) {
+        return res.status(400).json({ message: 'new password is invalid' })
+    }
+
+    try {
+
+        user.name = req.body.name
+        user.email = req.body.email
+        user.passwordHash = await bcrypt.hash(req.body.newPassword, saltRounds)
+        await user.save()
+        res.json(user)
+    }
+    catch(err) {
+        console.log(err.errors[0].message)
+        res.status(400).json({message: err.errors[0].message })
+    }
+    
   })
 
 router.get('/:id', tokenExtractor, async (req, res) => {

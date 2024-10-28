@@ -31,17 +31,27 @@ const UserData = () => {
 
     const handleChanges = async (event) => {
         event.preventDefault()
-        console.log("handling changes")
-        if (newPassword === newPassword2) {
-            if (validPassword(newPassword) && validPassword(newPassword2)) {
-                console.log("valid")
-                console.log(user)
-                await dispatch(updateUser({...user, name: nameOfTheUser, email: email, password: newPassword}))
-                await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
+        try {
+            if (newPassword === newPassword2) {
+                if (validPassword(newPassword) && validPassword(newPassword2)) {
+                    await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password, newPassword: newPassword}))
+                    await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
+                }
+                else {
+                    await dispatch(setNotification( {data: `Invalid password`, type: 'error'}, 3000))
+                    return
+                }
+            }
+            else {
+                await dispatch(setNotification( {data: `Passwords don't match`, type: 'error'}, 3000))
+                return
             }
         }
-        else {
-            console.log("something went wrong")
+      
+        catch(exception){
+            console.log(exception)
+            await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
+    
         }
     }
 

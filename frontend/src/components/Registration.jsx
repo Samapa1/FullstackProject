@@ -37,29 +37,28 @@ const Registration= () => {
       setPassword('')
       setPassword2('')
       return
-
-  }
+    }
   
     try {
         
-        const userObject = {
-            username: username,
-            name: name,
-            email: email,
-            password: password
+      const userObject = {
+          username: username,
+          name: name,
+          email: email,
+          password: password
 
-        }
-        await userService.create(userObject)
-        await dispatch(setNotification({data: `Registration ok`, type: 'info'}, 3000))
-        navigate("/login"); 
+      }
+      await userService.create(userObject)
+      await dispatch(setNotification({data: `Registration ok`, type: 'info'}, 3000))
+      navigate("/login"); 
       
 
-    } catch (exception) {
-        console.log(exception)
-        await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
+    } 
+    catch (exception) {
+      console.log("something went wrong")
+      console.log(exception)
+      await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
     }
-
-
 
   }
 

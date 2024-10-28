@@ -11,12 +11,12 @@ Session.init({
     autoIncrement: true
   },
   userId: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
     references: { model: 'users', key: 'id' },
   },
   token: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false
     },
 
