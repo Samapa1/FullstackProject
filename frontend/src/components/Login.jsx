@@ -5,6 +5,7 @@ import { loginUser } from "../reducers/userReducer.js"
 import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
+import { Button } from './Styles'
 
 
 const Login = () => {
@@ -57,7 +58,7 @@ const Login = () => {
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <button type="submit">log in</button>
+        <Button type="submit">log in</Button>
       </form>
       <div>
         <br/>

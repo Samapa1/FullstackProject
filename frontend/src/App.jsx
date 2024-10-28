@@ -15,6 +15,8 @@ import Registration from './components/Registration'
 import Notification  from './components/Notification'
 import BookForm from './components/BookForm'
 import UserData from './components/UserData'
+import { Page, NavBar, UpperBar } from './components/Styles'
+
 
 const Home = ({user}) => {
   console.log("Home")
@@ -56,16 +58,27 @@ const App = () => {
   // const notification = useSelector((state) => state.notification);
 
   return (
+    <Page>
     <Router>
     <div>
-      <Link style={padding} to="/">home</Link>
-      <Link style={padding} to="/books">books</Link>
+    < UpperBar>
       { user 
       ? <><Link style={padding} to="/logout">log out</Link>
         <Link style={padding} to="/user">my page</Link></>
       : <Link style={padding} to="/login">log in</Link>
       } 
+      </ UpperBar>
+     
     </div>
+    <div style={{display: "flex"}}>
+      
+      <div>
+      <NavBar>
+      <Link style={padding} to="/">home</Link>
+      <br></br>
+      <Link style={padding} to="/books">books</Link>
+      </NavBar></div>
+      <div>
     <Routes>
       <Route path="/books" element={<Booklist />} />
       <Route path="/books/:id" element={<Book />} />
@@ -76,9 +89,11 @@ const App = () => {
       <Route path="/userdata" element={<UserData />} />
       <Route path="/" element={<Home user= {user} />} />
       <Route path="/addBook" element={<BookForm/>} />
-    </Routes>
+    </Routes></div>
+    </div>
   </Router>
-    
+  </Page>
+
   )
 }
 

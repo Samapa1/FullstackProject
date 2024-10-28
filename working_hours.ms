@@ -47,3 +47,4 @@ Date              Hours                    Tasks
 25.10.24          1                        Adding transactions and developing reservation functionality
 25.10.24          2                        Developing admin UI and adding db validations to books
 28.10.24          2.5                      Developing validations and error messages, refactoring
+28.10.24          3                        Styling
