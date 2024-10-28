@@ -35,6 +35,11 @@ router.get('/', tokenExtractor, async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { name, email, username, password } = req.body
+
+    if (!validPassword(req.body.password)) {
+        return res.status(400).json({ message: 'Password must have at least 8 characters (including at least one number)' })
+    }
+
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password, saltRounds)
 
@@ -72,7 +77,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     }
 
     if (!validPassword(req.body.newPassword)) {
-        return res.status(400).json({ message: 'new password is invalid' })
+        return res.status(400).json({ message: 'Password must have at least 8 characters (including at least one number)' })
     }
 
     try {

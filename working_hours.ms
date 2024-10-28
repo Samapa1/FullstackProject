@@ -46,4 +46,4 @@ Date              Hours                    Tasks
 24.10.24          3.5                      Developing and fixing e2e tests (playwright)
 25.10.24          1                        Adding transactions and developing reservation functionality
 25.10.24          2                        Developing admin UI and adding db validations to books
-28.10.24          1                        Developing validations and refactoring
+28.10.24          2.5                      Developing validations and error messages, refactoring
