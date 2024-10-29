@@ -1,3 +1,12 @@
-PUT http://localhost:3003/api/books/1
+PUT http://localhost:3003/api/books/1000000
 Content-Type: application/json
+Authorization: Bearer xxx
+{
+    "author": "Albert Camus",
+    "title": "The Stranger",
+    "year": 1942,
+    "numberOfBooks": 5
+}
+
+
 

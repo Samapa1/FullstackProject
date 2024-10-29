@@ -49,3 +49,4 @@ Date              Hours                    Tasks
 28.10.24          2.5                      Developing validations and error messages, refactoring
 28.10.24          3                        Styling
 29.10.24          3                        Styling
+29.10.24          1                        Developing bookrouter and fixing loansrouter

@@ -24,21 +24,32 @@ router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
         res.status(403).end()
     }
+
     const book = await Book.findByPk(req.body.bookId, {
         include: [
+            {
+            model: Reservation
+            },
             {
             model: Loan
             }
         ]
     })
+   
+   if (book.loans.find(loan => loan.userId === req.body.userId))
+        return res.status(400).json({message: 'You have already borrowed the book'})
  
-    if ((book.numberOfBooks) > (book.loans.length)) {
+    if ((book.numberOfBooks) > ((book.loans.length) + (book.reservations.length))) {
         const borrowingDate = new Date()
         const dueDate = setDueDate()
         const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
         res.json(newloan)
     }
- 
+
+    else {
+        res.status(400).json({message: 'No available books.'}).end()
+    }
+
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
@@ -66,9 +77,6 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
           } catch (error) {
             console.log("transaction error")
           }
-
-
-     
     }
     else if (loan) {
         await loan.destroy()

@@ -33,6 +33,9 @@ const errorHandler = (error, req, res, next) => {
     else if (error.name === 'SequelizeValidationError') {
         return res.status(400).json({ error: error.message });
     }
+    else if (error.name === 'TypeError') {
+      return res.status(400).json({ error: error.message });
+  }
   
     next(error)
   }
