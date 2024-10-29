@@ -25,20 +25,39 @@ export const Input = styled.input`
 `
 
 export const NavBar = styled.div`
-    display: inline-block;
-    width: 200px;
-    height: 500px;
-    background-color: #3C6D75;
-    color:  #FFFFFF;
-    text-align: center;
-    margin: 0 20px 0 0 ;
+  display: inline-block;
+  width: 200px;
+  height: 500px;
+  background-color: #3C6D75;
+  color:  #FFFFFF;
+  text-align: center;
+  margin: 20px 20px 20px 0 ;
+  padding: 100px 0 0 0 ;
+  line-height: 2.5;
 `;
 
 export const UpperBar = styled.div`
-    background-color: #3C6D75;
-    width: 100%;
-    height: 50px;
-    text-align: right;
-    left: 2 px;
-    padding: 1em;
+  background-color: #3C6D75;
+  width: 100%;
+  height: 50px;
+  text-align: center;
+  text-indent: 1000px;
+  padding: 50px 0 0 0 ;
 `;
+
+export const Footer = styled.div`
+  background: #FF342F;
+  color:  #FFFFFF;
+  padding: 1em;
+  height: 30px;
+  text-indent: 10px;
+  margin: 20px 0 20px 0 ;
+`
+
+export const linkStyle1 = {
+  color: "#54A4A6"
+}
+
+export const linkStyle2 = {
+  color: "#FF342F"
+}

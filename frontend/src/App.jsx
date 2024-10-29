@@ -15,7 +15,7 @@ import Registration from './components/Registration'
 import Notification  from './components/Notification'
 import BookForm from './components/BookForm'
 import UserData from './components/UserData'
-import { Page, NavBar, UpperBar } from './components/Styles'
+import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
 const Home = ({user}) => {
@@ -64,8 +64,7 @@ const App = () => {
     <div>
     < UpperBar>
       { user 
-      ? <><Link style={padding} to="/logout">log out</Link>
-        <Link style={padding} to="/user">my page</Link></>
+      ? <><Link style={padding} to="/logout">log out</Link></>
       : <Link style={padding} to="/login">log in</Link>
       } 
       </ UpperBar>
@@ -78,6 +77,11 @@ const App = () => {
       <Link style={padding} to="/">home</Link>
       <br></br>
       <Link style={padding} to="/books">books</Link>
+      <br></br>
+      { user 
+      ? <> <Link style={padding} to="/user">my page</Link></>
+      : <></>
+      } 
       </NavBar></div>
       <div>
     <Routes>
@@ -93,6 +97,9 @@ const App = () => {
     </Routes></div>
     </div>
   </Router>
+  <Footer>
+    <em>Book app 2024</em>
+  </Footer>
   </Page>
 
   )

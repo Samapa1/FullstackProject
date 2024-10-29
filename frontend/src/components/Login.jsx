@@ -5,7 +5,7 @@ import { loginUser } from "../reducers/userReducer.js"
 import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
-import { Button, Input } from './Styles'
+import { Button, Input, linkStyle2 } from './Styles'
 
 
 const Login = () => {
@@ -15,9 +15,6 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const linkStyle = {
-    color: "#54A4A6"
-}
 
   const handleLogin = async (event) => {
     event.preventDefault()
@@ -64,7 +61,7 @@ const Login = () => {
       </form>
       <div>
         <br/>
-        <Link style= {linkStyle} to={`/register`}>Do not have an account yet? Please register.</Link>
+        <Link style= {linkStyle2} to={`/register`}>Do not have an account yet? Please register.</Link>
       </div>
     </>
   )

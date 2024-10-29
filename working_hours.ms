@@ -48,4 +48,4 @@ Date              Hours                    Tasks
 25.10.24          2                        Developing admin UI and adding db validations to books
 28.10.24          2.5                      Developing validations and error messages, refactoring
 28.10.24          3                        Styling
-29.10.24          2                        Styling
+29.10.24          3                        Styling

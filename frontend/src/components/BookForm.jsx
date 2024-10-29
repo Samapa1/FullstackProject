@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { addBook } from '../reducers/bookReducer'
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
+import { Button, Input } from './Styles'
 
 const BookForm = () => {
     const [title, setTitle] = useState('')
@@ -38,7 +39,7 @@ const BookForm = () => {
         <form onSubmit={handleForm}>
         <div>
           title
-          <input
+          <Input
             data-testid="title"
             type="text"
             value={title}
@@ -48,7 +49,7 @@ const BookForm = () => {
         </div>
         <div>
           author
-          <input
+          <Input
             data-testid="author"
             type="text"
             value={author}
@@ -58,7 +59,7 @@ const BookForm = () => {
         </div>
         <div>
           year
-          <input
+          <Input
             data-testid="year"
             type="number"
             value={year}
@@ -68,7 +69,7 @@ const BookForm = () => {
         </div>
         <div>
           number of books
-          <input
+          <Input
             data-testid="items"
             type="number"
             value={items}
@@ -76,7 +77,7 @@ const BookForm = () => {
             onChange={({ target }) => setItems(target.value)}
           />
         </div>
-        <button type="submit">add</button>
+        <Button type="submit">add</Button>
 
         </form>
         </div>

@@ -6,6 +6,7 @@ import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
 import Reservation from './Reservation';
 import Notification from './Notification';
+import { linkStyle2 } from './Styles'
 
 const User = () => {
     const dispatch = useDispatch()
@@ -31,10 +32,6 @@ const User = () => {
     }
    }
 
-   const linkStyle = {
-        color: "#54A4A6"
-    }
-
     if (user) {
         return (
             <div key= {user.id}>
@@ -43,7 +40,7 @@ const User = () => {
                 User: 
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
-                <Link style={linkStyle} to="/userdata">Change user details</Link>
+                <Link style={linkStyle2} to="/userdata">Change user details</Link>
                 <p>Borrowed books:</p>
                 {showBooks()}
                 <p>Reservations:</p>
