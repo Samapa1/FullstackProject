@@ -8,6 +8,7 @@ import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
 import Notification from './Notification.jsx'
+import { Button } from './Styles'
 
 const Book = (  ) => {  
     const id = useParams().id
@@ -98,7 +99,7 @@ const Book = (  ) => {
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
             <div>
-                <button onClick= {borrow}>Borrow</button>
+                <Button onClick= {borrow}>Borrow</Button>
             </div>
         </div>
     )
@@ -138,7 +139,7 @@ const Book = (  ) => {
             <p>not available (all items are borrowed)</p>
             <p>reservations: {reservations.length}</p>
             <div>
-                <button onClick= {reserve}>Reserve</button>
+                <Button onClick= {reserve}>Reserve</Button>
             </div>
         </div>
     )

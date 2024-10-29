@@ -51,7 +51,8 @@ const App = () => {
   }, [dispatch]);
 
   const padding = {
-    padding: 5
+    padding: 5,
+    color: "white"
   }
 
   const user = useSelector((state) => state.user);

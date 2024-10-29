@@ -6,13 +6,19 @@ const Booklist = () => {
     const user = useSelector(state => state.user)
     const allBooks = useSelector(state => state.books)
     console.log(user)
+
+    const padding = {
+        padding: 5,
+        color: "#54A4A6"
+    }
+
     if (user && user.admin){
         return (
             <div>
             <><h1>Books</h1>
             {allBooks.map (book => 
             <div key={book.id}>
-                <Link to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
+                <Link style={padding} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
             </div>
             )}
             </>
@@ -28,7 +34,7 @@ const Booklist = () => {
         ? <><h1>Books</h1>
             {allBooks.map (book => 
             <div key={book.id}>
-                <Link to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
+                <Link style={padding} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
             </div>
             )}
             </>

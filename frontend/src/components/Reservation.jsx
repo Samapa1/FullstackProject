@@ -3,6 +3,7 @@ import { removeReservation } from '../reducers/reservationReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
 import { collectReservation } from '../reducers/reservationReducer'
+import { Button } from './Styles'
 
 
 const Reservation = ( { reservedBook }) => {
@@ -28,8 +29,8 @@ const Reservation = ( { reservedBook }) => {
     if (reservedBook.reservation.available) {
     return (
     <div>
-        <p>{reservedBook.title} by {reservedBook.author} <button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </button>
-        <button onClick= {() => borrow()}> Borrow </button>
+        <p>{reservedBook.title} by {reservedBook.author} <Button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </Button>
+        <Button onClick= {() => borrow()}> Borrow </Button>
         </p> 
     </div>
     )
@@ -37,7 +38,7 @@ const Reservation = ( { reservedBook }) => {
 
     return (
     <div>
-        <p>{reservedBook.title} by {reservedBook.author} <button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </button></p> 
+        <p>{reservedBook.title} by {reservedBook.author} <Button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </Button></p> 
     </div>
     )
 }

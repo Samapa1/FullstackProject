@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
-
+import { Button } from './Styles'
 
 const Logout = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,12 @@ const Logout = () => {
     await dispatch(logoutUser());
   };
 
-  return <button onClick={handleLogout}>log out</button>;
+  return (
+  <div>
+    <h2>Log out from the application?</h2>
+    <Button onClick={handleLogout}>log out</Button>
+  </div>
+  )
 };
 
 export default Logout;

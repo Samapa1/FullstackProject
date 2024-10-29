@@ -3,6 +3,7 @@ import { removeLoan } from '../reducers/loanReducer'
 import { renewLoan } from '../reducers/loanReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
+import { Button } from './Styles'
 
 const Loan = ( {book }) => {
     const dispatch = useDispatch()
@@ -23,7 +24,7 @@ const Loan = ( {book }) => {
         }
         catch(exception) {
             console.log(exception)
-            await dispatch(setNotification( {data: `${book.title} is reserved!`, type: 'info'}, 3000))
+            await dispatch(setNotification( {data: `${book.title} is reserved!`, type: 'error'}, 3000))
         }
 
     }
@@ -32,8 +33,8 @@ const Loan = ( {book }) => {
     <div>
       
         <p>{book.title} by {book.author} due date: {book.loan.dueDate}
-        <button onClick= {() => returnBook(book.loan.id)}>Return</button>
-        <button onClick= {() => renewCurrentLoan(book.loan.id)}>Renew</button>
+        <Button onClick= {() => returnBook(book.loan.id)}>Return</Button>
+        <Button onClick= {() => renewCurrentLoan(book.loan.id)}>Renew</Button>
         </p> 
       
     </div>

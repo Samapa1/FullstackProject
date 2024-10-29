@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
 import userService from '../services/users'
+import { Button, Input } from './Styles'
 
 
 const Registration= () => {
@@ -69,7 +70,7 @@ const Registration= () => {
       <form onSubmit={handleRegistration}>
       <div>
           name
-          <input
+          <Input
             data-testid="name"
             type="text"
             value={name}
@@ -79,7 +80,7 @@ const Registration= () => {
         </div>
         <div>
           email
-          <input
+          <Input
             data-testid="email"
             type="text"
             value={email}
@@ -89,7 +90,7 @@ const Registration= () => {
         </div>
         <div>
           username
-          <input
+          <Input
             data-testid="username"
             type="text"
             value={username}
@@ -99,7 +100,7 @@ const Registration= () => {
         </div>
         <div>
           password
-          <input
+          <Input
             data-testid="password"
             type="text"
             value={password}
@@ -109,7 +110,7 @@ const Registration= () => {
         </div>
         <div>
           confirm password
-          <input
+          <Input
             data-testid="password2"
             type="text"
             value={password2}
@@ -117,7 +118,7 @@ const Registration= () => {
             onChange={({ target }) => setPassword2(target.value)}
           />
         </div>
-        <button type="submit">register</button>
+        <Button type="submit">register</Button>
       </form>
     </>
   )

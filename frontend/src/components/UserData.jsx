@@ -6,6 +6,7 @@ import { getUserData } from '../reducers/userReducer'
 import { updateUser } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer';
 import Notification from './Notification';
+import { Button, Input } from './Styles'
 
 const UserData = () => {
 
@@ -60,10 +61,11 @@ const UserData = () => {
     return (
         <div>
             <Notification/>
+            <br></br>
             <form onSubmit={handleChanges}>
             <div>
                 name
-                <input
+                <Input
                     type="text"
                     value={nameOfTheUser}
                     name="nameOfTheUser"
@@ -72,7 +74,7 @@ const UserData = () => {
             </div>
             <div>
                 email
-                <input
+                <Input
                     type="text"
                     value={email}
                     name="email"
@@ -81,7 +83,7 @@ const UserData = () => {
             </div>
             <div>
                 current password
-                <input
+                <Input
                     type="text"
                     value={password}
                     name="newPassword"
@@ -90,7 +92,7 @@ const UserData = () => {
             </div>
             <div>
                 new password
-                <input
+                <Input
                     type="text"
                     value={newPassword}
                     name="newPassword"
@@ -99,14 +101,14 @@ const UserData = () => {
             </div>
             <div>
                 type password again
-                <input
+                <Input
                     type="text"
                     value={newPassword2}
                     name="newPassword2"
                     onChange={({ target }) => setNewPassword2(target.value)}
                 />
             </div>
-            <button type="submit">Save changes</button>
+            <Button type="submit">Save changes</Button>
         </form>
       </div>
     )

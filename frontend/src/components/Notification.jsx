@@ -4,8 +4,8 @@ const Notification = () => {
 
     
     const notificationStyle = {
-        color: 'black',
-        background: 'rgb(183, 231, 235)',
+        color: 'white',
+        background: '#54A4A6',
         fontSize: 16, 
         borderRadius: 5,
         padding: 10,
@@ -15,8 +15,8 @@ const Notification = () => {
     }
 
     const notificationStyleError = {
-        color: 'black',
-        background: 'rgb(254, 232, 182)',
+        color: 'white',
+        background: '#FF342F',
         fontSize: 16, 
         borderRadius: 5,
         padding: 10,
