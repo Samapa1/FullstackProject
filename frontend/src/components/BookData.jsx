@@ -1,13 +1,16 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { updateBook} from '../reducers/bookReducer'
 import { removeBook } from "../reducers/bookReducer"
 import { Button, Input } from './Styles'
 import { setNotification } from '../reducers/notificationReducer';
 import Notification from './Notification';
 
-const BookData = ( {book} ) => {
+const BookData = () => {
+    const id = useParams().id
+    const allBooks = useSelector(state => state.books)
+    const book = allBooks.find(book => book.id === Number(id))
     const [title, setTitle] = useState(book.title)
     const [author, setAuthor] = useState(book.author)
     const [items, setItems] = useState(book.numberOfBooks)
@@ -49,7 +52,7 @@ const BookData = ( {book} ) => {
     return (
         <div>
         <Notification/>
-        <p>Change book details</p>
+        <h2>Change book details</h2>
         <form onSubmit={handleChanges}>
             <div>
                 title
@@ -90,7 +93,7 @@ const BookData = ( {book} ) => {
             <Button type="submit">Save changes</Button>
         </form>
         <br></br>
-        <p>Remove book from database?</p>
+        <p>Remove book from the database?</p>
         <Button onClick={handleDelete}>Delete book</Button>
         </div>
 

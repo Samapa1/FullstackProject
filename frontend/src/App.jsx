@@ -94,7 +94,7 @@ const App = () => {
       <Route path="/userdata" element={<UserData />} />
       <Route path="/" element={<Home user= {user} />} />
       <Route path="/addBook" element={<BookForm/>} />
-      <Route path="/bookdata" element={<BookData/>} />
+      <Route path="/bookdata/:id" element={<BookData/>} />
     </Routes></div>
     </div>
   </Router>

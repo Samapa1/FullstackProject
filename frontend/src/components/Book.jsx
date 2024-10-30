@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useDispatch } from "react-redux"
+import { Link } from 'react-router-dom'
 import { addLoan } from "../reducers/loanReducer.js"
 import { addReservation } from "../reducers/reservationReducer.js"
 import { getUserData } from "../reducers/userReducer"
@@ -8,7 +9,7 @@ import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
 import Notification from './Notification.jsx'
-import { Button, Link } from './Styles'
+import { Button, linkStyle2 } from './Styles'
 
 
 const Book = (  ) => {  
@@ -103,7 +104,7 @@ const Book = (  ) => {
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
             {user.admin 
-            ? <Link style= {linkStyle2} to={`/bookdata`}>Change book details or delete it from the database.</Link>
+            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
             : <></> }
         </div>
     )
