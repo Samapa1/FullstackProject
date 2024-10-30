@@ -16,7 +16,7 @@ const validPassword = (password) => {
 
 router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
-        return res.status(403).json({error: 'Only admins are allowed to view users.'})
+        return res.status(403).json({ error: 'Only admins are allowed to view users.' })
     }
 
     const users = await User.findAll({
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
     const { name, email, username, password } = req.body
 
     if (!validPassword(req.body.password)) {
-        return res.status(400).json({ message: 'Password must have at least 8 characters (including at least one number)' })
+        return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
     }
 
     const saltRounds = 10
@@ -54,10 +54,10 @@ router.post('/', async (req, res) => {
         res.status(201).json(user)
     } catch (err) {
         if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {
-            res.status(400).json({ message: "username already in use" })
+            res.status(400).json({ error: "username already in use" })
         }
         else {
-            res.status(400).json({ message: err.errors[0].message })
+            res.status(400).json({ error: err.errors[0].message })
         }  
     }
 
@@ -73,11 +73,11 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     const passwordCorrect = await bcrypt.compare(req.body.oldPassword, user.passwordHash)
 
     if (!passwordCorrect) {
-        return res.status(401).json({ message: 'wrong password' })
+        return res.status(401).json({ error: 'wrong password' })
     }
 
     if (!validPassword(req.body.newPassword)) {
-        return res.status(400).json({ message: 'Password must have at least 8 characters (including at least one number)' })
+        return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
     }
 
     try {
@@ -90,7 +90,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     }
     catch(err) {
         console.log(err.errors[0].message)
-        res.status(400).json({message: err.errors[0].message })
+        res.status(400).json({error: err.errors[0].message })
     }
     
   })

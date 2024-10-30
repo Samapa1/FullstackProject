@@ -13,7 +13,7 @@ const setDueDate = () => {
 
 router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
-        return res.status(403).json({error: 'Only admins are allowed to view loans.'})
+        return res.status(403).json({ error: 'Only admins are allowed to view loans.' })
     }
 
     const loans = await Loan.findAll()
@@ -37,7 +37,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     })
    
    if (book.loans.find(loan => loan.userId === req.body.userId))
-        return res.status(400).json({message: 'You have already borrowed the book'})
+        return res.status(400).json({ error: 'You have already borrowed the book' })
  
     if ((book.numberOfBooks) > ((book.loans.length) + (book.reservations.length))) {
         const borrowingDate = new Date()
@@ -47,7 +47,7 @@ router.post('/', tokenExtractor, async (req, res) => {
     }
 
     else {
-        res.status(400).json({message: 'No available books.'}).end()
+        res.status(400).json({ error: 'No books available.' }).end()
     }
 
 })
@@ -99,10 +99,10 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         loan.dueDate = setDueDate()
         loan.borrowingDate = new Date()
         await loan.save() 
-        res.status(200).json(loan)
+        return res.status(200).json(loan)
     }
     else {
-        res.status(409).end({error: 'The loan cannot be renewed.'})
+        res.status(409).json({error: 'The loan cannot be renewed.'})
     }
 })
 
