@@ -76,11 +76,17 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(401).json({ error: 'wrong password' })
     }
 
-    if (!validPassword(req.body.newPassword)) {
-        return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
-    }
-
     try {
+        if (!req.body.newPassword) {
+            user.name = req.body.name
+            user.email = req.body.email
+            await user.save()
+            return res.json(user)
+        }
+
+        if (!validPassword(req.body.newPassword)) {
+            return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
+        }
 
         user.name = req.body.name
         user.email = req.body.email

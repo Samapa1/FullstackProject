@@ -103,6 +103,7 @@ const Book = (  ) => {
             <div>
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
+            <br></br>
             {user.admin 
             ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
             : <></> }
@@ -118,6 +119,10 @@ const Book = (  ) => {
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
             <p>You have borrowed the book.</p>
+            <br></br>
+            {user.admin 
+            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+            : <></> }
         </div>
     )
     }
@@ -131,6 +136,10 @@ const Book = (  ) => {
                 <p>year: {book.year}</p>
                 <p>reservations: {reservations.length}</p>
                 <p>You have reserved the book.</p>
+                <br></br>
+                {user.admin 
+                ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+                : <></> }
             </div>
         )
     }
@@ -146,6 +155,10 @@ const Book = (  ) => {
             <div>
                 <Button onClick= {reserve}>Reserve</Button>
             </div>
+            <br></br>
+            {user.admin 
+            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+            : <></> }
         </div>
     )
 }

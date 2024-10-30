@@ -52,3 +52,4 @@ Date              Hours                    Tasks
 29.10.24          1                        Developing bookrouter and fixing loansrouter
 30.10.24          1                        Developing routers
 30.10.24          3                        Enabling admins to update and delete books (frontend)
+30.10.24          1                        Developing UserData component and usersrouter

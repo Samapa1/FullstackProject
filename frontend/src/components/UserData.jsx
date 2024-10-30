@@ -9,15 +9,7 @@ import Notification from './Notification';
 import { Button, Input } from './Styles'
 
 const UserData = () => {
-
-    const validPassword = (password) => {
-        if (password.length < 8) {
-          return false
-        }
-    
-        return ([/\d/.test(password)])
-      }
-    
+   
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user);
     useEffect(() => {
@@ -32,17 +24,17 @@ const UserData = () => {
 
     const handleChanges = async (event) => {
         event.preventDefault()
+
         try {
-            if (newPassword === newPassword2) {
-                if (validPassword(newPassword) && validPassword(newPassword2)) {
-                    await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password, newPassword: newPassword}))
-                    await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
-                }
-                else {
-                    await dispatch(setNotification( {data: `Invalid password`, type: 'error'}, 3000))
-                    return
-                }
+            if (!newPassword && !newPassword2){
+                await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password}))
+                await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
             }
+            else if (newPassword === newPassword2) {
+                await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password, newPassword: newPassword}))
+                await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
+            }
+               
             else {
                 await dispatch(setNotification( {data: `Passwords don't match`, type: 'error'}, 3000))
                 return
@@ -51,12 +43,10 @@ const UserData = () => {
       
         catch(exception){
             console.log(exception)
-            await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
+            await dispatch(setNotification({data: `${exception.response.data.error}`, type: 'error'}, 3000))
     
         }
     }
-
-
 
     return (
         <div>
