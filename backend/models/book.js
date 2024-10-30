@@ -49,7 +49,13 @@ Book.init({
       max: {
         args: [2024],
         msg: 'Year should not be greater than the current year'
-      }
+      },
+      notNull: {
+        msg: 'Please enter year',
+      },
+      notEmpty: {
+        msg: 'Please enter year',
+      },
     }
   },
   numberOfBooks: {

@@ -41,8 +41,8 @@ const start = async () => {
   await connectToDatabase()
 }
 
-app.use(middleware.errorHandler)
-
 start()
+
+app.use(middleware.errorHandler)
 
 module.exports = app;

@@ -15,6 +15,7 @@ import Registration from './components/Registration'
 import Notification  from './components/Notification'
 import BookForm from './components/BookForm'
 import UserData from './components/UserData'
+import BookData from './components/BookData'
 import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
@@ -56,7 +57,6 @@ const App = () => {
   }
 
   const user = useSelector((state) => state.user);
-  // const notification = useSelector((state) => state.notification);
 
   return (
     <Page>
@@ -94,6 +94,7 @@ const App = () => {
       <Route path="/userdata" element={<UserData />} />
       <Route path="/" element={<Home user= {user} />} />
       <Route path="/addBook" element={<BookForm/>} />
+      <Route path="/bookdata" element={<BookData/>} />
     </Routes></div>
     </div>
   </Router>

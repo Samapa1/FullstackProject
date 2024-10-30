@@ -8,7 +8,8 @@ import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
 import Notification from './Notification.jsx'
-import { Button } from './Styles'
+import { Button, Link } from './Styles'
+
 
 const Book = (  ) => {  
     const id = useParams().id
@@ -101,6 +102,9 @@ const Book = (  ) => {
             <div>
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
+            {user.admin 
+            ? <Link style= {linkStyle2} to={`/bookdata`}>Change book details or delete it from the database.</Link>
+            : <></> }
         </div>
     )
     }

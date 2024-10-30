@@ -40,9 +40,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
   }
   catch (err) {
     console.log(err)
-    res.status(400).json({message: err}).end()
-    // console.log(err.errors[0].message)
-    // res.status(400).json({message: err.errors[0].message })
+    return res.status(400).json({error: err.errors[0].message })
   }
 })
 

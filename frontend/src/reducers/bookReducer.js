@@ -15,16 +15,25 @@ const initialState = []
       },
       selectedBook(state, action) {
         return action.payload
+      },
+      updateBooks(state, action) {
+        const updatedBook = action.payload
+        return state.map(book => 
+          book.id !== updatedBook.id ? book : updatedBook
+        )
+      },
+      deleteBook(state, action) {
+        const id = action.payload
+        return state.filter(book => book.id !== id)
       }
     },
   })
 
-export const { setBooks, appendBook, selectedBook } = bookSlice.actions
+export const { setBooks, appendBook, selectedBook, updateBooks, deleteBook } = bookSlice.actions
 
 export const initializeBooks = () => {
   return async dispatch => {
     const books = await bookService.getAll()
-    console.log("bookReducer")
     dispatch(setBooks(books))
   }
 }
@@ -43,6 +52,22 @@ export const addBook = (bookObject) => {
     dispatch(appendBook(newBook))
   }
 }
+
+export const updateBook = (bookObject) => {
+  return async dispatch => {
+    const updatedBook = await bookService.update(bookObject)
+    dispatch(updateBooks(updatedBook))
+  }
+}
+
+export const removeBook = (id) => {
+  return async dispatch => {
+    console.log("removebookReducer")
+    await bookService.remove(id)
+    dispatch(deleteBook(id))
+  }
+}
+
 
 export default bookSlice.reducer
 

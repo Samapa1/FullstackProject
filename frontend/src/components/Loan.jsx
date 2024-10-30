@@ -5,7 +5,7 @@ import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
 import { Button } from './Styles'
 
-const Loan = ( {book }) => {
+const Loan = ( {book} ) => {
     const dispatch = useDispatch()
 
     const returnBook = async (id) => {
