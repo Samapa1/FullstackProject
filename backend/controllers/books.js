@@ -1,6 +1,7 @@
 const router = require('express').Router()  
 const { Book } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
+const { Reservation } = require('../models')
 
 
 router.get('/', async (req, res) => {
@@ -29,11 +30,59 @@ router.put('/:id', tokenExtractor, async (req, res) => {
   }
   try {
     const book = await Book.findByPk(req.params.id)
+    const itemsBefore = book.numberOfBooks
     book.title = req.body.title, 
     book.author = req.body.author, 
     book.year = req.body.year, 
     book.numberOfBooks = req.body.numberOfBooks
     await book.save()
+
+    const notAvailableReservations = await Reservation.findAll({ 
+      where: {bookId: book.id, available: false}, 
+      order: [['createdAt', 'ASC']] 
+    })
+
+    const availableReservations = await Reservation.findAll({ 
+      where: {bookId: book.id, available: true}, 
+      order: [['createdAt', 'DESC']] 
+    })
+
+    if (itemsBefore < book.numberOfBooks && notAvailableReservations.length > 0) {
+
+      if (notAvailableReservations.length >= (book.numberOfBooks - itemsBefore)) {
+        let i = 0
+        let resNumber = Number(0)
+        while (i < (book.numberOfBooks - itemsBefore) ) {
+          notAvailableReservations[resNumber].available = true
+          await notAvailableReservations[resNumber].save()
+          resNumber ++
+          i ++
+        } 
+      }
+
+      else if (notAvailableReservations.length < book.numberOfBooks - itemsBefore) {
+        let i = 0
+        let resNumber = Number(0)
+        while (i < notAvailableReservations.length ) {
+          notAvailableReservations[resNumber].available = true
+          await notAvailableReservations[resNumber].save()
+          resNumber ++
+          i ++
+        } 
+      }
+
+    }
+
+    if (availableReservations.length > book.numberOfBooks ) {
+      let i = 0
+      let resNumber = Number(0)
+      while ((i < (itemsBefore - book.numberOfBooks)) && (resNumber < availableReservations.length -1)) {
+        availableReservations[resNumber].available = false
+        await availableReservations[resNumber].save()
+        resNumber ++
+        i ++
+      }
+    }
 
     res.json(book)
 

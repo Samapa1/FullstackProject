@@ -20,8 +20,10 @@ const Book = (  ) => {
     const [reserved, changeReserved] = useState(null)
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
+    console.log(book)
     const user = useSelector(state => state.user)
     const reservations = useSelector(state => state.reservations)
+    console.log(reservations)
     
     const dispatch = useDispatch();
 
