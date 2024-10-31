@@ -18,12 +18,13 @@ const Book = (  ) => {
     const [available, changeAvailability] = useState(null)
     const [borrowed, changeBorrowed] = useState(null)
     const [reserved, changeReserved] = useState(null)
+    const [numberOfReservations, changeNumberOfReservations] = useState(null)
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
     console.log(book)
     const user = useSelector(state => state.user)
-    const reservations = useSelector(state => state.reservations)
-    console.log(reservations)
+    // const reservations = useSelector(state => state.reservations)
+    // console.log(reservations)
     
     const dispatch = useDispatch();
 
@@ -33,9 +34,8 @@ const Book = (  ) => {
   
     const isAvailable = useCallback(async () => {
         let bookStatus = await statusService.getStatus(book.id)
-        console.log("Bookstatus")
-        console.log(bookStatus)
-        if (bookStatus === "available") {
+        changeNumberOfReservations(bookStatus.reservations)
+        if (bookStatus.status === "available") {
             changeAvailability(true)
         }
         else {
@@ -136,7 +136,7 @@ const Book = (  ) => {
                 <h2>{book.title}</h2>
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
-                <p>reservations: {reservations.length}</p>
+                <p>reservations: {numberOfReservations}</p>
                 <p>You have reserved the book.</p>
                 <br></br>
                 {user.admin 
@@ -153,7 +153,7 @@ const Book = (  ) => {
             <p>author: {book.author}</p>
             <p>year: {book.year}</p>
             <p>not available (all items are borrowed)</p>
-            <p>reservations: {reservations.length}</p>
+            <p>reservations: {numberOfReservations}</p>
             <div>
                 <Button onClick= {reserve}>Reserve</Button>
             </div>

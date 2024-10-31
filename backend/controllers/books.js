@@ -9,6 +9,12 @@ router.get('/', async (req, res) => {
     res.json(books)
   })
 
+router.get('/:id', async (req, res) => {
+  const book = await Book.findByPk(req.params.id)
+  res.json(book)
+})
+
+
 router.post('/', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to add books.'})

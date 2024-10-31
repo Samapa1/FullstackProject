@@ -17,11 +17,23 @@ router.get('/:id', async (req, res) => {
     })
   
     if (book.numberOfBooks > (book.reservations.length + book.loans.length)) {
-        return res.json("available")
+        return res.json({
+            status: "available", 
+            reservations: book.reservations.length,
+        })
     }
     else {
-        return res.json("unavailable")
+        return res.json({
+            status: "unavailable", 
+            reservations: book.reservations.length
+        })
     }
+    // if (book.numberOfBooks > (book.reservations.length + book.loans.length)) {
+    //     return res.json("available")
+    // }
+    // else {
+    //     return res.json("unavailable")
+    // }
 })
 
 
