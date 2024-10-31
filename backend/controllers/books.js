@@ -2,7 +2,8 @@ const router = require('express').Router()
 const { Book } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { Reservation } = require('../models')
-
+const { Loan } = require('../models')
+const { sequelize } = require('../utils/db')
 
 router.get('/', async (req, res) => {
     const books = await Book.findAll()
@@ -13,7 +14,6 @@ router.get('/:id', async (req, res) => {
   const book = await Book.findByPk(req.params.id)
   res.json(book)
 })
-
 
 router.post('/', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
@@ -104,13 +104,30 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     return res.status(403).json({error: 'Only admins are allowed to delete books.'})
   }
 
-  const book = await Book.findByPk(req.params.id)
+  const book = await Book.findByPk(req.params.id, {
+    include: [
+        {
+        model: Reservation
+        },
+        {
+        model: Loan
+        }
+    ]
+  })
 
   if (book) {
-    await book.destroy()
+    await sequelize.transaction(async t => {
+      if (book.loans) {
+        await book.loans.forEach(loan => loan.destroy())
+      }
+      if (book.reservations)
+        await book.reservations.forEach(loan => loan.destroy())
+  
+      await book.destroy()
+      res.status(204).end()
+  });
   }
-
-  res.status(204).end()
+  
 })
 
 module.exports = router

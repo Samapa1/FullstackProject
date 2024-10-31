@@ -41,7 +41,7 @@ const Book = (  ) => {
         else {
             changeAvailability(false)
         }
-    }, [book])
+    }, [book, user])
         
     useEffect(() => {
         if (user.books) {

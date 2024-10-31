@@ -1,7 +1,7 @@
 import { useSelector} from 'react-redux'
 import { Link } from 'react-router-dom'
 import { linkStyle1, linkStyle2 } from './Styles'
-import BookForm from './BookForm'
+import Notification from './Notification';
 
 const Booklist = () => {
     const user = useSelector(state => state.user)
@@ -11,6 +11,7 @@ const Booklist = () => {
     if (user && user.admin){
         return (
             <div>
+            <Notification/>
             <><h1>Books</h1>
             {allBooks.map (book => 
             <div key={book.id}>
@@ -27,6 +28,7 @@ const Booklist = () => {
     else {
     return (
         <div>
+        <Notification/>
         {user 
         ? <><h1>Books</h1>
             {allBooks.map (book => 
