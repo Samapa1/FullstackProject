@@ -36,7 +36,7 @@ router.post('/', tokenExtractor, async (req, res) => {
         ]
     })
 
-    if (book.numberOfBooks > book.loans.length) {
+    if (book.numberOfBooks > (book.loans.length + book.reservations.length)) {
         return res.status(400).json({error: 'Available books can not be reserved.'})
     }
    
