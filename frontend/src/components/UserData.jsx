@@ -1,6 +1,6 @@
 import { useSelector} from 'react-redux'
 import { useState } from 'react'
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
 import { getUserData } from '../reducers/userReducer'
 import { updateUser } from '../reducers/userReducer'
@@ -9,6 +9,12 @@ import Notification from './Notification';
 import { Button, Input } from './Styles'
 
 const UserData = () => {
+
+    const [nameOfTheUser, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const [newPassword2, setNewPassword2] = useState('')
    
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user);
@@ -16,11 +22,16 @@ const UserData = () => {
         dispatch(getUserData()) 
       }, [dispatch]) 
 
-    const [nameOfTheUser, setName] = useState(user.name)
-    const [email, setEmail] = useState(user.email)
-    const [password, setPassword] = useState('')
-    const [newPassword, setNewPassword] = useState('')
-    const [newPassword2, setNewPassword2] = useState('')
+    const setUserData = useCallback(async () => {
+        if (user) {
+            setName(user.name)
+            setEmail(user.email)
+        }
+    }, [user])
+
+    useEffect(() => {
+        setUserData()
+      }, [setUserData])
 
     const handleChanges = async (event) => {
         event.preventDefault()

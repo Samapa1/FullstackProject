@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useCallback, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { updateBook} from '../reducers/bookReducer'
@@ -11,13 +11,26 @@ const BookData = () => {
     const id = useParams().id
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
-    const [title, setTitle] = useState(book.title)
-    const [author, setAuthor] = useState(book.author)
-    const [items, setItems] = useState(book.numberOfBooks)
-    const [year, setYear] = useState(book.year)
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
+    const [items, setItems] = useState('')
+    const [year, setYear] = useState('')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const initializeBookData = useCallback(async () => {
+        if (book) {
+            setTitle(book.title)
+            setAuthor(book.author)
+            setItems(book.numberOfBooks)
+            setYear(book.year)
+        }
+    }, [book])
+
+    useEffect(() => {
+        initializeBookData()
+      }, [initializeBookData])
 
     const handleChanges =  async (event) => {
         event.preventDefault()

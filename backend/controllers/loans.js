@@ -8,6 +8,7 @@ const { sequelize } = require('../utils/db')
 const setDueDate = () => {
     let date = new Date()
     date.setDate(date.getDate() + 7);
+    console.log(date.toDateString())
     return date
 } 
 

@@ -33,18 +33,21 @@ const Book = (  ) => {
       }, [borrowed, reserved, dispatch]) 
   
     const isAvailable = useCallback(async () => {
-        let bookStatus = await statusService.getStatus(book.id)
-        changeNumberOfReservations(bookStatus.reservations)
-        if (bookStatus.status === "available") {
-            changeAvailability(true)
-        }
-        else {
-            changeAvailability(false)
+        if (book) {
+            let bookStatus = await statusService.getStatus(book.id)
+            console.log(bookStatus)
+            changeNumberOfReservations(bookStatus.reservations)
+            if (bookStatus.status === "available") {
+                changeAvailability(true)
+            }
+            else {
+                changeAvailability(false)
+            }
         }
     }, [book, user])
         
     useEffect(() => {
-        if (user.books) {
+        if (user && user.books) {
         if (user.books.find(userbook => userbook.title === book.title )) {
             changeBorrowed(true)
 
@@ -57,7 +60,7 @@ const Book = (  ) => {
 
 
     useEffect(() => {
-        if (user.reservedBooks) {
+        if (user && user.reservedBooks) {
             if (user.reservedBooks.find(reservedBook => reservedBook.id === book.id )) {
                 changeReserved(true)
 
@@ -106,63 +109,66 @@ const Book = (  ) => {
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
             <br></br>
-            {user.admin 
+            {user && user.admin 
             ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
             : <></> }
         </div>
     )
     }
 
-    if (borrowed) {
-    return (
-        <div>
-             <Notification/>
-            <h2>{book.title}</h2>
-            <p>author: {book.author}</p>
-            <p>year: {book.year}</p>
-            <p>You have borrowed the book.</p>
-            <br></br>
-            {user.admin 
-            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-            : <></> }
-        </div>
-    )
-    }
-
-    if (reserved) {
+    if (book) {
+        if (borrowed) {
         return (
             <div>
-                 <Notification/>
+                <Notification/>
                 <h2>{book.title}</h2>
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
-                <p>reservations: {numberOfReservations}</p>
-                <p>You have reserved the book.</p>
+                <p>You have borrowed the book.</p>
                 <br></br>
-                {user.admin 
+                {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
                 : <></> }
             </div>
         )
-    }
+        }
 
-    return (
-        <div>
-             <Notification/>
-            <h2>{book.title}</h2>
-            <p>author: {book.author}</p>
-            <p>year: {book.year}</p>
-            <p>not available (all items are borrowed)</p>
-            <p>reservations: {numberOfReservations}</p>
+        if (reserved) {
+            return (
+                <div>
+                    <Notification/>
+                    <h2>{book.title}</h2>
+                    <p>author: {book.author}</p>
+                    <p>year: {book.year}</p>
+                    <p>reservations: {numberOfReservations}</p>
+                    <p>You have reserved the book.</p>
+                    <br></br>
+                    {user && user.admin 
+                    ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+                    : <></> }
+                </div>
+            )
+        }
+
+        return (
             <div>
-                <Button onClick= {reserve}>Reserve</Button>
+                <Notification/>
+                <h2>{book.title}</h2>
+                <p>author: {book.author}</p>
+                <p>year: {book.year}</p>
+                <p>not available (all items are borrowed)</p>
+                <p>reservations: {numberOfReservations}</p>
+                <div>
+                    <Button onClick= {reserve}>Reserve</Button>
+                </div>
+                <br></br>
+                {user && user.admin
+                ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+                : <></> }
             </div>
-            <br></br>
-            {user.admin 
-            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-            : <></> }
-        </div>
-    )
+        )
+
+    }
 }
 
 export default Book

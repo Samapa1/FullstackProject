@@ -34,8 +34,8 @@ const User = () => {
 
     if (user) {
         return (
-            <div key= {user.id}>
-                 <Notification/>
+            <div>
+                <Notification/>
                 <br></br>
                 User: 
                 <p>Name: {user.name}</p>
