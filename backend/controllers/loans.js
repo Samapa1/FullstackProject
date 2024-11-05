@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Loan } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
+const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
 
@@ -17,7 +18,21 @@ router.get('/', tokenExtractor, async (req, res) => {
         return res.status(403).json({ error: 'Only admins are allowed to view loans.' })
     }
 
-    const loans = await Loan.findAll()
+    const loans = await Loan.findAll({
+        include: [
+            {
+            model: Book,
+            attributes: ['title', 'author'],
+            },
+            {
+            model: User,
+            attributes: ['name'],
+            }
+        ],
+        order:[ 
+            [User, 'name']
+        ]
+    })
     res.json(loans)
 })
 
@@ -60,7 +75,10 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
         order: [['createdAt', 'ASC']] 
     })
 
-    if (loan.userId !== req.user.id) {
+    if (loan.userId !== req.user.id && req.user.admin !== true) {
+        console.log(req.user.admin)
+        console.log(req.user)
+        console.log("forbidden")
         res.status(403).end()
     }
 

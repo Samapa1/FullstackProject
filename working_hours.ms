@@ -56,3 +56,4 @@ Date              Hours                    Tasks
 31.10.24          2.5                      Developing bookrouter (updating books and reservations)
 31.10.24          1.5                      Developing reservations and deleting books funtionalities
 1.11.24           1.5                      Learning about useCallback hook and fixing frontend rendering problems 
+5.11.24           2.5                      Setting up Loanlist component and enabling admins to return all loans (backend)

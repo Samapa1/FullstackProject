@@ -61,3 +61,8 @@ export const linkStyle1 = {
 export const linkStyle2 = {
   color: "#FF342F"
 }
+
+export const listStyle= {
+  display: 'flex',
+  gap: '5px'
+}

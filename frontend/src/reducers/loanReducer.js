@@ -36,6 +36,7 @@ export const { setLoans, appendLoan, deleteLoan, renew } = loanSlice.actions
 export const initializeLoans = () => {
   return async dispatch => {
     const loans = await loanService.getAll()
+    console.log(loans)
     dispatch(setLoans(loans))
   }
 }

@@ -16,6 +16,7 @@ import Notification  from './components/Notification'
 import BookForm from './components/BookForm'
 import UserData from './components/UserData'
 import BookData from './components/BookData'
+import Loanlist from './components/Loanlist'
 import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
@@ -76,10 +77,14 @@ const App = () => {
       <NavBar>
       <Link style={padding} to="/">home</Link>
       <br></br>
+      { user 
+      ? <> <Link style={padding} to="/user">my page</Link><br></br></>
+      : <></>
+      } 
       <Link style={padding} to="/books">books</Link>
       <br></br>
-      { user 
-      ? <> <Link style={padding} to="/user">my page</Link></>
+      { user.admin 
+      ? <> <Link style={padding} to="/loans">loans</Link></>
       : <></>
       } 
       </NavBar></div>
@@ -95,6 +100,7 @@ const App = () => {
       <Route path="/" element={<Home user= {user} />} />
       <Route path="/addBook" element={<BookForm/>} />
       <Route path="/bookdata/:id" element={<BookData/>} />
+      <Route path="/loans" element={<Loanlist />} />
     </Routes></div>
     </div>
   </Router>
