@@ -4,7 +4,7 @@ const { Book } = require('../models')
 const { Reservation } = require('../models')
 const bcrypt = require('bcrypt')
 const { tokenExtractor } = require('../utils/middleware')
-
+const { sequelize } = require('../utils/db')
 
 const validPassword = (password) => {
     if (password.length < 8) {
@@ -144,15 +144,37 @@ router.get('/:id', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
-    console.log("backend router")
 
     if (user.userId !== req.user.id && req.user.admin !== true) {
         console.log("forbidden")
         res.status(403).end()
     }
 
-    await user.destroy()
-    res.status(204).end()
+    try {
+        const result = await sequelize.transaction(async t => {
+            const userReservations = await Reservation.findAll({
+                where: {
+                    userId: user.id
+                }
+            })
+        
+            console.log(userReservations)
+        
+            let i = 0
+            while ( i < userReservations.length) {
+                await userReservations[i].destroy()
+                i ++
+            } 
+            await user.destroy()
+            res.status(204).end()
+        });
+      
+      } catch (error) {
+        console.log(error)
+        res.status(400).end()
+      }
+
+    
 })
 
 module.exports = router
