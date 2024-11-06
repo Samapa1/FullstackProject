@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { initializeUsers } from'../reducers/usersReducer.js'
-// import { getUserData} from '../reducers/userReducer.js'
+import { getUserData} from '../reducers/userReducer.js'
 import Notification from './Notification.jsx'
 import { listStyle, Button } from './Styles.jsx'
 import { removeUser } from '../reducers/usersReducer'
@@ -12,15 +12,15 @@ const Userlist = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(getUserData());
+      }, [dispatch]);
+
+    useEffect(() => {
         dispatch(initializeUsers())
     }, [dispatch])
 
-    // useEffect(() => {
-    //     dispatch(getUserData());
-    //   }, [dispatch]);
-
     console.log("rendering Userlist")
-    const user= useSelector (state => state.user)
+    // const user = useSelector (state => state.user)
     const userlist= useSelector(state => state.users)
 
     const handleRemoveUser = async (user) => {

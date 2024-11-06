@@ -9,6 +9,7 @@ const getAll = async () => {
 }
 
 const getOne = async ( id ) => {
+  console.log("getOne")
   const response = await axios.get(`${baseUrl}/${id}`, apiService.getConfig())
   return response.data
 }

@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { initializeLoans } from'../reducers/loanReducer.js'
 import { listStyle, Button } from './Styles.jsx'
 import { removeLoan } from '../reducers/loanReducer'
+import { getUserData} from '../reducers/userReducer.js'
 import Notification from './Notification.jsx'
 import { setNotification } from '../reducers/notificationReducer.js'
 
@@ -10,6 +11,10 @@ const Loanlist = () => {
 
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(getUserData());
+      }, [dispatch]);
+      
     useEffect(() => {
         dispatch(initializeLoans()) 
       }, [dispatch]) 
