@@ -5,6 +5,7 @@ const setToken = (createdToken) => {
 }
 
 const getConfig = () => {
+  console.log(token)
   const config = {
       headers: { Authorization: token },
     }

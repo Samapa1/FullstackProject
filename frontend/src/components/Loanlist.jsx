@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { initializeLoans } from'../reducers/loanReducer.js'
 import { listStyle, Button } from './Styles.jsx'
 import { removeLoan } from '../reducers/loanReducer'
+import Notification from './Notification.jsx'
 import { setNotification } from '../reducers/notificationReducer.js'
 
 const Loanlist = () => {
@@ -20,7 +21,7 @@ const Loanlist = () => {
         console.log("returning")
         if (window.confirm(`Return ${loan.user.name}'s book ${loan.book.title} by ${loan.book.author}?`)) {
             await dispatch(removeLoan(loan.id))
-            await dispatch(setNotification( {data: `${book.title} returned`, type: 'info'}, 3000))
+            await dispatch(setNotification( {data: `${loan.book.title} returned`, type: 'info'}, 3000))
             }
     }
 
@@ -45,6 +46,7 @@ const Loanlist = () => {
     if (loanList) {
     return (
         <div>
+        <Notification/>
         <h1>Loans</h1>
         {loanList.map(loan => 
             <div key = {loan.id} style={listStyle}>

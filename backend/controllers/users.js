@@ -15,6 +15,7 @@ const validPassword = (password) => {
   }
 
 router.get('/', tokenExtractor, async (req, res) => {
+    console.log(req.user)
     if (req.user.admin !== true) {
         return res.status(403).json({ error: 'Only admins are allowed to view users.' })
     }
@@ -28,7 +29,10 @@ router.get('/', tokenExtractor, async (req, res) => {
             {
             model: Reservation
             }
-        ]
+        ],
+        order: [
+            'name'
+        ],
     })
     res.json(users)
 })
@@ -136,6 +140,19 @@ router.get('/:id', tokenExtractor, async (req, res) => {
     } else {
         res.status(404).end()
     }
+})
+
+router.delete('/:id', tokenExtractor, async (req, res) => {
+    const user = await User.findByPk(req.params.id)
+    console.log("backend router")
+
+    if (user.userId !== req.user.id && req.user.admin !== true) {
+        console.log("forbidden")
+        res.status(403).end()
+    }
+
+    await user.destroy()
+    res.status(204).end()
 })
 
 module.exports = router

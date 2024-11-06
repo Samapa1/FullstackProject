@@ -14,6 +14,7 @@ const setDueDate = () => {
 } 
 
 router.get('/', tokenExtractor, async (req, res) => {
+    console.log(req.user)
     if (req.user.admin !== true) {
         return res.status(403).json({ error: 'Only admins are allowed to view loans.' })
     }

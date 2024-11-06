@@ -4,6 +4,8 @@ const { Session } = require('../models')
 
 const tokenExtractor = async (req, res, next) => {
   const authorization = req.get('authorization')
+  console.log("tokenExtractor")
+  console.log(authorization)
     
   if (authorization && authorization.startsWith('Bearer ')) {
     req.decodedToken = jwt.verify(authorization.substring(7), process.env.SECRET)
