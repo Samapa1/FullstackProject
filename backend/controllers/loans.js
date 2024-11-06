@@ -34,12 +34,12 @@ router.get('/', tokenExtractor, async (req, res) => {
             [User, 'name']
         ]
     })
-    res.json(loans)
+    return res.json(loans)
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     const book = await Book.findByPk(req.body.bookId, {
@@ -60,11 +60,11 @@ router.post('/', tokenExtractor, async (req, res) => {
         const borrowingDate = new Date()
         const dueDate = setDueDate()
         const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
-        res.json(newloan)
+        return res.json(newloan)
     }
 
     else {
-        res.status(400).json({ error: 'No books available.' }).end()
+        return res.status(400).json({ error: 'No books available.' }).end()
     }
 
 })

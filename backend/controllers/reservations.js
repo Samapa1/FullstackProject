@@ -55,16 +55,21 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(403).end()
     }
     try {
-        const result = await sequelize.transaction(async t => {
+        await sequelize.transaction(async t => {
             const borrowingDate = new Date()
             const dueDate = setDueDate()
             const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
             await reservation.destroy()
+            t.afterCommit(() => {
+                console.log("transaction done")
+              });
+
             return res.json(newloan)
         });
       
       } catch (error) {
-        console.log("transaction error")
+        console.log(error)
+        return res.status(400).end()
       }
    
 })
