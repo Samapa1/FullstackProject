@@ -2,6 +2,8 @@ const router = require('express').Router()
 const { User } = require('../models')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
+const { Session } = require('../models')
+const { Loan } = require('../models')
 const bcrypt = require('bcrypt')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
@@ -15,7 +17,6 @@ const validPassword = (password) => {
   }
 
 router.get('/', tokenExtractor, async (req, res) => {
-    console.log(req.user)
     if (req.user.admin !== true) {
         return res.status(403).json({ error: 'Only admins are allowed to view users.' })
     }
@@ -58,10 +59,10 @@ router.post('/', async (req, res) => {
         res.status(201).json(user)
     } catch (err) {
         if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {
-            res.status(400).json({ error: "username already in use" })
+            return res.status(400).json({ error: "username already in use" })
         }
         else {
-            res.status(400).json({ error: err.errors[0].message })
+            return res.status(400).json({ error: err.errors[0].message })
         }  
     }
 
@@ -71,7 +72,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
     const saltRounds = 10
     if (user.id !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     const passwordCorrect = await bcrypt.compare(req.body.oldPassword, user.passwordHash)
@@ -96,11 +97,11 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         user.email = req.body.email
         user.passwordHash = await bcrypt.hash(req.body.newPassword, saltRounds)
         await user.save()
-        res.json(user)
+        return res.json(user)
     }
     catch(err) {
         console.log(err.errors[0].message)
-        res.status(400).json({error: err.errors[0].message })
+        return res.status(400).json({error: err.errors[0].message })
     }
     
   })
@@ -108,7 +109,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
 router.get('/:id', tokenExtractor, async (req, res) => {
   
     if (Number(req.params.id) !== Number(req.user.id)) {
-        res.status(403).end()
+        return res.status(403).end()
     }
     
     const user = await User.findByPk(req.params.id, { 
@@ -127,7 +128,7 @@ router.get('/:id', tokenExtractor, async (req, res) => {
     })
     
     if (user) {
-        res.send({
+        return res.send({
             id: user.id,
             username: user.username, 
             name: user.name,
@@ -138,41 +139,56 @@ router.get('/:id', tokenExtractor, async (req, res) => {
 
         })
     } else {
-        res.status(404).end()
+        return res.status(404).end()
     }
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
 
-    if (user.userId !== req.user.id && req.user.admin !== true) {
-        console.log("forbidden")
-        res.status(403).end()
+    if (user.id !== req.user.id && req.user.admin !== true ) {
+        return res.status(403).end()
     }
-
+   
     try {
-        const result = await sequelize.transaction(async t => {
+        const userLoans = await Loan.findAll({
+            where: {
+                userId: user.id
+            }
+        })
+        if (userLoans.length >0) {
+            return res.status(400).json({error: 'not permitted to delete user who has unreturned books'})
+        }
+
+        await sequelize.transaction(async t => {
             const userReservations = await Reservation.findAll({
                 where: {
                     userId: user.id
                 }
             })
-        
-            console.log(userReservations)
-        
+           
             let i = 0
             while ( i < userReservations.length) {
                 await userReservations[i].destroy()
                 i ++
             } 
+            await Session.destroy({
+                where: {
+                userId: user.id
+            }})
             await user.destroy()
-            res.status(204).end()
+    
+            t.afterCommit(() => {
+                console.log("transaction done")
+              });
+
+            return res.status(204).end()
         });
-      
-      } catch (error) {
+    
+    } catch (error) {
         console.log(error)
-        res.status(400).end()
-      }
+        return res.status(400).end()
+    }
 
     
 })

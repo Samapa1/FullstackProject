@@ -8,7 +8,7 @@ router.delete('/', tokenExtractor, async (req, res) => {
         userId: req.user.id
     }})
 
-    res.status(204).end()
+    return res.status(204).end()
 })
 
 module.exports = router

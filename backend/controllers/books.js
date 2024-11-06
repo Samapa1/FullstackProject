@@ -7,12 +7,12 @@ const { sequelize } = require('../utils/db')
 
 router.get('/', async (req, res) => {
     const books = await Book.findAll()
-    res.json(books)
+    return res.json(books)
   })
 
 router.get('/:id', async (req, res) => {
   const book = await Book.findByPk(req.params.id)
-  res.json(book)
+  return res.json(book)
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
@@ -21,11 +21,11 @@ router.post('/', tokenExtractor, async (req, res) => {
   }
   try {
     const book = await Book.create({...req.body})
-    res.status(201).json(book)
+    return res.status(201).json(book)
   }
   catch (err) {
     console.log(err.errors[0].message)
-    res.status(400).json({message: err.errors[0].message })
+    return res.status(400).json({message: err.errors[0].message })
   }
 
 })
@@ -90,7 +90,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
       }
     }
 
-    res.json(book)
+    return res.json(book)
 
   }
   catch (err) {
@@ -124,7 +124,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
         await book.reservations.forEach(loan => loan.destroy())
   
       await book.destroy()
-      res.status(204).end()
+      return res.status(204).end()
   });
   }
   

@@ -58,3 +58,5 @@ Date              Hours                    Tasks
 1.11.24           1.5                      Learning about useCallback hook and fixing frontend rendering problems 
 5.11.24           2.5                      Setting up Loanlist component and enabling admins to return all loans (backend)
 5.11.24           2.5                      Setting up Userlist and enabling admins to delete users (backend)
+6.11.24           1.5                      Fixing Userslist and Loanslist, adding transaction to usersrouter  
+6.11.24           1.5                      Fixing delete user functionality, refactoring

@@ -17,12 +17,12 @@ router.get('/', tokenExtractor, async (req, res) => {
     }
 
     const reservations = await Reservation.findAll()
-    res.json(reservations)
+    return res.json(reservations)
 })
 
 router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     const book = await Book.findByPk(req.body.bookId, {
@@ -42,17 +42,17 @@ router.post('/', tokenExtractor, async (req, res) => {
    
 
     const newReservation = await Reservation.create({...req.body})
-    res.json(newReservation) 
+    return res.json(newReservation) 
 })
 
 router.post('/:id', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
     const reservation = await Reservation.findByPk(req.params.id)
 
     if (reservation.available !== true) {
-        res.status(403).end()
+        return res.status(403).end()
     }
     try {
         const result = await sequelize.transaction(async t => {
@@ -60,8 +60,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
             const dueDate = setDueDate()
             const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
             await reservation.destroy()
-            console.log("transaction succeeding")
-            res.json(newloan)
+            return res.json(newloan)
         });
       
       } catch (error) {
@@ -74,11 +73,11 @@ router.post('/:id', tokenExtractor, async (req, res) => {
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const reservation = await Reservation.findByPk(req.params.id)
     if (reservation.userId !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     await reservation.destroy()
-    res.status(204).end()
+    return res.status(204).end()
 })
  
 

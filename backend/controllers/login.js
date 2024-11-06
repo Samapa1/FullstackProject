@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
   await Session.create({ userId: user.id, token})
 
-  res
+  return res
   .status(200)
   .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, admin: user.admin, reservedBooks: user.reservedBooks, books: user.books })
   

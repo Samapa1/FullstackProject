@@ -4,6 +4,7 @@ import userService from '../services/users'
 import logoutService from '../services/logout'
 import apiService from '../services/apiservice'
 
+
 const initialState = null
 
   const userSlice = createSlice({
@@ -13,7 +14,7 @@ const initialState = null
       setUser(state, action) {
         const updatedUser = action.payload
         return updatedUser
-      },
+      }
     }
   })
 
@@ -53,11 +54,17 @@ export const getUserData = () => {
   }
 }
 
-  export const updateUser = (userObject) => {
-    return async dispatch => {
-      const updatedUser = await userService.update(userObject)
-      dispatch(setUser(updatedUser))
-    }
+export const updateUser = (userObject) => {
+  return async dispatch => {
+    const updatedUser = await userService.update(userObject)
+    dispatch(setUser(updatedUser))
   }
+}
 
+export const removeUser = (id) => {
+  return async dispatch => {
+    await userService.remove(id)
+    dispatch(setUser(null))
+  }
+}
 export default userSlice.reducer

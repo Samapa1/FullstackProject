@@ -10,7 +10,7 @@ router.post('/reset', async (request, response) => {
   await Session.truncate()
   await User.destroy({ truncate: { cascade: true } })
 
-  response.status(204).end()
+  return response.status(204).end()
 })
 
 module.exports = router

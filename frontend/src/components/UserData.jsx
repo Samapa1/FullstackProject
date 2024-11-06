@@ -2,8 +2,10 @@ import { useSelector} from 'react-redux'
 import { useState } from 'react'
 import { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
 import { getUserData } from '../reducers/userReducer'
 import { updateUser } from '../reducers/userReducer'
+import { removeUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
 import Notification from './Notification';
 import { Button, Input } from './Styles'
@@ -17,6 +19,8 @@ const UserData = () => {
     const [newPassword2, setNewPassword2] = useState('')
    
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const user = useSelector((state) => state.user);
     useEffect(() => {
         dispatch(getUserData()) 
@@ -32,6 +36,21 @@ const UserData = () => {
     useEffect(() => {
         setUserData()
       }, [setUserData])
+
+    const handleRemoval = async () => {
+        try {
+            if (window.confirm(`Delete account permanently?`)) {
+                await dispatch(removeUser(user.id))
+                navigate("/"); 
+                await dispatch(setNotification( {data: `User removed permanently.`, type: 'info'}, 3000))
+
+            }
+        }
+        catch(exception){
+            console.log(exception)
+            await dispatch(setNotification({data: `${exception.response.data.error}`, type: 'error'}, 3000))
+        }
+    }
 
     const handleChanges = async (event) => {
         event.preventDefault()
@@ -111,6 +130,8 @@ const UserData = () => {
             </div>
             <Button type="submit">Save changes</Button>
         </form>
+        <br></br>
+        <Button onClick={() => handleRemoval()}>Delete account</Button>
       </div>
     )
 

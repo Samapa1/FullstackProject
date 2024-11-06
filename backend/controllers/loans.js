@@ -77,30 +77,29 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     })
 
     if (loan.userId !== req.user.id && req.user.admin !== true) {
-        console.log(req.user.admin)
-        console.log(req.user)
-        console.log("forbidden")
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     else if (loan && reservations[0]) {
-        console.log(reservations[0])
         try {
-            const result = await sequelize.transaction(async t => {
+            await sequelize.transaction(async t => {
                 await loan.destroy()
                 reservations[0].available = true
                 await reservations[0].save()
-                console.log("transaction succeeding")
-                res.status(204).end()
+                t.afterCommit(() => {
+                    console.log("transaction done")
+                  });
+                return res.status(204).end()
             });
           
           } catch (error) {
-            console.log("transaction error")
+            console.log(error)
+            return res.status(400).end()
           }
     }
     else if (loan) {
         await loan.destroy()
-        res.status(204).end()
+        return res.status(204).end()
     }
 })
 
@@ -112,7 +111,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     })
 
     if (loan.userId !== req.user.id) {
-        res.status(403).end()
+        return res.status(403).end()
     }
 
     else if (loan && !reservation) {
@@ -122,7 +121,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(200).json(loan)
     }
     else {
-        res.status(409).json({error: 'The loan cannot be renewed.'})
+        return res.status(409).json({error: 'The loan cannot be renewed.'})
     }
 })
 

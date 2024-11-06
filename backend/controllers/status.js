@@ -28,12 +28,6 @@ router.get('/:id', async (req, res) => {
             reservations: book.reservations.length
         })
     }
-    // if (book.numberOfBooks > (book.reservations.length + book.loans.length)) {
-    //     return res.json("available")
-    // }
-    // else {
-    //     return res.json("unavailable")
-    // }
 })
 
 
