@@ -19,7 +19,7 @@ router.post('/', async (req, res) => {
       {
           model: Book,
           as: 'reservedBooks',
-          attributes: {}
+          attributes: { exclude: ['dueDate']}
       },
       ]
   })

@@ -23,6 +23,10 @@ Reservation.init({
   available: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
+  },
+  dueDate: {
+    type: DataTypes.DATE,
+    allowNull: true
   }
 }, {
   sequelize,

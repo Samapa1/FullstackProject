@@ -3,24 +3,30 @@ const { Reservation } = require('../models')
 
 const testqueue = new Queue("myQueue");
 
-const checkStatus  = () => {
-    const reservations= Reservation.findAll({
-        where: {available: false}
+const checkStatus  = async () => {
+    const reservations= await Reservation.findAll({
+        where: {available: true}
     })
-    console.log(reservations)
+    let currentDate = new Date()
+    const toBeRemoved = reservations.filter(reservation => new Date(reservation.dueDate) < currentDate)
+    console.log("filtteröidyt")
+    toBeRemoved.map(reservation => console.log(reservation.id))
+
+    let i = 0
+    while (i < toBeRemoved.length) {
+        console.log(toBeRemoved[i])
+        await toBeRemoved[i].destroy()
+        i ++
+    }
+
+    console.log("suoritettu")
+    return 
+
 }
 
-testqueue.add(
-    {reservation: 'book'},
-    {
-        repeat: {
-        every: 10000,
-        limit: 100
-        }
-    });
-
-testqueue.process((job, done) => {
-  console.log(job.data);
-  done();
+testqueue.add(checkStatus(), { repeat: 
+    {every: 10000,
+    limit: 100 }
 });
+
 

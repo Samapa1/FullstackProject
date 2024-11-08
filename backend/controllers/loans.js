@@ -85,6 +85,8 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             await sequelize.transaction(async t => {
                 await loan.destroy()
                 reservations[0].available = true
+                // reservations[0].dueDate = setDueDate()
+                reservations[0].dueDate = new Date()
                 await reservations[0].save()
                 t.afterCommit(() => {
                     console.log("transaction done")

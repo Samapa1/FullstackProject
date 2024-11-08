@@ -17,10 +17,6 @@ module.exports = {
             type: DataTypes.DATE,
             allowNull: false
         }
-          // dueDate: {
-          //   type: DataTypes.DATE,
-          //   allowNull: true
-          // }
   })
     await queryInterface.addColumn('reservations', 'user_id', {
       type: DataTypes.INTEGER,
