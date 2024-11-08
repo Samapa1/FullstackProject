@@ -77,10 +77,29 @@ router.post('/:id', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const reservation = await Reservation.findByPk(req.params.id)
+    
     if (reservation.userId !== req.user.id) {
         return res.status(403).end()
     }
 
+    const notAvailableReservations = await Reservation.findAll({ 
+        where: {available: false}, 
+        order: [['createdAt', 'ASC']] 
+    })
+
+    if (notAvailableReservations[0]) {
+        await sequelize.transaction(async t => {
+            await reservation.destroy()
+            notAvailableReservations[0].available = true
+            notAvailableReservations[0].dueDate = setDueDate()
+            await notAvailableReservations[0].save()
+            t.afterCommit(() => {
+                console.log("transaction done")
+            });
+            return res.status(204).end()
+        });
+     
+    }
     await reservation.destroy()
     return res.status(204).end()
 })
