@@ -56,8 +56,7 @@ const Registration= () => {
 
     } 
     catch (exception) {
-      console.log(exception)
-      await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
+      await dispatch(setNotification({data: `${exception.response.data.error}`, type: 'error'}, 3000))
     }
 
   }
