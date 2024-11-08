@@ -60,3 +60,4 @@ Date              Hours                    Tasks
 5.11.24           2.5                      Setting up Userlist and enabling admins to delete users (backend)
 6.11.24           1.5                      Fixing Userslist and Loanslist, adding transaction to usersrouter  
 6.11.24           1.5                      Fixing delete user functionality, refactoring
+6.11.24           2.5                      Learning about job queues (Bull), setting up redis 

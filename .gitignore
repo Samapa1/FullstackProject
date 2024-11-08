@@ -1,4 +1,6 @@
 node_modules/
+redis_data/
+postgres_data/
 /test-results/
 /playwright-report/
 /blob-report/

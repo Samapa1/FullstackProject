@@ -15,12 +15,14 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bull": "^4.16.4",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.13.0",
+    "redis": "^4.7.0",
     "sequelize": "^6.37.3",
     "umzug": "^3.8.2"
   },
