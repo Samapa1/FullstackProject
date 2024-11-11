@@ -7,7 +7,10 @@ const { sequelize } = require('../utils/db')
 
 const setDueDate = () => {
     let date = new Date()
-    date.setDate(date.getDate() + 7);
+    date.setDate(date.getDate() + 8);
+    date.setHours(0, 0, 0)
+    console.log("päiväys")
+    console.log(date)
     return date
 }
 
@@ -58,6 +61,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         await sequelize.transaction(async t => {
             const borrowingDate = new Date()
             const dueDate = setDueDate()
+            console.log(dueDate)
             const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
             await reservation.destroy()
             t.afterCommit(() => {
@@ -92,6 +96,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             await reservation.destroy()
             notAvailableReservations[0].available = true
             notAvailableReservations[0].dueDate = setDueDate()
+            // notAvailableReservations[0].dueDate = new Date()
             await notAvailableReservations[0].save()
             t.afterCommit(() => {
                 console.log("transaction done")

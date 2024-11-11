@@ -6,12 +6,18 @@ const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
 
+// const setDueDate = () => {
+//     let date = new Date()
+//     date.setDate(date.getDate() + 7);
+//     console.log(date.toDateString())
+//     return date
+// } 
 const setDueDate = () => {
     let date = new Date()
-    date.setDate(date.getDate() + 7);
-    console.log(date.toDateString())
+    date.setDate(date.getDate() + 8);
+    date.setHours(0, 0, 0)
     return date
-} 
+}
 
 router.get('/', tokenExtractor, async (req, res) => {
     console.log(req.user)
@@ -86,7 +92,6 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
                 await loan.destroy()
                 reservations[0].available = true
                 reservations[0].dueDate = setDueDate()
-                // reservations[0].dueDate = new Date()
                 await reservations[0].save()
                 t.afterCommit(() => {
                     console.log("transaction done")

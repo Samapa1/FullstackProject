@@ -11,6 +11,8 @@ const logoutRouter = require ('./controllers/logout')
 const reservationRouter = require ('./controllers/reservations')
 const testingRouter = require('./controllers/testing')
 const middleware = require('./utils/middleware');
+const reservationQueque = require ('./controllers/queques')
+
 
 const { connectToDatabase } = require('./utils/db')
 
@@ -42,6 +44,8 @@ const start = async () => {
 }
 
 start()
+
+reservationQueque()
 
 app.use(middleware.errorHandler)
 

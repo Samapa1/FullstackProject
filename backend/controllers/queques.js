@@ -1,6 +1,8 @@
 const Queue = require('bull')
 const { Reservation } = require('../models')
 
+const reservationQueque = () => {
+
 const testqueue = new Queue("myQueue");
 
 const checkStatus  = async () => {
@@ -9,24 +11,26 @@ const checkStatus  = async () => {
     })
     let currentDate = new Date()
     const toBeRemoved = reservations.filter(reservation => new Date(reservation.dueDate) < currentDate)
-    console.log("filtteröidyt")
-    toBeRemoved.map(reservation => console.log(reservation.id))
+    
+    console.log("checking reservations")
 
-    let i = 0
-    while (i < toBeRemoved.length) {
-        console.log(toBeRemoved[i])
-        await toBeRemoved[i].destroy()
-        i ++
-    }
-
-    console.log("suoritettu")
-    return 
+    await Promise.all(toBeRemoved.map(toRemove => toRemove.destroy()))
 
 }
 
-testqueue.add(checkStatus(), { repeat: 
-    {every: 10000,
-    limit: 100 }
+testqueue.add({}, { repeat: 
+    { cron: '0 22 * * *' }
+    
 });
 
+testqueue.process((job, done) => {
+    checkStatus()
+    console.log(job.data);
+    done();
+  });
+
+}
+
+
+module.exports = reservationQueque
 
