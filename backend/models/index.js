@@ -3,6 +3,7 @@ const User = require('./user')
 const Loan = require('./loan')
 const Reservation = require ('./reservation')
 const Session = require('./session')
+const Rating = require('./rating')
 
 User.belongsToMany(Book, { through: Loan })
 Book.belongsToMany(User, { through: Loan })
@@ -22,9 +23,15 @@ Reservation.belongsTo(Book)
 User.hasMany(Reservation)
 Reservation.belongsTo(User)
 
+Book.hasMany(Rating)
+Rating.belongsTo(Book)
+
+User.hasMany(Rating)
+Rating.belongsTo(User)
+
 User.hasMany(Session)
 Session.belongsTo(User)
 
 module.exports = {
-    Book, User, Loan, Reservation, Session
+    Book, User, Loan, Reservation, Session, Rating
 }
