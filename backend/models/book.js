@@ -67,6 +67,10 @@ Book.init({
         msg: 'Number of books can not be zero'
       }
     }
+  },
+  rating: {
+    type: DataTypes.INTEGER,
+    default: 0,
   }
 
 }, {

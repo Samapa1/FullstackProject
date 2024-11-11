@@ -1,0 +1,7 @@
+POST http://localhost:3003/api/ratings
+Content-Type: application/json
+Authorization: Bearer xxx
+{
+    "bookId": 1,
+    "newVote": 4
+}

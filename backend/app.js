@@ -10,6 +10,7 @@ const loginRouter = require ('./controllers/login')
 const logoutRouter = require ('./controllers/logout')
 const reservationRouter = require ('./controllers/reservations')
 const testingRouter = require('./controllers/testing')
+const ratingRouter = require('./controllers/ratings')
 const middleware = require('./utils/middleware');
 const reservationQueque = require ('./controllers/queques')
 
@@ -33,6 +34,8 @@ app.use('/api/login', loginRouter)
 app.use('/api/logout', logoutRouter)
 
 app.use('/api/reservations', reservationRouter)
+
+app.use('/api/ratings', ratingRouter)
 
 if (process.env.NODE_ENV === "test") {
   app.use('/api/testing', testingRouter)

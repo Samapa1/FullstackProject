@@ -28,11 +28,17 @@ const Loan = ( {book} ) => {
         }
 
     }
+
+    const formatDate = (duedate) => {
+        let formatteddate = new Date(duedate)
+        return formatteddate.toLocaleDateString()
+    }
+
    
     return (
     <div>
       
-        <p>{book.title} by {book.author} due date: {book.loan.dueDate}
+        <p>{book.title} by {book.author} due date: {formatDate(book.loan.dueDate)}
         <Button onClick= {() => returnBook(book.loan.id)}>Return</Button>
         <Button onClick= {() => renewCurrentLoan(book.loan.id)}>Renew</Button>
         </p> 

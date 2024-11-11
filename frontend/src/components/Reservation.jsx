@@ -25,11 +25,16 @@ const Reservation = ( { reservedBook }) => {
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${reservedBook.title} borrowed`, type: 'info'}, 3000))
     }
-       
+
+    const formatDate = (duedate) => {
+        let formatteddate = new Date(duedate)
+        return formatteddate.toLocaleDateString()
+    }
+
     if (reservedBook.reservation.available) {
     return (
     <div>
-        <p>{reservedBook.title} by {reservedBook.author} <Button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </Button>
+        <p>{reservedBook.title} by {reservedBook.author} {formatDate(reservedBook.reservation.dueDate)} <Button onClick= {() => remove(reservedBook.reservation.id)}> Cancel </Button>
         <Button onClick= {() => borrow()}> Borrow </Button>
         </p> 
     </div>

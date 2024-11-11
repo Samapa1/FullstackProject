@@ -66,3 +66,8 @@ export const listStyle= {
   display: 'flex',
   gap: '5px'
 }
+
+export const starStyle = {
+  cursor: 'pointer',
+  fontSize: '35px'
+}

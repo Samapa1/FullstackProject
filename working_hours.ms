@@ -63,3 +63,5 @@ Date              Hours                    Tasks
 6.11.24           2.5                      Learning about job queues (Bull), setting up redis 
 8.11.24           3                        Working on reservation functionality (adding duedate and removing old reservations with bull)
 8.11.24           1                        Developing reservation router (deleting reservation)
+11.11.24          1.5                      Developing reservation queque and duedates
+11.11.24          3                        Setting up rating functionality (frontend and backend)
