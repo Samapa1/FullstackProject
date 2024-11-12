@@ -66,3 +66,4 @@ Date              Hours                    Tasks
 11.11.24          1.5                      Developing reservation queque and duedates
 11.11.24          3                        Setting up rating functionality (frontend and backend)
 11.11.24          1                        Developing rating functionality (backend and database)
+11.11.24          3.5                      Developing rating functionality

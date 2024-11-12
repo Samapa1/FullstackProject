@@ -4,6 +4,7 @@ const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { Session } = require('../models')
 const { Loan } = require('../models')
+const { Rating } = require('../models')
 const bcrypt = require('bcrypt')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
@@ -29,6 +30,9 @@ router.get('/', tokenExtractor, async (req, res) => {
             },
             {
             model: Reservation
+            },
+            {
+            model: Rating
             }
         ],
         order: [
@@ -113,17 +117,20 @@ router.get('/:id', tokenExtractor, async (req, res) => {
     }
     
     const user = await User.findByPk(req.params.id, { 
-        attributes: { } ,
+        // attributes: { } ,
         include: [
             {
                 model: Book,
                 attributes: ['title', 'author']
             },
             {
+                model: Rating
+            },
+            {
                 model: Book,
                 as: 'reservedBooks',
                 attributes: {}
-            },
+            }
             ]
     })
     

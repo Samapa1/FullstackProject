@@ -12,7 +12,6 @@ import Notification from './Notification.jsx'
 import { Button, linkStyle2 } from './Styles'
 import StarRating from './StarRating' 
 
-
 const Book = (  ) => {  
     const id = useParams().id
 
@@ -20,13 +19,9 @@ const Book = (  ) => {
     const [borrowed, changeBorrowed] = useState(null)
     const [reserved, changeReserved] = useState(null)
     const [numberOfReservations, changeNumberOfReservations] = useState(null)
-    const [rating, setRating] = useState(0)
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
-    console.log(book)
     const user = useSelector(state => state.user)
-    // const reservations = useSelector(state => state.reservations)
-    // console.log(reservations)
     
     const dispatch = useDispatch();
 
@@ -111,7 +106,7 @@ const Book = (  ) => {
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
             <p>rating:</p>
-            <StarRating/>
+            <StarRating id = {id}/>
             <br></br>
             {user && user.admin 
             ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -130,7 +125,7 @@ const Book = (  ) => {
                 <p>year: {book.year}</p>
                 <p>You have borrowed the book.</p>
                 <p>rating:</p>
-                <StarRating/>
+                <StarRating id = {id}/>
                 <br></br>
                 {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -149,7 +144,7 @@ const Book = (  ) => {
                     <p>reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
                     <p>rating:</p>
-                    <StarRating/>
+                    <StarRating id = {id}/>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -170,7 +165,7 @@ const Book = (  ) => {
                     <Button onClick= {reserve}>Reserve</Button>
                 </div>
                 <p>rating:</p>
-                <StarRating/>
+                <StarRating id = {id}/>
                 <br></br>
                 {user && user.admin
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>

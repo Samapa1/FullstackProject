@@ -1,3 +1,2 @@
-GET http://localhost:3003/api/users/4
+GET http://localhost:3003/api/users/1
 Authorization: Bearer xxx
-

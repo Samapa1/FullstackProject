@@ -23,6 +23,11 @@ Reservation.belongsTo(Book)
 User.hasMany(Reservation)
 Reservation.belongsTo(User)
 
+// User.belongsToMany(Book, { through: Rating, as: 'ratedBooks' })
+// Book.belongsToMany(User, { through: Rating, as: 'userRatings' })
+User.belongsToMany(Book, { through: Rating })
+Book.belongsToMany(User, { through: Rating })
+
 Book.hasMany(Rating)
 Rating.belongsTo(Book)
 

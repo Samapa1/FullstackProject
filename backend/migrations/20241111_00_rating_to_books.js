@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize')
 module.exports = {
     up: async ({ context: queryInterface }) => {
       await queryInterface.addColumn('books', 'rating', {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         defaultValue: 0,
       })
     },

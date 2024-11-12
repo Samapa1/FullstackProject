@@ -69,7 +69,7 @@ Book.init({
     }
   },
   rating: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.FLOAT,
     default: 0,
   }
 
