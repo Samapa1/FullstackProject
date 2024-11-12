@@ -124,7 +124,9 @@ router.get('/:id', tokenExtractor, async (req, res) => {
                 attributes: ['title', 'author']
             },
             {
-                model: Rating
+                model: Rating,
+                as: 'ratedBooks',
+                attributes: {}
             },
             {
                 model: Book,

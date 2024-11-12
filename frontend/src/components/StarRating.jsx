@@ -4,7 +4,7 @@ import { useSelector} from 'react-redux'
 import { addRating } from '../reducers/ratingReducer.js'
 import bookService from '../services/books'
 
-const starRating = ( {id} ) => {
+const StarRating = ( {id} ) => {
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
     // let book = null
@@ -69,4 +69,4 @@ const starRating = ( {id} ) => {
       
 }
 
-export default starRating
+export default StarRating
