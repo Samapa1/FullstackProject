@@ -32,7 +32,6 @@ const Book = () => {
     const isAvailable = useCallback(async () => {
         if (book) {
             let bookStatus = await statusService.getStatus(book.id)
-            console.log(bookStatus)
             changeNumberOfReservations(bookStatus.reservations)
             if (bookStatus.status === "available") {
                 changeAvailability(true)
@@ -42,7 +41,7 @@ const Book = () => {
             }
         }
     }, [book, user])
-    console.log(user)
+
     useEffect(() => {
         if (user && user.loans) {
         if (user.loans.find(userbook => userbook.book.title === book.title )) {
@@ -125,7 +124,7 @@ const Book = () => {
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
                 <p>You have borrowed the book.</p>
-                <p>rating:</p>
+                <p>your rating:</p>
                 <StarRating id = {book.id}/>
                 <p>average: {book.rating}</p>
                 <br></br>
@@ -145,7 +144,7 @@ const Book = () => {
                     <p>year: {book.year}</p>
                     <p>reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
-                    <p>rating:</p>
+                    <p>your rating:</p>
                     <StarRating id = {book.id}/>
                     <p>average: {book.rating}</p>
                     <br></br>
@@ -167,7 +166,7 @@ const Book = () => {
                 <div>
                     <Button onClick= {reserve}>Reserve</Button>
                 </div>
-                <p>rating:</p>
+                <p>your rating:</p>
                 <StarRating id = {book.id}/>
                 <p>average: {book.rating}</p>
                 <br></br>
