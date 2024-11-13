@@ -14,11 +14,17 @@ const initialState = null
       setUser(state, action) {
         const updatedUser = action.payload
         return updatedUser
+      },
+      setUserBookRatings(state, action) {
+        const { ratingId, stars } = action.payload;
+        const userRatings = state.ratings ?? []
+        const updatedRatings = userRatings.map(rating => (rating.id === ratingId) ? {...rating, stars } : rating )
+        state.ratings = updatedRatings;
       }
     }
   })
 
-export const { setUser } = userSlice.actions
+export const { setUser, setUserBookRatings } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -66,4 +72,11 @@ export const removeUser = (id) => {
     dispatch(setUser(null))
   }
 }
+
+export const updateUserBookRating = (ratingId, stars) => {
+  return dispatch => {
+    dispatch(setUserBookRatings({ ratingId, stars }))
+  }
+}
+
 export default userSlice.reducer
