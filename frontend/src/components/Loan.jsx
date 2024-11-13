@@ -5,14 +5,14 @@ import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
 import { Button } from './Styles'
 
-const Loan = ( {book} ) => {
+const Loan = ( {loan} ) => {
     const dispatch = useDispatch()
-
+    console.log(loan)
     const returnBook = async (id) => {
-        if (window.confirm(`Return book ${book.title} by ${book.author}?`)) {
+        if (window.confirm(`Return book ${loan.book.title} by ${loan.book.author}?`)) {
         await dispatch(removeLoan(id))
         await dispatch(getUserData()) 
-        await dispatch(setNotification( {data: `${book.title} returned`, type: 'info'}, 3000))
+        await dispatch(setNotification( {data: `${loan.book.title} returned`, type: 'info'}, 3000))
         }
     }
 
@@ -20,11 +20,11 @@ const Loan = ( {book} ) => {
         try {
             await dispatch(renewLoan(id))
             await dispatch(getUserData()) 
-            await dispatch(setNotification( {data: `${book.title} loan renewed`, type: 'info'}, 3000))
+            await dispatch(setNotification( {data: `${loan.book.title} loan renewed`, type: 'info'}, 3000))
         }
         catch(exception) {
             console.log(exception)
-            await dispatch(setNotification( {data: `${book.title} is reserved!`, type: 'error'}, 3000))
+            await dispatch(setNotification( {data: `${loan.book.title} is reserved!`, type: 'error'}, 3000))
         }
 
     }
@@ -37,10 +37,9 @@ const Loan = ( {book} ) => {
    
     return (
     <div>
-      
-        <p>{book.title} by {book.author} due date: {formatDate(book.loan.dueDate)}
-        <Button onClick= {() => returnBook(book.loan.id)}>Return</Button>
-        <Button onClick= {() => renewCurrentLoan(book.loan.id)}>Renew</Button>
+        <p>{loan.book.title} by {loan.book.author} due date: {formatDate(loan.dueDate)}
+        <Button onClick= {() => returnBook(loan.id)}>Return</Button>
+        <Button onClick= {() => renewCurrentLoan(loan.id)}>Renew</Button>
         </p> 
       
     </div>

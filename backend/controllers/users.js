@@ -25,8 +25,13 @@ router.get('/', tokenExtractor, async (req, res) => {
     const users = await User.findAll({
         include: [
             {
-            model: Book,
-            attributes: ['title', 'author'],
+            model: Loan,
+                include: [
+                    {
+                    model: Book,
+                    attributes: ['title', 'author']
+                    }
+                ]
             },
             {
             model: Reservation
@@ -117,21 +122,22 @@ router.get('/:id', tokenExtractor, async (req, res) => {
     }
     
     const user = await User.findByPk(req.params.id, { 
-        // attributes: { } ,
         include: [
             {
-                model: Book,
-                attributes: ['title', 'author']
+                model: Loan,
+                include: [{
+                    model: Book,
+                    attributes: ['title', 'author']
+                }]
             },
             {
-                model: Rating,
-                as: 'ratedBooks',
-                attributes: {}
+                model: Rating
             },
             {
-                model: Book,
-                as: 'reservedBooks',
-                attributes: {}
+                model: Reservation,
+                include: [{
+                    model: Book,
+                }]
             }
             ]
     })
@@ -143,8 +149,9 @@ router.get('/:id', tokenExtractor, async (req, res) => {
             name: user.name,
             email: user.email,
             admin: user.admin,
-            books: user.books,
-            reservedBooks: user.reservedBooks 
+            books: user.loans,
+            reservedBooks: user.reservations,
+            ratings: user.ratings,
 
         })
     } else {

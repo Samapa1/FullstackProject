@@ -45,7 +45,7 @@ const Book = (  ) => {
         
     useEffect(() => {
         if (user && user.books) {
-        if (user.books.find(userbook => userbook.title === book.title )) {
+        if (user.books.find(userbook => userbook.book.title === book.title )) {
             changeBorrowed(true)
 
         }
@@ -58,7 +58,7 @@ const Book = (  ) => {
 
     useEffect(() => {
         if (user && user.reservedBooks) {
-            if (user.reservedBooks.find(reservedBook => reservedBook.id === book.id )) {
+            if (user.reservedBooks.find(reservedBook => reservedBook.bookId === book.id )) {
                 changeReserved(true)
 
             }

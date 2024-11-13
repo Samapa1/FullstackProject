@@ -19,7 +19,7 @@ const User = () => {
 
    const showBooks = () => {
     if (user.books) {
-        const booksToShow = user.books.map (book => <Loan key ={book.id} book = {book}/>)
+        const booksToShow = user.books.map (book => <Loan key ={book.id} loan = {book}/>)
         return booksToShow
     }
    }
@@ -27,10 +27,11 @@ const User = () => {
    const showReservations = () => {
     if (user.reservedBooks) {
         console.log(user.reservedBooks)
-        const reservations = user.reservedBooks.map(reservedBook=> <Reservation key ={reservedBook.id} reservedBook = {reservedBook}/>)
+        const reservations = user.reservedBooks.map(reservedBook=> <Reservation key ={reservedBook.id} reservation = {reservedBook}/>)
         return reservations
     }
    }
+   
 
     if (user) {
         return (

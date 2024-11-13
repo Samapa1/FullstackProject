@@ -60,6 +60,13 @@ export const updateBook = (bookObject) => {
   }
 }
 
+export const rateBook = (bookObject) => {
+  return async dispatch => {
+    const updatedBook = await bookService.update(bookObject)
+    dispatch(updateBooks(updatedBook))
+  }
+}
+
 export const removeBook = (id) => {
   return async dispatch => {
     console.log("removebookReducer")

@@ -6,12 +6,6 @@ const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
 
-// const setDueDate = () => {
-//     let date = new Date()
-//     date.setDate(date.getDate() + 7);
-//     console.log(date.toDateString())
-//     return date
-// } 
 const setDueDate = () => {
     let date = new Date()
     date.setDate(date.getDate() + 8);

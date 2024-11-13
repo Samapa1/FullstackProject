@@ -19,7 +19,6 @@ const Userlist = () => {
         dispatch(initializeUsers())
     }, [dispatch])
 
-    console.log("rendering Userlist")
     // const user = useSelector (state => state.user)
     const userlist= useSelector(state => state.users)
 
@@ -38,8 +37,8 @@ const Userlist = () => {
             <Notification/>
             <h1>Users</h1>
             {userlist.map(user => <div key= {user.id} style={listStyle}> 
-                <div>{user.name} {user.email} books borrowed: {user.books.length}</div>
-                {user.books.length === 0 
+                <div>{user.name} {user.email} books borrowed: {user.loans.length}</div>
+                {user.loans.length === 0 
                 ? <Button onClick= {() => handleRemoveUser(user)}>Remove</Button>
                 : <></>
                 }

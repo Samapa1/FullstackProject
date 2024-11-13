@@ -22,11 +22,10 @@ import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
 const Home = ({user}) => {
-  console.log("Home")
   let reservationsForCollection = false
-  
+
     if (user && user.reservedBooks) {
-      if (user.reservedBooks.find(book => book.reservation.available === true)) {
+      if (user.reservedBooks.find(book => book.available === true)) {
         reservationsForCollection = true
       }
     }

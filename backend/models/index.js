@@ -5,28 +5,17 @@ const Reservation = require ('./reservation')
 const Session = require('./session')
 const Rating = require('./rating')
 
-User.belongsToMany(Book, { through: Loan })
-Book.belongsToMany(User, { through: Loan })
-
 User.hasMany(Loan)
 Loan.belongsTo(User)
 
 Book.hasMany(Loan)
 Loan.belongsTo(Book)
 
-User.belongsToMany(Book, { through: Reservation, as: 'reservedBooks' })
-Book.belongsToMany(User, { through: Reservation, as: 'userReservations' })
-
 Book.hasMany(Reservation)
 Reservation.belongsTo(Book)
 
 User.hasMany(Reservation)
 Reservation.belongsTo(User)
-
-User.belongsToMany(Book, { through: Rating, as: 'ratedBooks' })
-Book.belongsToMany(User, { through: Rating, as: 'userRatings' })
-// User.belongsToMany(Book, { through: Rating })
-// Book.belongsToMany(User, { through: Rating })
 
 Book.hasMany(Rating)
 Rating.belongsTo(Book)

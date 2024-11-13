@@ -4,6 +4,8 @@ const router = require('express').Router()
 const User = require('../models/user')
 const Session = require('../models/session')
 const { Book } = require('../models')
+const { Reservation } = require('../models')
+const { Loan } = require('../models')
 
 
 router.post('/', async (req, res) => {
@@ -13,14 +15,19 @@ router.post('/', async (req, res) => {
     },
     include: [
       {
+        model: Loan,
+        include: [{
           model: Book,
           attributes: ['title', 'author']
+      }] 
       },
-      {
-          model: Book,
-          as: 'reservedBooks',
-          attributes: { exclude: ['dueDate']}
-      },
+      { 
+        model: Reservation, 
+        include: [{
+          model: Book, 
+          attributes: {exclude: ['dueDate']}
+        }]
+      }
       ]
   })
 
