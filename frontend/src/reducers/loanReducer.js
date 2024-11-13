@@ -23,8 +23,7 @@ const initialState = []
       renew(state, action) {
         console.log(JSON.parse(JSON.stringify(state)))
         const updatedLoan = action.payload;
-        const updatedLoans = state.map(loan => (loan.id === updatedLoan.id) ? updatedLoan : 
-      loan )
+        const updatedLoans = state.map(loan => (loan.id === updatedLoan.id) ? updatedLoan : loan )
         return updatedLoans
       },
 

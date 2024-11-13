@@ -12,7 +12,7 @@ import Notification from './Notification.jsx'
 import { Button, linkStyle2 } from './Styles'
 import StarRating from './StarRating' 
 
-const Book = (  ) => {  
+const Book = () => {  
     const id = useParams().id
 
     const [available, changeAvailability] = useState(null)
@@ -105,8 +105,9 @@ const Book = (  ) => {
             <div>
                 <Button onClick= {borrow}>Borrow</Button>
             </div>
-            <p>rating:</p>
-            <StarRating id = {id}/>
+            <p>your rating:</p>
+            <StarRating id = {book.id}/>
+            <p>average: {book.rating}</p>
             <br></br>
             {user && user.admin 
             ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -125,7 +126,8 @@ const Book = (  ) => {
                 <p>year: {book.year}</p>
                 <p>You have borrowed the book.</p>
                 <p>rating:</p>
-                <StarRating id = {id}/>
+                <StarRating id = {book.id}/>
+                <p>average: {book.rating}</p>
                 <br></br>
                 {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -144,7 +146,8 @@ const Book = (  ) => {
                     <p>reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
                     <p>rating:</p>
-                    <StarRating id = {id}/>
+                    <StarRating id = {book.id}/>
+                    <p>average: {book.rating}</p>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -165,7 +168,8 @@ const Book = (  ) => {
                     <Button onClick= {reserve}>Reserve</Button>
                 </div>
                 <p>rating:</p>
-                <StarRating id = {id}/>
+                <StarRating id = {book.id}/>
+                <p>average: {book.rating}</p>
                 <br></br>
                 {user && user.admin
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>

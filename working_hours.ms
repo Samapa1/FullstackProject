@@ -69,3 +69,5 @@ Date              Hours                    Tasks
 12.11.24          3.5                      Developing rating functionality
 12.11.24          0.5                      Setting up book filtering functionality
 13.11.24          1.5                      Fixing relations, updating frontend & backend
+13.11.24          0.5                      Refactoring
+13.11.24          3.5                      Developing rating (frontend and backend)

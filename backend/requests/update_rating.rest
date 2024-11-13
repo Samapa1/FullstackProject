@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/ratings/6
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "id": 9,
+    "stars": 5
+}
