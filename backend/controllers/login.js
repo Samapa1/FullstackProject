@@ -6,6 +6,7 @@ const Session = require('../models/session')
 const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { Loan } = require('../models')
+const  { Rating }  = require('../models')
 
 
 router.post('/', async (req, res) => {
@@ -16,17 +17,27 @@ router.post('/', async (req, res) => {
     include: [
       {
         model: Loan,
+        attributes: {exclude: ['bookId']},
         include: [{
           model: Book,
-          attributes: ['title', 'author']
+          attributes: ['id', 'title', 'author']
       }] 
       },
       { 
         model: Reservation, 
+        attributes: {exclude: ['dueDate', 'bookId']},
         include: [{
           model: Book, 
-          attributes: {exclude: ['dueDate']}
+          attributes: ['id', 'title', 'author']
         }]
+      },
+      { 
+        model: Rating,
+        attributes: {exclude: ['bookId']},
+        include: [{
+          model: Book,
+          attributes: ['id', 'title', 'author']
+      }] 
       }
       ]
   })
@@ -44,14 +55,13 @@ router.post('/', async (req, res) => {
     id: user.id,
   }
 
-
   const token = jwt.sign(userForToken, process.env.SECRET)
 
   await Session.create({ userId: user.id, token})
 
   return res
   .status(200)
-  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, admin: user.admin, reservedBooks: user.reservedBooks, books: user.books })
+  .send({ token, username: user.username, name: user.name, email: user.email, id: user.id, admin: user.admin, reservations: user.reservations, loans: user.loans, ratings: user.ratings })
   
 
 })

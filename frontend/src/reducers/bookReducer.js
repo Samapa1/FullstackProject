@@ -69,7 +69,6 @@ export const rateBook = (bookObject) => {
 
 export const removeBook = (id) => {
   return async dispatch => {
-    console.log("removebookReducer")
     await bookService.remove(id)
     dispatch(deleteBook(id))
   }

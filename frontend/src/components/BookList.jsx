@@ -13,7 +13,6 @@ const Booklist = () => {
     const [booksToShow, setBooks] = useState(allBooks)
 
     useEffect(() => {
-        console.log('setting allBooks')
         setBooks(allBooks)
     }, [allBooks])
 
@@ -30,8 +29,6 @@ const Booklist = () => {
             </div>
         )
     }
-
-    console.log(booksToShow.length)
 
     if (user && user.admin){
         return (

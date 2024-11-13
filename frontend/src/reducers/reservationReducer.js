@@ -31,8 +31,6 @@ export const addReservation = (reservationData) => {
 
 export const removeReservation = (id) => {
   return async dispatch => {
-    console.log(id)
-    console.log("removing")
     await reservationService.remove(id)
     dispatch(deleteReservation(id))
   }
@@ -40,7 +38,6 @@ export const removeReservation = (id) => {
 
 export const collectReservation = (data) => {
   return async dispatch => {
-    console.log("collecting")
     await reservationService.collect(data)
     dispatch(deleteReservation(data.reservationId))
   }

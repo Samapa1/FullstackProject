@@ -24,8 +24,8 @@ import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 const Home = ({user}) => {
   let reservationsForCollection = false
 
-    if (user && user.reservedBooks) {
-      if (user.reservedBooks.find(book => book.available === true)) {
+    if (user && user.reservations) {
+      if (user.reservations.find(reservedBook => reservedBook.available === true)) {
         reservationsForCollection = true
       }
     }

@@ -3,13 +3,11 @@ import apiService from './apiservice'
 const baseUrl = 'http://localhost:3003/api/users'
 
 const getAll = async () => {
-  console.log("getAll")
   const response = await axios.get(baseUrl, apiService.getConfig())
   return response.data
 }
 
 const getOne = async ( id ) => {
-  console.log("getOne")
   const response = await axios.get(`${baseUrl}/${id}`, apiService.getConfig())
   return response.data
 }
@@ -26,7 +24,6 @@ const update = async (userObject) => {
 
 const remove = async (id) => {
   const response = await axios.delete(`${baseUrl}/${id}`, apiService.getConfig())
-  console.log(response.data)
   return response.data
 }
   

@@ -17,17 +17,16 @@ const User = () => {
       }, [dispatch]) 
 
 
-   const showBooks = () => {
-    if (user.books) {
-        const booksToShow = user.books.map (book => <Loan key ={book.id} loan = {book}/>)
-        return booksToShow
+   const showLoans = () => {
+    if (user.loans) {
+        const borrowedBooks = user.loans.map (book => <Loan key ={book.id} loan = {book}/>)
+        return borrowedBooks
     }
    }
    
    const showReservations = () => {
-    if (user.reservedBooks) {
-        console.log(user.reservedBooks)
-        const reservations = user.reservedBooks.map(reservedBook=> <Reservation key ={reservedBook.id} reservation = {reservedBook}/>)
+    if (user.reservations) {
+        const reservations = user.reservations.map(reservedBook=> <Reservation key ={reservedBook.id} reservation = {reservedBook}/>)
         return reservations
     }
    }
@@ -43,7 +42,7 @@ const User = () => {
                 <p>Email: {user.email}</p>
                 <Link style={linkStyle2} to="/userdata">Change user details</Link>
                 <p>Borrowed books:</p>
-                {showBooks()}
+                {showLoans()}
                 <p>Reservations:</p>
                 {showReservations()}
             </div>

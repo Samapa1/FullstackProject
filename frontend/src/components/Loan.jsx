@@ -7,7 +7,7 @@ import { Button } from './Styles'
 
 const Loan = ( {loan} ) => {
     const dispatch = useDispatch()
-    console.log(loan)
+
     const returnBook = async (id) => {
         if (window.confirm(`Return book ${loan.book.title} by ${loan.book.author}?`)) {
         await dispatch(removeLoan(id))

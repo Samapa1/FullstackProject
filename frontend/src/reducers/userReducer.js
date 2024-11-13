@@ -41,7 +41,6 @@ export const getUserData = () => {
   return async dispatch => {
     const userJSON = window.localStorage.getItem("loggedUser")
     if (userJSON) {
-      console.log("getUserDatareducer")
       const user = JSON.parse(userJSON)
       apiService.setToken(user.token)
       const userData = await userService.getOne(user.id)

@@ -149,8 +149,8 @@ router.get('/:id', tokenExtractor, async (req, res) => {
             name: user.name,
             email: user.email,
             admin: user.admin,
-            books: user.loans,
-            reservedBooks: user.reservations,
+            loans: user.loans,
+            reservations: user.reservations,
             ratings: user.ratings,
 
         })

@@ -42,10 +42,10 @@ const Book = (  ) => {
             }
         }
     }, [book, user])
-        
+    console.log(user)
     useEffect(() => {
-        if (user && user.books) {
-        if (user.books.find(userbook => userbook.book.title === book.title )) {
+        if (user && user.loans) {
+        if (user.loans.find(userbook => userbook.book.title === book.title )) {
             changeBorrowed(true)
 
         }
@@ -57,8 +57,8 @@ const Book = (  ) => {
 
 
     useEffect(() => {
-        if (user && user.reservedBooks) {
-            if (user.reservedBooks.find(reservedBook => reservedBook.bookId === book.id )) {
+        if (user && user.reservations) {
+            if (user.reservations.find(reservedBook => reservedBook.bookId === book.id )) {
                 changeReserved(true)
 
             }

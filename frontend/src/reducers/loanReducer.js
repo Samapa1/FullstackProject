@@ -36,16 +36,13 @@ export const { setLoans, appendLoan, deleteLoan, renew } = loanSlice.actions
 export const initializeLoans = () => {
   return async dispatch => {
     const loans = await loanService.getAll()
-    console.log(loans)
     dispatch(setLoans(loans))
   }
 }
 
 export const addLoan = (newObject) => {
     return async dispatch => {
-      console.log("loanreducer")
       const loan = await loanService.create(newObject)
-      console.log(loan)
       dispatch(appendLoan(loan))
     }
   }
@@ -60,7 +57,6 @@ export const removeLoan = (id) => {
 export const renewLoan = (updatedObject) => {
   return async dispatch => {
    const updatedLoan = await loanService.update(updatedObject)
-   console.log(updatedLoan)
    dispatch(renew(updatedLoan))
   }
 }
