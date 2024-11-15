@@ -15,22 +15,32 @@ const initialState = null
         const updatedUser = action.payload
         return updatedUser
       },
-      setUserBookRatings(state, action) {
-        const { ratingId, stars } = action.payload;
-        const userRatings = state.ratings ?? []
-        const updatedRatings = userRatings.map(rating => (rating.id === ratingId) ? {...rating, stars } : rating )
-        state.ratings = updatedRatings;
-      }, 
-      initializeUserBookRating(state, action) {
+      // setUserBookRatings(state, action) {
+      //   const { ratingId, stars } = action.payload;
+      //   const userRatings = state.ratings ?? []
+      //   const updatedRatings = userRatings.map(rating => (rating.id === ratingId) ? {...rating, stars } : rating )
+      //   state.ratings = updatedRatings;
+      // }, 
+      setUserBookRating(state, action) {
+        const newRating = action.payload
+        const newStars = newRating.stars
         console.log(JSON.parse(JSON.stringify(state)))
         console.log(action.payload)
-        state.ratings.push(action.payload)
+        const userRatings = state.ratings ?? []
+        const alreadyRated = state.ratings.find(rating => (rating.bookId === newRating.bookId ))
+        if (alreadyRated) {
+          const updatedRatings = userRatings.map(rating => (rating.id === alreadyRated.id) ? {...rating, stars: newStars } : rating )
+          state.ratings = updatedRatings;
+        }
+        else {
+          state.ratings.push(action.payload)
+        }
 
       }
     }
   })
 
-export const { setUser, setUserBookRatings, initializeUserBookRating } = userSlice.actions
+export const { setUser, setUserBookRating } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -79,15 +89,15 @@ export const removeUser = (id) => {
   }
 }
 
-export const updateUserBookRating = (ratingId, stars) => {
-  return dispatch => {
-    dispatch(setUserBookRatings({ ratingId, stars }))
-  }
-}
+// export const updateUserBookRating = (ratingId, stars) => {
+//   return dispatch => {
+//     dispatch(setUserBookRatings({ ratingId, stars }))
+//   }
+// }
 
-export const createUserBookRating = (ratingObject) => {
+export const addUserBookRating = (ratingObject) => {
   return dispatch => {
-    dispatch(initializeUserBookRating(ratingObject))
+    dispatch(setUserBookRating(ratingObject))
   }
 }
 

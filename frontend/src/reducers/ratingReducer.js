@@ -7,26 +7,28 @@ const initialState = []
     name: 'ratings',
     initialState,
     reducers: {
-      appendRating(state, action){
+      addBookRating(state, action){
+        console.log(JSON.parse(JSON.stringify(state)))
+        const newRating = action.payload
+        const alreadyRated = state.find(rating => rating.bookId === newRating.bookId)
+        if (alreadyRated) {
+          const updatedRatings = state.map(rating => (rating.id === newRating.id) ? newRating : rating )
+          return updatedRatings
+        }
         state.push(action.payload)
       },
       setRatings(state, action) {
         return action.payload
       },
-      updateRatings(state, action) {
-        const updatedRating = action.payload
-        const updatedRatings = state.map(rating => (rating.id === updatedRating.id) ? updatedRating : rating )
-        return updatedRatings
-      }
     },
   })
 
-export const { appendRating, setRatings, updateRatings } = ratingSlice.actions
+export const { addBookRating, setRatings} = ratingSlice.actions
 
 export const addRating = (newObject) => {
     return async dispatch => {
       const rating = await ratingService.create(newObject)
-      dispatch(appendRating(rating))
+      dispatch(addBookRating(rating))
     }
 }
 
@@ -37,10 +39,4 @@ export const getRatings = () => {
     }
 }
 
-export const updateRating = (updatedObject) => {
-  return async dispatch => {
-    const updatedRating = await ratingService.update(updatedObject)
-    dispatch(updateRatings(updatedRating))
-  }
-}
 export default ratingSlice.reducer

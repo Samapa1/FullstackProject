@@ -2,11 +2,8 @@ import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector} from 'react-redux'
 import { addRating } from '../reducers/ratingReducer.js'
-import { updateUserBookRating } from "../reducers/userReducer"
-import { createUserBookRating } from "../reducers/userReducer"
+import { addUserBookRating } from "../reducers/userReducer"
 import { initializeBooks } from "../reducers/bookReducer"
-// import { getUserData } from "../reducers/userReducer"
-import { updateRating } from "../reducers/ratingReducer.js"
 
 const StarRating = ( {id} = {} ) => {
 
@@ -16,47 +13,28 @@ const StarRating = ( {id} = {} ) => {
     const user = useSelector(state => state.user)
     const userRatings = user?.ratings
     const userBookRating = userRatings?.find(rating => rating.bookId === book.id)
-    console.log("userBookRating")
-    console.log(userBookRating)
     const stars = userBookRating?.stars
-    const isRated = stars !== undefined
 
     const [hover, setHover] = useState(0)
-    const ratingScale = [1,2,3,4,5]
+    const starBar = [1,2,3,4,5]
   
     useEffect(() => {
       dispatch(initializeBooks()) 
     }, [user]) 
     
-    // useEffect(() => {
-    //   dispatch(getUserData());
-    // }, []);
-
     const rateBook = async (star) => {
-      if (!isRated) {
-        await dispatch(addRating({
-          bookId: book.id,
-          userId: user.id,
-          stars: star
-        }))
-        dispatch(createUserBookRating({
-          bookId: book.id, 
-          userId: user.id,
-          stars: star
-      }))
-     } else {
-        console.log("updating!")
-        await dispatch(updateRating({
-          id: userBookRating.id,
-          stars: star
-        }))
-        dispatch(updateUserBookRating(userBookRating.id, star))
-     }
+      const newRating = {
+        bookId: book.id,
+        userId: user.id,
+        stars: star
+      }
+        await dispatch(addRating(newRating))
+        dispatch(addUserBookRating(newRating))
     }
 
     return (
         <div>
-        {ratingScale.map((star) => <span
+        {starBar.map((star) => <span
               key={star}
               style={{
                 cursor: 'pointer',

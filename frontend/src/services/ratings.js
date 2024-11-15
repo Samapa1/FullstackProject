@@ -13,13 +13,13 @@ const create = async (newObject) => {
     return response.data
 }
 
-const update = async (updatedObject) => {
-    console.log("updateService")
-    console.log(updatedObject.id)
-    const address = `${baseUrl}/${updatedObject.id}`
-    console.log(address)
-    const response = await axios.post(address, updatedObject, apiService.getConfig())
-    return response.data
-}
+// const update = async (updatedObject) => {
+//     console.log("updateService")
+//     console.log(updatedObject.id)
+//     const address = `${baseUrl}/${updatedObject.id}`
+//     console.log(address)
+//     const response = await axios.post(address, updatedObject, apiService.getConfig())
+//     return response.data
+// }
     
-export default { create, getAll, update }
+export default { create, getAll }
