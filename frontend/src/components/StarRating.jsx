@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux"
 import { useSelector} from 'react-redux'
 import { addRating } from '../reducers/ratingReducer.js'
 import { updateUserBookRating } from "../reducers/userReducer"
+import { createUserBookRating } from "../reducers/userReducer"
 import { initializeBooks } from "../reducers/bookReducer"
+// import { getUserData } from "../reducers/userReducer"
 import { updateRating } from "../reducers/ratingReducer.js"
 
 const StarRating = ( {id} = {} ) => {
@@ -14,6 +16,8 @@ const StarRating = ( {id} = {} ) => {
     const user = useSelector(state => state.user)
     const userRatings = user?.ratings
     const userBookRating = userRatings?.find(rating => rating.bookId === book.id)
+    console.log("userBookRating")
+    console.log(userBookRating)
     const stars = userBookRating?.stars
     const isRated = stars !== undefined
 
@@ -24,6 +28,10 @@ const StarRating = ( {id} = {} ) => {
       dispatch(initializeBooks()) 
     }, [user]) 
     
+    // useEffect(() => {
+    //   dispatch(getUserData());
+    // }, []);
+
     const rateBook = async (star) => {
       if (!isRated) {
         await dispatch(addRating({
@@ -31,7 +39,13 @@ const StarRating = ( {id} = {} ) => {
           userId: user.id,
           stars: star
         }))
+        dispatch(createUserBookRating({
+          bookId: book.id, 
+          userId: user.id,
+          stars: star
+      }))
      } else {
+        console.log("updating!")
         await dispatch(updateRating({
           id: userBookRating.id,
           stars: star

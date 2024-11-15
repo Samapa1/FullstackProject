@@ -192,6 +192,11 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
                 where: {
                 userId: user.id
             }})
+            await Rating.destroy({
+                where: {
+                userId: user.id
+            }})
+            console.log(user)
             await user.destroy()
     
             t.afterCommit(() => {

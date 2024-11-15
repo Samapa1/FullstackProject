@@ -20,11 +20,17 @@ const initialState = null
         const userRatings = state.ratings ?? []
         const updatedRatings = userRatings.map(rating => (rating.id === ratingId) ? {...rating, stars } : rating )
         state.ratings = updatedRatings;
+      }, 
+      initializeUserBookRating(state, action) {
+        console.log(JSON.parse(JSON.stringify(state)))
+        console.log(action.payload)
+        state.ratings.push(action.payload)
+
       }
     }
   })
 
-export const { setUser, setUserBookRatings } = userSlice.actions
+export const { setUser, setUserBookRatings, initializeUserBookRating } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -76,6 +82,12 @@ export const removeUser = (id) => {
 export const updateUserBookRating = (ratingId, stars) => {
   return dispatch => {
     dispatch(setUserBookRatings({ ratingId, stars }))
+  }
+}
+
+export const createUserBookRating = (ratingObject) => {
+  return dispatch => {
+    dispatch(initializeUserBookRating(ratingObject))
   }
 }
 

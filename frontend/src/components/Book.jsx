@@ -94,28 +94,28 @@ const Book = () => {
         await dispatch(setNotification( {data: `${book.title} reserved`, type: 'info'}, 3000))
     }
 
-    if (available && !borrowed) {
-    return (
-        <div>
-            <Notification/>
-            <h2>{book.title}</h2>
-            <p>author: {book.author}</p>
-            <p>year: {book.year}</p>
-            <div>
-                <Button onClick= {borrow}>Borrow</Button>
-            </div>
-            <p>your rating:</p>
-            <StarRating id = {book.id}/>
-            <p>average: {book.rating}</p>
-            <br></br>
-            {user && user.admin 
-            ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-            : <></> }
-        </div>
-    )
-    }
-
     if (book) {
+        if (available && !borrowed) {
+            return (
+                <div>
+                    <Notification/>
+                    <h2>{book.title}</h2>
+                    <p>author: {book.author}</p>
+                    <p>year: {book.year}</p>
+                    <div>
+                        <Button onClick= {borrow}>Borrow</Button>
+                    </div>
+                    <p>your rating:</p>
+                    <StarRating id = {book.id}/>
+                    <p>average: {book.rating}</p>
+                    <br></br>
+                    {user && user.admin 
+                    ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
+                    : <></> }
+                </div>
+            )
+            }
+            
         if (borrowed) {
         return (
             <div>
