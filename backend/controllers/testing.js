@@ -5,18 +5,20 @@ const Reservation = require('../models/reservation')
 const Session = require('../models/session')
 const { sequelize } = require('../utils/db')
 
-router.post('/reset', async (request, response) => {
+router.post('/reset', async (req, res) => {
+  try {
   await sequelize.transaction(async t => {
-    await Loan.truncate()
-    await Reservation.truncate()
-    await Session.truncate()
-    await User.destroy({ truncate: { cascade: true } })
-    t.afterCommit(() => {
-      console.log("transaction done")
-    });
-    return response.status(204).end()
+    await Loan.truncate({ transaction: t })
+    await Reservation.truncate({ transaction: t })
+    await Session.truncate({ transaction: t })
+    await User.destroy({ truncate: { cascade: true } }, { transaction: t })
+    return res.status(204).end()
   })
-  
+} catch (err) {
+    console.log(err)
+    return res.status(200).end()
+}
+   
 })
 
 module.exports = router

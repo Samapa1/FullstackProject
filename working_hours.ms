@@ -75,3 +75,4 @@ Date              Hours                    Tasks
 15.11.24          1.5                      Fixing rating (frontend) and deleting user functionality
 15.11.24          2                        Developing and refactoring rating (frontend and backend)
 18.11.24          1                        Developing delete user-functionality (frontend and backend)
+18.11.24          4                        Fixing transactions and routers, refactoring

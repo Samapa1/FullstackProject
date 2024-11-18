@@ -55,7 +55,7 @@ const BookData = () => {
                 await dispatch(removeBook(book.id))
                 await dispatch(setNotification({data: `Book deleted`, type: 'info'}, 3000))
             }
-            catch {
+            catch(exception) {
                 await dispatch(setNotification({data: `${exception.response.data.error}`, type: 'error'}, 3000))
             }
         }

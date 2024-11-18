@@ -83,13 +83,10 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     else if (loan && reservations[0]) {
         try {
             await sequelize.transaction(async t => {
-                await loan.destroy()
+                await loan.destroy( { transaction: t })
                 reservations[0].available = true
                 reservations[0].dueDate = setDueDate()
-                await reservations[0].save()
-                t.afterCommit(() => {
-                    console.log("transaction done")
-                  });
+                await reservations[0].save({ transaction: t })
                 return res.status(204).end()
             });
           

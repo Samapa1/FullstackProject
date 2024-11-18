@@ -1,8 +1,8 @@
 const router = require('express').Router()  
-const sequelize = require('sequelize')
 const { Book } = require('../models')
 const { Rating } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
+const { sequelize } = require('../utils/db')
 
 router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
@@ -18,39 +18,49 @@ router.post('/', tokenExtractor, async (req, res) => {
         return res.status(403).end()
     }
 
-    const updateBook = async () => {
-        const book = await Book.findByPk(req.body.bookId)
-        const allRatings = await Rating.findAll({
-            where: {
-                bookId: req.body.bookId}
-        })
+    const book = await Book.findByPk(req.body.bookId)
+    const allRatings = await Rating.findAll({
+        where: {
+            bookId: req.body.bookId}
+    })
+
+    const updateBookRating = async () => {
         let sum = 0
         allRatings.forEach(rating => sum += rating.stars)
         const average = sum/(allRatings.length)
-        book.rating = average
-        await book.save()
+        return average
     }
 
-    const rated = await Rating.findOne({ 
-
-        where: {
-            userId: req.user.id,
-            bookId: req.body.bookId
-        },
-    })
-
-    if (rated) {
-        const stars = req.body.stars
-        rated.stars = stars
-        await rated.save()
-        updateBook()
-        return res.status(200).json(rated)
+    try {
+        await sequelize.transaction(async t => {        
+            const rated = await Rating.findOne({ 
+                where: {
+                    userId: req.user.id,
+                    bookId: req.body.bookId
+                },
+            })
         
-    }
-    const newRating = await Rating.create({...req.body})
-    updateBook()
-    return res.json(newRating)
+            if (rated) {
+                const stars = req.body.stars
+                rated.stars = stars
+                await rated.save({ transaction: t })
+                const average = updateBookRating()
+                book.rating = average
+                await book.save({ transaction: t })
+                return res.status(200).json(rated)
+            }
 
+            const newRating = await Rating.create({...req.body}, { transaction: t })
+            const average = updateBookRating()
+            book.rating = average
+            await book.save({ transaction: t })
+            return res.json(newRating)
+
+        })
+    } catch (err) {
+        console.log(err)
+        return res.status(400).end()
+    }
 })
 
 module.exports = router

@@ -13,7 +13,6 @@ const validPassword = (password) => {
     if (password.length < 8) {
       return false
     }
-
     return ([/\d/.test(password)])
   }
 
@@ -191,26 +190,27 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
                 }
             })
            
-            let i = 0
-            while ( i < userReservations.length) {
-                await userReservations[i].destroy()
-                i ++
-            } 
-            await Session.destroy({
-                where: {
-                userId: user.id
-            }})
-            await Rating.destroy({
-                where: {
-                userId: user.id
-            }})
-            console.log(user)
-            await user.destroy()
-    
-            t.afterCommit(() => {
-                console.log("transaction done")
-              });
+            // let i = 0
+            // while ( i < userReservations.length) {
+            //     await userReservations[i].destroy({ transaction: t })
+            //     i ++
+            // } 
 
+            await userReservations.map(reservation => reservation.destroy({ transaction: t }))
+
+            await Session.destroy({ 
+                where: { 
+                    userId: user.id, 
+                },
+                transaction: t,
+            })
+            await Rating.destroy({ 
+                where: { 
+                    userId: user.id,
+                }, 
+                transaction: t, 
+            })
+            await user.destroy({ transaction: t })  
             return res.status(204).end()
         });
     

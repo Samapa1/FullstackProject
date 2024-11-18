@@ -43,7 +43,6 @@ router.post('/', tokenExtractor, async (req, res) => {
         return res.status(400).json({error: 'Available books can not be reserved.'})
     }
    
-
     const newReservation = await Reservation.create({...req.body})
     return res.json(newReservation) 
 })
@@ -62,12 +61,8 @@ router.post('/:id', tokenExtractor, async (req, res) => {
             const borrowingDate = new Date()
             const dueDate = setDueDate()
             console.log(dueDate)
-            const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
-            await reservation.destroy()
-            t.afterCommit(() => {
-                console.log("transaction done")
-              });
-
+            const newloan = await Loan.create({...req.body, borrowingDate, dueDate}, { transaction: t })
+            await reservation.destroy({ transaction: t })
             return res.json(newloan)
         });
       
