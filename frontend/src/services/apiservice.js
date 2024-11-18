@@ -11,7 +11,17 @@ const getConfig = () => {
   return config
 }
 
-export default {setToken, getConfig}
+const getPasswordConfig = (password) => {
+  const config = {
+      headers: { 
+        Authorization: token, 
+        Password: password
+       },
+    }
+  return config
+}
+
+export default {setToken, getConfig, getPasswordConfig}
 
 
 

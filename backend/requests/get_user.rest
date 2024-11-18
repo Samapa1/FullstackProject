@@ -1,2 +1,2 @@
-GET http://localhost:3003/api/users/8
-Authorization: Bearer xxxx
+GET http://localhost:3003/api/users/14
+Authorization: Bearer xxx

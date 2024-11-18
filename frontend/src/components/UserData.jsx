@@ -40,7 +40,7 @@ const UserData = () => {
     const handleRemoval = async () => {
         try {
             if (window.confirm(`Delete account permanently?`)) {
-                await dispatch(removeUser(user.id))
+                await dispatch(removeUser({id: user.id, password: password}))
                 navigate("/"); 
                 await dispatch(setNotification( {data: `User removed permanently.`, type: 'info'}, 3000))
 

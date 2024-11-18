@@ -165,6 +165,14 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     if (user.id !== req.user.id && req.user.admin !== true ) {
         return res.status(403).end()
     }
+
+    const password = req.get('password')
+   
+    const passwordCorrect = await bcrypt.compare(password, user.passwordHash)
+
+    if (!passwordCorrect) {
+        return res.status(401).json({ error: 'wrong password' })
+    }
    
     try {
         const userLoans = await Loan.findAll({

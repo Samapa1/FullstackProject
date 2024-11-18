@@ -22,8 +22,9 @@ const update = async (userObject) => {
   return response.data
 }
 
-const remove = async (id) => {
-  const response = await axios.delete(`${baseUrl}/${id}`, apiService.getConfig())
+const remove = async (userObject) => {
+  console.log(userObject)
+  const response = await axios.delete(`${baseUrl}/${userObject.id}`, apiService.getPasswordConfig(userObject.password))
   return response.data
 }
   

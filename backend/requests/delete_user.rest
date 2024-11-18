@@ -1,3 +1,4 @@
-DELETE http://localhost:3003/api/users/8
+DELETE http://localhost:3003/api/users/17
 Content-Type: application/json
 Authorization: Bearer xxx
+Password: xxx
