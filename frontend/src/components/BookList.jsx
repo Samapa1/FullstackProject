@@ -1,5 +1,5 @@
 import { useSelector} from 'react-redux'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { linkStyle1, linkStyle2 } from './Styles'
 import Notification from './Notification';
@@ -9,12 +9,7 @@ import { Input } from './Styles'
 const Booklist = () => {
     const user = useSelector(state => state.user)
     const allBooks = useSelector(state => state.books)
-    const [filter, setFilter] = useState('')
-    const [booksToShow, setBooks] = useState(allBooks)
-
-    useEffect(() => {
-        setBooks(allBooks)
-    }, [allBooks])
+    const [filtered, setFilter] = useState('')
 
     const filterBooks = () => {
         return (
@@ -22,7 +17,7 @@ const Booklist = () => {
                 <label>
                     filter books:
                     <Input
-                        value={filter}
+                        value={filtered}
                         onChange={({ target }) => setFilter(target.value)}
                     />
                 </label>
@@ -30,12 +25,15 @@ const Booklist = () => {
         )
     }
 
+    const booksToShow = allBooks.filter(book => book.title.toLowerCase().includes(filtered.toLowerCase()) || book.author.toLowerCase().includes(filtered.toLowerCase()))
+
     if (user && user.admin){
         return (
             <div>
             <Notification/>
             <><h1>Books</h1>
             {filterBooks()}
+            <br></br>
             {booksToShow.map (book => 
             <div key={book.id}>
                 <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
@@ -55,13 +53,16 @@ const Booklist = () => {
         {user 
         ? <><h1>Books</h1>
             {filterBooks()}
-            {allBooks.map (book => 
+            <br></br>
+            {booksToShow.map (book => 
             <div key={book.id}>
                 <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
             </div>
             )}
             </>
         : <><h1>Books</h1>
+        {filterBooks()}
+        <br></br>
         {allBooks.map (book => 
         <div key= {book.id}>
         <p>{book.title} by {book.author}</p>

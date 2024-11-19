@@ -78,3 +78,4 @@ Date              Hours                    Tasks
 18.11.24          4                        Fixing transactions and routers, refactoring
 19.11.24          1.5                      Fixing transactions
 19.11.24          1.5                      Fixing routers, refactoring
+19.11.24          1                        Developing booklist (filter functionality)
