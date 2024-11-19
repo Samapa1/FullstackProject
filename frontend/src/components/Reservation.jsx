@@ -4,6 +4,7 @@ import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
 import { collectReservation } from '../reducers/reservationReducer'
 import { Button } from './Styles'
+import { formatDate } from '../../utils/helper.js'
 
 
 const Reservation = ( { reservation }) => {
@@ -23,11 +24,6 @@ const Reservation = ( { reservation }) => {
         }))
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${reservation.book.title} borrowed`, type: 'info'}, 3000))
-    }
-
-    const formatDate = (duedate) => {
-        let formatteddate = new Date(duedate)
-        return formatteddate.toLocaleDateString()
     }
 
     if (reservation.available) {

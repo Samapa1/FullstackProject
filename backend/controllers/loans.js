@@ -4,14 +4,8 @@ const { Book } = require('../models')
 const { Reservation } = require('../models')
 const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
+const { setDueDate } = require('../utils/helper')
 const { sequelize } = require('../utils/db')
-
-const setDueDate = () => {
-    let date = new Date()
-    date.setDate(date.getDate() + 8);
-    date.setHours(0, 0, 0)
-    return date
-}
 
 router.get('/', tokenExtractor, async (req, res) => {
     console.log(req.user)
@@ -41,7 +35,6 @@ router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
         return res.status(403).end()
     }
-
     const book = await Book.findByPk(req.body.bookId, {
         include: [
             {
@@ -70,34 +63,37 @@ router.post('/', tokenExtractor, async (req, res) => {
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
-    const loan = await Loan.findByPk(req.params.id)
-    const reservations = await Reservation.findAll({ 
-        where: {bookId: loan.bookId, available: false}, 
-        order: [['createdAt', 'ASC']] 
-    })
 
-    if (loan.userId !== req.user.id && req.user.admin !== true) {
-        return res.status(403).end()
-    }
+    try {
+        await sequelize.transaction(async t => {
 
-    else if (loan && reservations[0]) {
-        try {
-            await sequelize.transaction(async t => {
-                await loan.destroy( { transaction: t })
-                reservations[0].available = true
-                reservations[0].dueDate = setDueDate()
-                await reservations[0].save({ transaction: t })
-                return res.status(204).end()
-            });
-          
-          } catch (error) {
-            console.log(error)
-            return res.status(400).end()
-          }
-    }
-    else if (loan) {
-        await loan.destroy()
-        return res.status(204).end()
+        const loan = await Loan.findByPk(req.params.id, { transaction: t })
+        const reservations = await Reservation.findAll({ 
+            where: {bookId: loan.bookId, available: false}, 
+            order: [['createdAt', 'ASC']],
+            transaction: t, 
+        })
+
+        if (loan.userId !== req.user.id && req.user.admin !== true) {
+            return res.status(403).end()
+        }
+
+        else if (loan && reservations[0]) {
+                
+            await loan.destroy( { transaction: t })
+            reservations[0].available = true
+            reservations[0].dueDate = setDueDate()
+            await reservations[0].save({ transaction: t })
+            return res.status(204).end()
+        } 
+        else if (loan) {
+            await loan.destroy({ transaction: t })
+            return res.status(204).end()
+        }
+    });
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ error: 'Request failed' }).end()
     }
 })
 

@@ -6,6 +6,7 @@ import { removeLoan } from '../reducers/loanReducer'
 import { getUserData} from '../reducers/userReducer.js'
 import Notification from './Notification.jsx'
 import { setNotification } from '../reducers/notificationReducer.js'
+import { formatDate } from '../../utils/helper.js'
 
 const Loanlist = () => {
 
@@ -20,19 +21,16 @@ const Loanlist = () => {
       }, [dispatch]) 
     
     const loanList = useSelector(state => state.loans) 
-    console.log(loanList)
     
     const returnLoan = async (loan) => {
-        console.log("returning")
         if (window.confirm(`Return ${loan.user.name}'s book ${loan.book.title} by ${loan.book.author}?`)) {
             await dispatch(removeLoan(loan.id))
             await dispatch(setNotification( {data: `${loan.book.title} returned`, type: 'info'}, 3000))
-            }
+        }
     }
 
     const isLate = (duedate) => {
         let date = new Date()
-        console.log(duedate)
         if (Date.parse(duedate) < date) {
             return <div style={{ color: 'red' }}>late!</div>
         }
@@ -41,14 +39,7 @@ const Loanlist = () => {
         }
         }
     
-    const formatDate = (duedate) => {
-        let formatteddate = new Date(duedate)
-        return formatteddate.toLocaleDateString()
-    }
-
-    
-
-    if (loanList) {
+    if (loanList.length >0) {
     return (
         <div>
         <Notification/>

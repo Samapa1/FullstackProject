@@ -174,29 +174,25 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     }
    
     try {
-        const userLoans = await Loan.findAll({
-            where: {
-                userId: user.id
-            }
-        })
-        if (userLoans.length >0) {
-            return res.status(400).json({error: 'not permitted to delete user who has unreturned books'})
-        }
-
         await sequelize.transaction(async t => {
+            const userLoans = await Loan.findAll({
+                where: {
+                    userId: user.id
+                },
+                transaction: t,
+            })
+            if (userLoans.length >0) {
+                return res.status(400).json({error: 'not permitted to delete user who has unreturned books'})
+            }
+       
             const userReservations = await Reservation.findAll({
                 where: {
                     userId: user.id
-                }
+                },
+                transaction: t,
             })
            
-            // let i = 0
-            // while ( i < userReservations.length) {
-            //     await userReservations[i].destroy({ transaction: t })
-            //     i ++
-            // } 
-
-            await userReservations.map(reservation => reservation.destroy({ transaction: t }))
+            await Promise.all(userReservations.map(reservation => reservation.destroy({ transaction: t })))
 
             await Session.destroy({ 
                 where: { 

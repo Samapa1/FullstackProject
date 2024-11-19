@@ -107,7 +107,7 @@ const Book = () => {
                     </div>
                     <p>your rating:</p>
                     <StarRating id = {book.id}/>
-                    <p>average: {book.rating}</p>
+                    <p>average: {book.rating.toFixed(2)}</p>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -126,7 +126,7 @@ const Book = () => {
                 <p>You have borrowed the book.</p>
                 <p>your rating:</p>
                 <StarRating id = {book.id}/>
-                <p>average: {book.rating}</p>
+                <p>average: {book.rating.toFixed(2)}</p>
                 <br></br>
                 {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -146,7 +146,7 @@ const Book = () => {
                     <p>You have reserved the book.</p>
                     <p>your rating:</p>
                     <StarRating id = {book.id}/>
-                    <p>average: {book.rating}</p>
+                    <p>average: {book.rating.toFixed(2)}</p>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -168,7 +168,7 @@ const Book = () => {
                 </div>
                 <p>your rating:</p>
                 <StarRating id = {book.id}/>
-                <p>average: {book.rating}</p>
+                <p>average: {book.rating.toFixed(2)}</p>
                 <br></br>
                 {user && user.admin
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>

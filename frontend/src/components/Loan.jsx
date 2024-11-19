@@ -4,6 +4,7 @@ import { renewLoan } from '../reducers/loanReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
 import { Button } from './Styles'
+import { formatDate } from '../../utils/helper.js'
 
 const Loan = ( {loan} ) => {
     const dispatch = useDispatch()
@@ -28,12 +29,6 @@ const Loan = ( {loan} ) => {
         }
 
     }
-
-    const formatDate = (duedate) => {
-        let formatteddate = new Date(duedate)
-        return formatteddate.toLocaleDateString()
-    }
-
    
     return (
     <div>
