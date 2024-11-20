@@ -1,6 +1,7 @@
 const router = require('express').Router()  
 const { Book } = require('../models')
 const { Rating } = require('../models')
+const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { sequelize } = require('../utils/db')
 
@@ -8,7 +9,21 @@ router.get('/', tokenExtractor, async (req, res) => {
     if (req.user.admin !== true) {
         return res.status(403).json({ error: 'Only admins are allowed to view ratings.' })
     }
-    const ratings = await Rating.findAll({})
+    const ratings = await Rating.findAll({
+        include: [
+            {
+                model: Book,
+                attributes: ['title', 'author'],
+            },
+            {
+                model: User,
+                attributes: ['name'],
+            }
+        ],
+        order: [
+            'bookId'
+        ],
+    })
     return res.json(ratings)
     
 })
@@ -64,6 +79,16 @@ router.post('/', tokenExtractor, async (req, res) => {
         console.log(err)
         return res.status(400).json({error: 'Request failed'}).end()
     }
+})
+
+router.delete('/:id', tokenExtractor, async (req, res) => {
+    if (!req.user.admin) {
+        return res.status(403).end()
+    }
+    const ratingToRemove = await Rating.findByPk(req.params.id)
+    await ratingToRemove.destroy()
+    return res.status(204).end()
+
 })
 
 module.exports = router

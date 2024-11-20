@@ -19,7 +19,6 @@ const initialState = null
         const newRating = action.payload
         const newStars = newRating.stars
         console.log(JSON.parse(JSON.stringify(state)))
-        console.log(action.payload)
         const userRatings = state.ratings ?? []
         const alreadyRated = state.ratings.find(rating => (rating.bookId === newRating.bookId ))
         if (alreadyRated) {
@@ -30,11 +29,17 @@ const initialState = null
           state.ratings.push(action.payload)
         }
 
-      }
+      },
+      // setUserBookReservation(state, action) {
+      //   console.log(JSON.parse(JSON.stringify(state)))
+      //   console.log(state.reservations)
+      //   console.log(action.payload)
+      //   state.reservations.push(action.payload)
+      // }
     }
   })
 
-export const { setUser, setUserBookRating } = userSlice.actions
+export const { setUser, setUserBookRating, setUserBookReservation } = userSlice.actions
 
 export const loginUser = (loginData) => {
   return async dispatch => {
@@ -88,5 +93,11 @@ export const addUserBookRating = (ratingObject) => {
     dispatch(setUserBookRating(ratingObject))
   }
 }
+
+// export const addUserBookReservation= (reservationObject) => {
+//   return dispatch => {
+//     dispatch(setUserBookReservation(reservationObject))
+//   }
+// }
 
 export default userSlice.reducer

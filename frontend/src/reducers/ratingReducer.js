@@ -20,10 +20,15 @@ const initialState = []
       setRatings(state, action) {
         return action.payload
       },
+      removeBookRating(state, action) {
+        const id = action.payload
+        const updatedRatings = state.filter(rating => rating.id !== id)
+        return updatedRatings
+      },
     },
   })
 
-export const { addBookRating, setRatings} = ratingSlice.actions
+export const { addBookRating, setRatings, removeBookRating} = ratingSlice.actions
 
 export const addRating = (newObject) => {
     return async dispatch => {
@@ -37,6 +42,13 @@ export const getRatings = () => {
       const ratings = await ratingService.getAll()
       dispatch(setRatings(ratings))
     }
+}
+
+export const removeRating = (id) => {
+  return async dispatch => {
+    await ratingService.remove(id)
+    dispatch(removeBookRating(id))
+  }
 }
 
 export default ratingSlice.reducer

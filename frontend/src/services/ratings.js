@@ -4,7 +4,7 @@ import apiService from './apiservice'
 const baseUrl = 'http://localhost:3003/api/ratings'
 
 const getAll = async () => {
-    const response = await axios.get(baseUrl)
+    const response = await axios.get(baseUrl, apiService.getConfig())
     return response.data
 }
 
@@ -13,13 +13,9 @@ const create = async (newObject) => {
     return response.data
 }
 
-// const update = async (updatedObject) => {
-//     console.log("updateService")
-//     console.log(updatedObject.id)
-//     const address = `${baseUrl}/${updatedObject.id}`
-//     console.log(address)
-//     const response = await axios.post(address, updatedObject, apiService.getConfig())
-//     return response.data
-// }
+const remove = async (id) => {
+    const response = await axios.delete(`${baseUrl}/${id}`, apiService.getConfig())
+    return response
+}
     
-export default { create, getAll }
+export default { create, getAll, remove }

@@ -15,6 +15,7 @@ const BookData = () => {
     const [author, setAuthor] = useState('')
     const [items, setItems] = useState('')
     const [year, setYear] = useState('')
+    const [language, setLanguage] = useState('')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -25,6 +26,7 @@ const BookData = () => {
             setAuthor(book.author)
             setItems(book.numberOfBooks)
             setYear(book.year)
+            setLanguage(book.language)
         }
     }, [book])
 
@@ -37,7 +39,7 @@ const BookData = () => {
         console.log("changing book details")
         
         try {
-            await dispatch(updateBook({...book, title: title, author: author, year: year, numberOfBooks: items}))
+            await dispatch(updateBook({...book, title: title, author: author, year: year, language: language, numberOfBooks: items}))
             await dispatch(setNotification({data: `Changes saved succesfully`, type: 'info'}, 3000))
         }
         catch (exception) {
@@ -48,7 +50,6 @@ const BookData = () => {
 
     const handleDelete = async () => {
         console.log("deleting")
-        console.log(book.id)
         if (window.confirm(`Remove ${book.title} by ${book.author} permanently?`)) {
             try {
                 navigate("/books")
@@ -92,6 +93,15 @@ const BookData = () => {
                     value={year}
                     name="year"
                     onChange={({ target }) => setYear(target.value)}
+                />
+            </div>
+            <div>
+                language
+                <Input
+                    type="text"
+                    value={language}
+                    name="language"
+                    onChange={({ target }) => setLanguage(target.value)}
                 />
             </div>
             <div>

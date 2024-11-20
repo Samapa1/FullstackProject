@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Reservation } = require('../models')
 const { Loan } = require('../models')
 const { Book } = require('../models')
+const { User } = require('../models')
 const { tokenExtractor } = require('../utils/middleware')
 const { setDueDate } = require('../utils/helper')
 const { sequelize } = require('../utils/db')
@@ -11,7 +12,18 @@ router.get('/', tokenExtractor, async (req, res) => {
         return res.status(403).json({ error: 'Only admins are allowed to view reservations.' })
     }
 
-    const reservations = await Reservation.findAll()
+    const reservations = await Reservation.findAll({
+        include: [
+            {
+            model: Book,
+            attributes: ['title', 'author'],
+            },
+            {
+            model: User,
+            attributes: ['name'],
+            }
+        ]
+    })
     return res.json(reservations)
 })
 

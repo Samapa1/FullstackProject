@@ -55,6 +55,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
     book.title = req.body.title, 
     book.author = req.body.author, 
     book.year = req.body.year, 
+    book.language = req.body.language,
     book.numberOfBooks = req.body.numberOfBooks
     await book.save({ transaction: t })
     

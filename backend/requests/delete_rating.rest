@@ -1,0 +1,3 @@
+DELETE http://localhost:3003/api/ratings/53
+Content-Type: application/json
+Authorization: Bearer xxx

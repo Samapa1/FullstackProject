@@ -79,3 +79,5 @@ Date              Hours                    Tasks
 19.11.24          1.5                      Fixing transactions
 19.11.24          1.5                      Fixing routers, refactoring
 19.11.24          1                        Developing booklist (filter functionality)
+20.11.24          1.5                      Adding language to book, setting up reservationlist for admins (frontend)
+20.11.24          2                        Setting up ratinglist for admins (frontend and backend)

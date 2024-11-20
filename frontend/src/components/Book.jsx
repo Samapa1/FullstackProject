@@ -102,6 +102,7 @@ const Book = () => {
                     <h2>{book.title}</h2>
                     <p>author: {book.author}</p>
                     <p>year: {book.year}</p>
+                    <p>language: {book.language}</p>
                     <div>
                         <Button onClick= {borrow}>Borrow</Button>
                     </div>
@@ -123,6 +124,7 @@ const Book = () => {
                 <h2>{book.title}</h2>
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
+                <p>language: {book.language}</p>
                 <p>You have borrowed the book.</p>
                 <p>your rating:</p>
                 <StarRating id = {book.id}/>
@@ -142,6 +144,7 @@ const Book = () => {
                     <h2>{book.title}</h2>
                     <p>author: {book.author}</p>
                     <p>year: {book.year}</p>
+                    <p>language: {book.language}</p>
                     <p>reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
                     <p>your rating:</p>
@@ -161,6 +164,7 @@ const Book = () => {
                 <h2>{book.title}</h2>
                 <p>author: {book.author}</p>
                 <p>year: {book.year}</p>
+                <p>language: {book.language}</p>
                 <p>not available (all items are borrowed)</p>
                 <p>reservations: {numberOfReservations}</p>
                 <div>

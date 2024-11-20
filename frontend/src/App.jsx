@@ -18,6 +18,8 @@ import UserData from './components/UserData'
 import BookData from './components/BookData'
 import Loanlist from './components/Loanlist'
 import Userlist from './components/Userlist'
+import Reservationlist from './components/Reservationlist'
+import Ratinglist from './components/Ratinglist'
 import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
@@ -86,7 +88,12 @@ const App = () => {
       { user && user.admin 
       ? <> <Link style={padding} to="/loans">loans</Link>
            <br></br>
+           <Link style={padding} to="/reservations">reservations</Link>
+           <br></br>
+           <Link style={padding} to="/ratings">ratings</Link>
+           <br></br>
            <Link style={padding} to="/users">users</Link>
+       
         </>
       : <></>
       } 
@@ -104,7 +111,9 @@ const App = () => {
       <Route path="/addBook" element={<BookForm/>} />
       <Route path="/bookdata/:id" element={<BookData/>} />
       <Route path="/loans" element={<Loanlist />} />
+      <Route path="/reservations" element={<Reservationlist />} />
       <Route path="/users" element={<Userlist />} />
+      <Route path="/ratings" element={<Ratinglist />} />
     </Routes></div>
     </div>
   </Router>

@@ -40,7 +40,7 @@ Book.init({
         args: [3],
         msg: 'Minimum 3 characters required in the title'
       }
-  }
+    }
   },
   year: {
     type: DataTypes.INTEGER,
@@ -71,6 +71,27 @@ Book.init({
   rating: {
     type: DataTypes.FLOAT,
     default: 0,
+  },
+  subjects: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  language: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    default: 'english',
+    validate: {
+      notNull: {
+          msg: 'Please enter language',
+      },
+      notEmpty: {
+          msg: 'Please enter language',
+      },
+      len: {
+        args: [2],
+        msg: 'Minimum 2 characters required in the language'
+      }
+    }
   }
 
 }, {
