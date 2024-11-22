@@ -81,3 +81,5 @@ Date              Hours                    Tasks
 19.11.24          1                        Developing booklist (filter functionality)
 20.11.24          1.5                      Adding language to book, setting up reservationlist for admins (frontend)
 20.11.24          2                        Setting up ratinglist for admins (frontend and backend)
+20.11.24          0.5                      Setting up UserDataAdmin component
+22.11.24          3.5                      Developing UserDataAdmin, Userlist and related routers

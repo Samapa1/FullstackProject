@@ -23,11 +23,16 @@ const update = async (userObject) => {
 }
 
 const remove = async (userObject) => {
-  console.log(userObject)
   const response = await axios.delete(`${baseUrl}/${userObject.id}`, apiService.getPasswordConfig(userObject.password))
+  return response.data
+
+}
+
+const adminRemove = async (userObject) => {
+  const response = await axios.delete(`${baseUrl}/${userObject.id}`, apiService.getConfig())
   return response.data
 }
   
   
   
-export default { getAll, getOne, create, update, remove }
+export default { getAll, getOne, create, update, remove, adminRemove }

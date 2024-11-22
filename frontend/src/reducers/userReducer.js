@@ -30,12 +30,6 @@ const initialState = null
         }
 
       },
-      // setUserBookReservation(state, action) {
-      //   console.log(JSON.parse(JSON.stringify(state)))
-      //   console.log(state.reservations)
-      //   console.log(action.payload)
-      //   state.reservations.push(action.payload)
-      // }
     }
   })
 
