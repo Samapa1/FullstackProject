@@ -74,8 +74,6 @@ const App = () => {
      
     </div>
     <div style={{display: "flex"}}>
-      
-      <div>
       <NavBar>
       <Link style={padding} to="/">home</Link>
       <br></br>
@@ -97,8 +95,8 @@ const App = () => {
         </>
       : <></>
       } 
-      </NavBar></div>
-      <div>
+      </NavBar>
+    <div>
     <Routes>
       <Route path="/books" element={<Booklist />} />
       <Route path="/books/:id" element={<Book />} />

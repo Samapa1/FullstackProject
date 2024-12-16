@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { initializeUsers } from'../reducers/usersReducer.js'
 import { getUserData} from '../reducers/userReducer.js'
-import { listStyle, Button } from './Styles.jsx'
+import { listStyle, Button, Table2 } from './Styles.jsx'
 import UserDataAdmin from './UserDataAdmin.jsx'
 
 const Userlist = () => {
@@ -28,16 +28,19 @@ const Userlist = () => {
         return (
             <div>
                 <h1>Users</h1>
-                { selectedUser 
-                ? <UserDataAdmin user= {selectedUser} handleUserSelection= {handleUserSelection}/>
-                : userlist.map(user => <div key= {user.id} style={listStyle}> 
-                    <div>
-                        {user.name} 
-                    </div>
-                    <Button onClick= {() => handleUserSelection(user)}>Change details</Button>
-                    <></>
-                </div>)
-            }
+                <Table2>
+                    <tbody>
+                    { selectedUser 
+                    ? <UserDataAdmin user= {selectedUser} handleUserSelection= {handleUserSelection}/>
+                    : userlist.map(user => 
+                        <tr key={user.id}>
+                            <td>{user.name}</td>
+                            <td><Button onClick= {() => handleUserSelection(user)}>Change details</Button></td>
+                        </tr>
+                    )
+                    }
+            </tbody>
+            </Table2>
             </div>
         )}
 }

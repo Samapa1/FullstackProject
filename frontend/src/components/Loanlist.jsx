@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { initializeLoans } from'../reducers/loanReducer.js'
-import { listStyle, Button } from './Styles.jsx'
+import { listStyle, Button, Table } from './Styles.jsx'
 import { removeLoan } from '../reducers/loanReducer'
 import { getUserData} from '../reducers/userReducer.js'
 import Notification from './Notification.jsx'
@@ -32,7 +32,7 @@ const Loanlist = () => {
     const isLate = (duedate) => {
         let date = new Date()
         if (Date.parse(duedate) < date) {
-            return <div style={{ color: 'red' }}>late!</div>
+            return <div>late</div>
         }
         else {
             return <div>ok</div>
@@ -40,18 +40,32 @@ const Loanlist = () => {
         }
     
     if (loanList.length >0) {
-    return (
-        <div>
-        <Notification/>
-        <h1>Loans</h1>
-        {loanList.map(loan => 
-            <div key = {loan.id} style={listStyle}>
-            <div>{loan.user.name} {loan.book.title} by {loan.book.author} due date: {formatDate(loan.dueDate)}</div>status: {isLate(loan.dueDate)}
-            <Button onClick= {() => returnLoan(loan)}>Return</Button>
+        return(
+            <div>
+            <Notification/>
+            <h1>Loans</h1>
+            <Table>
+                <tbody>
+                <tr>
+                    <th>User</th>
+                    <th>Book</th>
+                    <th>Due date</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            {loanList.map(loan=> 
+                <tr key= {loan.id}>
+                    <td>{loan.user.name}</td> 
+                    <td>{loan.book.title}</td>
+                    <td>{formatDate(loan.dueDate)}</td>
+                    <td>{isLate(loan.dueDate)}</td>
+                    <td><Button onClick= {() => returnLoan(loan)}>Return</Button></td>
+                </tr>
+            )}
+            </tbody>
+            </Table>
             </div>
-        )}
-        </div>
-    )
+        )
     }
 }
 

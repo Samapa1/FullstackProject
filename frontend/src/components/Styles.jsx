@@ -13,9 +13,9 @@ export const Button = styled.button`
   background:#54A4A6;
   color: #FFFFFF;
   font-family: 'Futura', sans-serif;
-  font-size: 1em;
+  font-size: 0.9em;
   padding: 0.1em 0.75em;
-  margin: 0.1em 0.2em;
+  margin: 1px 1px 1px 1px;
   border: 2px solid #54A4A6;
   border-radius: 3px;
 `;
@@ -27,12 +27,11 @@ export const Input = styled.input`
 export const NavBar = styled.div`
   display: inline-block;
   width: 200px;
-  height: 500px;
   background-color: #3C6D75;
   color:  #FFFFFF;
   text-align: center;
-  margin: 20px 20px 20px 0 ;
-  padding: 100px 0 0 0 ;
+  margin: 20px 20px 0 0 ;
+  padding: 100px 0 100px 0 ;
   line-height: 2.5;
 `;
 
@@ -64,10 +63,42 @@ export const linkStyle2 = {
 
 export const listStyle= {
   display: 'flex',
-  gap: '5px'
+  gap: '5px',
+  margin: '10px 0px 10px 0px' 
 }
 
 export const starStyle = {
   cursor: 'pointer',
   fontSize: '35px'
 }
+
+
+export const Table = styled.table`
+
+  td {
+      border: solid #54A4A6 1px;
+      padding-right: 5px;
+      padding-left: 5px;
+    },
+  th {
+      color: #3C6D75;
+    }
+`;
+
+export const Table2 = styled.table`
+
+  td {
+      padding-right: 5px;
+      padding-left: 5px;
+    },
+  th {
+      color: #3C6D75;
+    }
+`;
+
+// border: solid #54A4A6 1px;¨
+// table-layout: fixed;
+// width: 1000px;
+
+// height: 500px;
+// padding: 0.1em 0.75em;
