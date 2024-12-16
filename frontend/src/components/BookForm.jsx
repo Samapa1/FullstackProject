@@ -10,24 +10,28 @@ const BookForm = () => {
     const [author, setAuthor] = useState('')
     const [year, setYear] = useState('')
     const [items, setItems] = useState('')
+    const [language, setLanguage] = useState('')
 
     const dispatch = useDispatch()
 
-    const handleForm = async () => {
+    const handleForm = async (e) => {
+      e.preventDefault()
 
         try {
             const bookObject = {
                 title: title, 
                 author: author,
                 year: Number(year), 
+                language: language,
                 numberOfBooks: items
             }
             await dispatch(addBook(bookObject))
             await dispatch(setNotification({data: `${bookObject.title} by ${bookObject.author} added`, type: 'info'}, 3000))
         }
         catch(exception){
+            console.log("something went wrong")
             console.log(exception)
-            await dispatch(setNotification({data: `${exception.response.data.message}`, type: 'error'}, 3000))
+            await dispatch(setNotification({data: `${exception.response.data.error}`, type: 'error'}, 3000))
 
         }
     }
@@ -65,6 +69,16 @@ const BookForm = () => {
             value={year}
             name="year"
             onChange={({ target }) => setYear(target.value)}
+          />
+        </div>
+        <div>
+          language
+          <Input
+            data-testid="language"
+            type="text"
+            value={language}
+            name="language"
+            onChange={({ target }) => setLanguage(target.value)}
           />
         </div>
         <div>

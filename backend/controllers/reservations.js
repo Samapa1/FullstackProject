@@ -83,7 +83,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     try {
         await sequelize.transaction(async t => {
             const reservation = await Reservation.findByPk(req.params.id, {transaction: t})
-            if (reservation.userId !== req.user.id) {
+            if (reservation.userId !== req.user.id && req.user.admin !== true) {
                 return res.status(403).end()
             }
         

@@ -67,6 +67,9 @@ const Loanlist = () => {
             </div>
         )
     }
+    return (
+        <h1>Loans</h1>
+    )
 }
 
 export default Loanlist

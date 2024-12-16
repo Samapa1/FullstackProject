@@ -1,13 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { initializeUsers } from'../reducers/usersReducer.js'
 import { getUserData} from '../reducers/userReducer.js'
-import { listStyle, Button, Table2 } from './Styles.jsx'
-import UserDataAdmin from './UserDataAdmin.jsx'
+import { linkStyle1 } from './Styles.jsx'
 
 const Userlist = () => {
-    const [selectedUser, setSelectedUser] = useState(null)
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -20,27 +18,15 @@ const Userlist = () => {
 
     const userlist= useSelector(state => state.users)
 
-    const handleUserSelection = (user) => {
-        setSelectedUser(user)
-    }
-
     if (userlist) {
         return (
             <div>
                 <h1>Users</h1>
-                <Table2>
-                    <tbody>
-                    { selectedUser 
-                    ? <UserDataAdmin user= {selectedUser} handleUserSelection= {handleUserSelection}/>
-                    : userlist.map(user => 
-                        <tr key={user.id}>
-                            <td>{user.name}</td>
-                            <td><Button onClick= {() => handleUserSelection(user)}>Change details</Button></td>
-                        </tr>
-                    )
-                    }
-            </tbody>
-            </Table2>
+                    {userlist.map(user => 
+                        <div key={user.id}>
+                            <Link style={linkStyle1} to={`/users/${user.id}`}>{user.name}</Link>
+                        </div>
+                    )}
             </div>
         )}
 }

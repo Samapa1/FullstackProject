@@ -20,6 +20,7 @@ import Loanlist from './components/Loanlist'
 import Userlist from './components/Userlist'
 import Reservationlist from './components/Reservationlist'
 import Ratinglist from './components/Ratinglist'
+import UserDataAdmin from './components/UserDataAdmin'
 import { Page, NavBar, UpperBar, Footer } from './components/Styles'
 
 
@@ -111,6 +112,7 @@ const App = () => {
       <Route path="/loans" element={<Loanlist />} />
       <Route path="/reservations" element={<Reservationlist />} />
       <Route path="/users" element={<Userlist />} />
+      <Route path="/users/:id" element={<UserDataAdmin/>}/>
       <Route path="/ratings" element={<Ratinglist />} />
     </Routes></div>
     </div>

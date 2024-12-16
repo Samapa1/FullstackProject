@@ -83,7 +83,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(403).end()
     }
 
-    if (req.user.admin && req.user.id !== user.id) {
+    if (req.user.admin) {
         user.username = req.body.username
         user.name = req.body.name
         user.email = req.body.email
@@ -108,7 +108,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(401).json({ error: 'wrong password' })
     }
 
-    try {
+    // try {
         if (!req.body.newPassword) {
             user.name = req.body.name
             user.email = req.body.email
@@ -146,17 +146,17 @@ router.post('/:id', tokenExtractor, async (req, res) => {
 
         })
     
-    }
-    catch(err) {
-        console.log(err.errors[0].message)
-        return res.status(400).json({error: 'Request failed'})
-    }
+    // }
+    // catch(err) {
+        // console.log(err)
+        // return res.status(400).json({error: 'Request failed'})
+    // }
     
   })
 
 router.get('/:id', tokenExtractor, async (req, res) => {
   
-    if (Number(req.params.id) !== Number(req.user.id)) {
+    if (Number(req.params.id) !== Number(req.user.id) && !req.user.admin ) {
         return res.status(403).end()
     }
     

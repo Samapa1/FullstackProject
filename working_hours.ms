@@ -84,3 +84,5 @@ Date              Hours                    Tasks
 20.11.24          0.5                      Setting up UserDataAdmin component
 22.11.24          3.5                      Developing UserDataAdmin, Userlist and related routers
 22.11.24          0.5                      Styling
+16.12.24          2                        Styling
+16.12.24          3                        Refactoring and fixing the code

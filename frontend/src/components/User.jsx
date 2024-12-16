@@ -36,8 +36,7 @@ const User = () => {
         return (
             <div>
                 <Notification/>
-                <br></br>
-                User: 
+                <h1>User</h1>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
                 <Link style={linkStyle2} to="/userdata">Change user details</Link>

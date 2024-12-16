@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { addRating, getRatings } from "../reducers/ratingReducer";
+import { getRatings } from "../reducers/ratingReducer";
 import { removeRating } from "../reducers/ratingReducer";
 import { getUserData } from "../reducers/userReducer"
-import { listStyle, Button, Table } from './Styles.jsx'
+import { Button, Table } from './Styles.jsx'
 import Notification from './Notification.jsx'
 import { setNotification } from '../reducers/notificationReducer.js'
 
@@ -58,6 +58,9 @@ const Ratinglist = () => {
             </div>
         )
     }
+    return (
+        <h1>Ratings</h1>
+    )
 }
 
 export default Ratinglist

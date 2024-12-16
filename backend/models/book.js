@@ -79,7 +79,6 @@ Book.init({
   language: {
     type: DataTypes.STRING,
     allowNull: false,
-    default: 'english',
     validate: {
       notNull: {
           msg: 'Please enter language',

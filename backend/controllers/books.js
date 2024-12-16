@@ -21,22 +21,15 @@ router.post('/', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to add books.'})
   }
-  try {
     const book = await Book.create({...req.body})
     return res.status(201).json(book)
-  }
-  catch (err) {
-    console.log(err.errors[0].message)
-    return res.status(400).json({message: err.errors[0].message })
-  }
-
 })
 
 router.put('/:id', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to modify books.'})
   }
-  try {
+
     await sequelize.transaction(async t => {
     const book = await Book.findByPk(req.params.id, {
       include: [
@@ -99,6 +92,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
       const reservationsToChange = availableReservations.length - (book.numberOfBooks - book.loans.length)
       let i = 0
       while (i < reservationsToChange) {
+        console.log("changing reservations")
         availableReservations[i].available = false
         availableReservations[i].dueDate = null
         await availableReservations[i].save({ transaction: t})
@@ -108,11 +102,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
 
     return res.json(book)
 
-  })}
-  catch (err) {
-    console.log(err)
-    return res.status(400).json({error: 'Request failed' })
-  }
+  })
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
