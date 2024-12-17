@@ -45,10 +45,20 @@ router.put('/:id', tokenExtractor, async (req, res) => {
       return res.status(403).json({error: 'Please return books before removing them.'})
     }
 
+    console.log(req.body.subjects)
+
+    if (!req.body.genre && !req.body.subjects) {
+      return res.status(400).json({error: 'Please fill genre/subjects -field.'})
+    }
+
+
     book.title = req.body.title, 
     book.author = req.body.author, 
     book.year = req.body.year, 
     book.language = req.body.language,
+    book.class = req.body.class,
+    book.genre = req.body.genre,
+    book.subjects = req.body.subjects,
     book.numberOfBooks = req.body.numberOfBooks
     await book.save({ transaction: t })
     

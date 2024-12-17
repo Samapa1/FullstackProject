@@ -16,6 +16,9 @@ const BookData = () => {
     const [items, setItems] = useState('')
     const [year, setYear] = useState('')
     const [language, setLanguage] = useState('')
+    const [libraryClass, setClass] = useState('')
+    const [genre, setGenre] = useState('')
+    const [subjects, setSubjects] = useState('')
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -27,6 +30,9 @@ const BookData = () => {
             setItems(book.numberOfBooks)
             setYear(book.year)
             setLanguage(book.language)
+            setClass(book.class)
+            setGenre(book.genre)
+            setSubjects(book.subjects)
         }
     }, [book])
 
@@ -39,7 +45,7 @@ const BookData = () => {
         console.log("changing book details")
         
         try {
-            await dispatch(updateBook({...book, title: title, author: author, year: year, language: language, numberOfBooks: items}))
+            await dispatch(updateBook({...book, title: title, author: author, year: year, language: language, class: libraryClass, genre: genre, subjects: subjects, numberOfBooks: items}))
             await dispatch(setNotification({data: `Changes saved succesfully`, type: 'info'}, 3000))
         }
         catch (exception) {
@@ -62,14 +68,14 @@ const BookData = () => {
         }
     }
 
-
+    if (book) {
     return (
         <div>
         <Notification/>
         <h2>Change book details</h2>
         <form onSubmit={handleChanges}>
             <div>
-                title
+                Title
                 <Input
                     type="text"
                     value={title}
@@ -78,7 +84,7 @@ const BookData = () => {
                 />
             </div>
             <div>
-                author
+                Author
                 <Input
                     type="text"
                     value={author}
@@ -87,7 +93,7 @@ const BookData = () => {
                 />
             </div>
             <div>
-                year
+                Year
                 <Input
                     type="number"
                     value={year}
@@ -96,7 +102,7 @@ const BookData = () => {
                 />
             </div>
             <div>
-                language
+                Language
                 <Input
                     type="text"
                     value={language}
@@ -105,7 +111,16 @@ const BookData = () => {
                 />
             </div>
             <div>
-                number of books
+                Class
+                <Input
+                    type="text"
+                    value={libraryClass}
+                    name="libraryClass"
+                    onChange={({ target }) => setClass(target.value)}
+                />
+            </div>
+            <div>
+                Number of books
                 <Input
                     type="number"
                     value={items}
@@ -113,6 +128,27 @@ const BookData = () => {
                     onChange={({ target }) => setItems(target.value)}
                 />
             </div>
+            {book.genre ?
+                 <div>
+                 Genre
+                 <Input
+                     type="text"
+                     value={genre}
+                     name="genre"
+                     onChange={({ target }) => setGenre(target.value)}
+                 />
+                </div>
+            :
+                <div>
+                Subjects
+                <Input
+                    type="text"
+                    value={subjects}
+                    name="subjects"
+                    onChange={({ target }) => setSubjects(target.value)}
+                />
+                </div>
+            }
             <Button type="submit">Save changes</Button>
         </form>
         <br></br>
@@ -121,6 +157,7 @@ const BookData = () => {
         </div>
 
     )
+}
 }
 
 

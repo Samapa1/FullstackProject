@@ -27,26 +27,17 @@ const tokenExtractor = async (req, res, next) => {
 }
 
 const errorHandler = (error, req, res, next) => {
-  console.log("errorhandler middleware")
-    console.log(error.name)
+    console.log(error.name)  
 
-  
     if (error.name === 'JsonWebTokenError') {
+        console.log(error)
         return res.status(401).json({ error: "Token missing or invalid" });
     }
-    else if (error.name === 'SequelizeValidationError') {
-      const message = error.errors[0].message
-        return res.status(400).json({ error: message});
+    else {
+      console.log(error)
+      return res.status(400).json({error: "Request failed"});
     }
-    else if (error.name === 'SequelizeDatabaseError') {
-      console.log("databaseerror")
-      return res.status(400).json({ error: "Request failed" });
-    }
-    else if (error.name === 'TypeError') {
-      return res.status(400).json({ error: "Request failed" });
-    }
-   
-    next(error)
+
   }
 
 module.exports = { tokenExtractor, errorHandler}
