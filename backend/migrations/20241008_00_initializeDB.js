@@ -21,9 +21,25 @@ module.exports = {
             type: DataTypes.INTEGER,
             allowNull: false
             },
+            subjects: {
+            type: DataTypes.TEXT,
+            allowNull: true
+            },
+            genre: {
+              type: DataTypes.TEXT,
+              allowNull: true
+            },
+            language: {
+              type: DataTypes.TEXT,
+              allowNull: false,
+            },
+            class: {
+              type: DataTypes.TEXT,
+              allowNull: false,
+            },
             number_of_books: {
-            type: DataTypes.INTEGER,
-            allowNull: false
+              type: DataTypes.INTEGER,
+              allowNull: false
             }
     })
     await queryInterface.createTable('users', {

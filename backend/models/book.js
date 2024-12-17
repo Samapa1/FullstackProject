@@ -76,6 +76,26 @@ Book.init({
     type: DataTypes.STRING,
     allowNull: true,
   },
+  genre: {
+    type: DataTypes.TEXT,
+    allowNull: true
+  },
+  class: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    validate: {
+      notNull: {
+          msg: 'Please enter class',
+      },
+      notEmpty: {
+          msg: 'Please enter class',
+      },
+      len: {
+        args: [1],
+        msg: 'Minimum 1 characters required in the class'
+      }
+    }
+  },
   language: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -100,15 +100,17 @@ const Book = () => {
                 <div>
                     <Notification/>
                     <h2>{book.title}</h2>
-                    <p>author: {book.author}</p>
-                    <p>year: {book.year}</p>
-                    <p>language: {book.language}</p>
+                    <p>Author: {book.author}</p>
+                    <p>Year: {book.year}</p>
+                    <p>Language: {book.language}</p>
+                    <p>Class: {book.class}</p>
+                    <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
                     <div>
                         <Button onClick= {borrow}>Borrow</Button>
                     </div>
-                    <p>your rating:</p>
+                    <p>Your rating:</p>
                     <StarRating id = {book.id}/>
-                    <p>average: {book.rating.toFixed(2)}</p>
+                    <p>Average: {book.rating.toFixed(2)}</p>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -122,13 +124,15 @@ const Book = () => {
             <div>
                 <Notification/>
                 <h2>{book.title}</h2>
-                <p>author: {book.author}</p>
-                <p>year: {book.year}</p>
-                <p>language: {book.language}</p>
+                <p>Author: {book.author}</p>
+                <p>Year: {book.year}</p>
+                <p>Language: {book.language}</p>
+                <p>Class: {book.class}</p>
+                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
                 <p>You have borrowed the book.</p>
-                <p>your rating:</p>
+                <p>Your rating:</p>
                 <StarRating id = {book.id}/>
-                <p>average: {book.rating.toFixed(2)}</p>
+                <p>Average: {book.rating.toFixed(2)}</p>
                 <br></br>
                 {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -142,14 +146,16 @@ const Book = () => {
                 <div>
                     <Notification/>
                     <h2>{book.title}</h2>
-                    <p>author: {book.author}</p>
-                    <p>year: {book.year}</p>
-                    <p>language: {book.language}</p>
-                    <p>reservations: {numberOfReservations}</p>
+                    <p>Author: {book.author}</p>
+                    <p>Year: {book.year}</p>
+                    <p>Language: {book.language}</p>
+                    <p>Class: {book.class}</p>
+                    <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                    <p>Reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
-                    <p>your rating:</p>
+                    <p>Your rating:</p>
                     <StarRating id = {book.id}/>
-                    <p>average: {book.rating.toFixed(2)}</p>
+                    <p>Average: {book.rating.toFixed(2)}</p>
                     <br></br>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -162,17 +168,19 @@ const Book = () => {
             <div>
                 <Notification/>
                 <h2>{book.title}</h2>
-                <p>author: {book.author}</p>
-                <p>year: {book.year}</p>
-                <p>language: {book.language}</p>
-                <p>not available (all items are borrowed)</p>
-                <p>reservations: {numberOfReservations}</p>
+                <p>Author: {book.author}</p>
+                <p>Year: {book.year}</p>
+                <p>Language: {book.language}</p>
+                <p>Class: {book.class}</p>
+                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                <p>Not available (all items are borrowed)</p>
+                <p>Reservations: {numberOfReservations}</p>
                 <div>
                     <Button onClick= {reserve}>Reserve</Button>
                 </div>
-                <p>your rating:</p>
+                <p>Your rating:</p>
                 <StarRating id = {book.id}/>
-                <p>average: {book.rating.toFixed(2)}</p>
+                <p>Average: {book.rating.toFixed(2)}</p>
                 <br></br>
                 {user && user.admin
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>

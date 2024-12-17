@@ -86,3 +86,4 @@ Date              Hours                    Tasks
 22.11.24          0.5                      Styling
 16.12.24          2                        Styling
 16.12.24          3                        Refactoring and fixing the code
+17.12.24          2.5                      Adding class and genre to books, adding mroe books to app
