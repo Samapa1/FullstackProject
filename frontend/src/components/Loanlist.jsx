@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { initializeLoans } from'../reducers/loanReducer.js'
-import { listStyle, Button, Table } from './Styles.jsx'
+import { Button, Table } from './Styles.jsx'
 import { removeLoan } from '../reducers/loanReducer'
 import { getUserData} from '../reducers/userReducer.js'
 import Notification from './Notification.jsx'

@@ -96,9 +96,3 @@ export const Table2 = styled.table`
     }
 `;
 
-// border: solid #54A4A6 1px;¨
-// table-layout: fixed;
-// width: 1000px;
-
-// height: 500px;
-// padding: 0.1em 0.75em;
