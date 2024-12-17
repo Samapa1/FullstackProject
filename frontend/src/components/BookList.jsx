@@ -10,6 +10,7 @@ const Booklist = () => {
     const user = useSelector(state => state.user)
     const allBooks = useSelector(state => state.books)
     const [filtered, setFilter] = useState('')
+    console.log(filtered)
 
     const filterBooks = () => {
         return (
@@ -26,6 +27,7 @@ const Booklist = () => {
     }
 
     const booksToShow = allBooks.filter(book => book.title.toLowerCase().includes(filtered.toLowerCase()) || book.author.toLowerCase().includes(filtered.toLowerCase()))
+    console.log(booksToShow)
 
     if (user && user.admin){
         return (
@@ -63,9 +65,9 @@ const Booklist = () => {
         : <><h1>Books</h1>
         {filterBooks()}
         <br></br>
-        {allBooks.map (book => 
+        {booksToShow.map (book => 
         <div key= {book.id}>
-        <p>{book.title} by {book.author}</p>
+        {book.title} by {book.author}
         </div>
         )}
         <p>Please log in to view book details.</p>
