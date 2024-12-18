@@ -118,7 +118,6 @@ const Booklist = () => {
                 </div>
                 )
                 }
-            <p>Please log in to view book details.</p>
             </>
         }
         </div>
