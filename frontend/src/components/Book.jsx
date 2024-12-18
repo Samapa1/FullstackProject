@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom'
 import { addLoan } from "../reducers/loanReducer.js"
 import { addReservation } from "../reducers/reservationReducer.js"
 import { getUserData } from "../reducers/userReducer"
-import { useState, useEffect, useCallback} from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
 import Notification from './Notification.jsx'
 import { Button, linkStyle2 } from './Styles'
 import StarRating from './StarRating' 
+import StarBar from './StarBar'
 
 const Book = () => {  
     const id = useParams().id
@@ -22,24 +23,27 @@ const Book = () => {
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
     const user = useSelector(state => state.user)
-    
+  
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getUserData()) 
       }, [borrowed, reserved, dispatch]) 
   
-    const isAvailable = useCallback(async () => {
-        if (book) {
-            let bookStatus = await statusService.getStatus(book.id)
-            changeNumberOfReservations(bookStatus.reservations)
-            if (bookStatus.status === "available") {
-                changeAvailability(true)
-            }
-            else {
-                changeAvailability(false)
+    useEffect(() => {
+        const checkAvailability = async () => {
+            if (book) {
+                let bookStatus = await statusService.getStatus(book.id)
+                changeNumberOfReservations(bookStatus.reservations)
+                if (bookStatus.status === "available") {
+                    changeAvailability(true)
+                }
+                else {
+                    changeAvailability(false)
+                }
             }
         }
+        checkAvailability()
     }, [book, user])
 
     useEffect(() => {
@@ -66,15 +70,8 @@ const Book = () => {
             }
         }
     }, [book, user])
-
-
-    useEffect(() => {
-        isAvailable()
-      }, [isAvailable])
-
     
     const borrow = async () => {
-        console.log("borrowing")
         await dispatch (addLoan({
             userId: user.id,
             bookId: book.id
@@ -94,7 +91,7 @@ const Book = () => {
         await dispatch(setNotification( {data: `${book.title} reserved`, type: 'info'}, 3000))
     }
 
-    if (book) {
+    if (book && user) {
         if (available && !borrowed) {
             return (
                 <div>
@@ -173,7 +170,7 @@ const Book = () => {
                 <p>Language: {book.language}</p>
                 <p>Class: {book.class}</p>
                 <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
-                <p>Not available (all items are borrowed)</p>
+                <p>Not available (all books are borrowed).</p>
                 <p>Reservations: {numberOfReservations}</p>
                 <div>
                     <Button onClick= {reserve}>Reserve</Button>
@@ -187,7 +184,23 @@ const Book = () => {
                 : <></> }
             </div>
         )
-
+    }
+    if (book) {
+        return (
+            <div>
+                <Notification/>
+                <h2>{book.title}</h2>
+                <p>Author: {book.author}</p>
+                <p>Year: {book.year}</p>
+                <p>Language: {book.language}</p>
+                <p>Class: {book.class}</p>
+                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                {available ? <p>Available</p> : <p>Not available (all books are borrowed).</p>}
+                Rating
+                <StarBar book={book}/>
+                {available ? <p>Please log in to borrow or rate the book.</p> : <p>Please log in to reserve or rate the book.</p>}
+            </div>
+                )
     }
 }
 

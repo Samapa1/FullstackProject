@@ -88,3 +88,4 @@ Date              Hours                    Tasks
 16.12.24          3                        Refactoring and fixing the code
 17.12.24          2.5                      Adding class and genre to books, adding mroe books to app
 17.12.24          1                        Developing update book functionality (frontend & backend) and errorhandling middleware
+18.12             1.5                      Adding radiobutton to booklist, developing book component
