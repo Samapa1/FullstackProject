@@ -44,8 +44,8 @@ const Reservationlist = () => {
                 </tr>
             {reservations.map(reservation => 
                 <tr key = {reservation.id}>
-                    <td> {reservation.user.name}</td> 
-                    <td>{reservation.book.title} by {reservation.book.author} </td>
+                    <td> {reservation.user?.name}</td> 
+                    <td>{reservation.book?.title} by {reservation.book?.author} </td>
                     <td>{reservation.available ? `due date: ${formatDate(reservation.dueDate)}` : `not available`}</td>
                     <td><Button onClick = {() => handleRemoval(reservation)}>Remove</Button></td>
                 </tr>

@@ -119,7 +119,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to delete books.'})
   }
-  try {
+
   await sequelize.transaction(async t => {
     const book = await Book.findByPk(req.params.id, {
       include: [
@@ -146,14 +146,11 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
         await Promise.all(book.ratings.map(rating => rating.destroy({ transaction: t })))
 
       await book.destroy({ transaction: t })
-      return res.status(204).end()
+
     }
 
   })
-  } catch(err) {
-      console.log(err)
-      return res.status(400).json({error: 'Request failed'})
-  }  
+  return res.status(204).end()
 })
 
 module.exports = router

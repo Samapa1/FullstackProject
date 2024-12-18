@@ -108,31 +108,9 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(401).json({ error: 'wrong password' })
     }
 
-    // try {
-        if (!req.body.newPassword) {
-            user.name = req.body.name
-            user.email = req.body.email
-            await user.save()
-            return res.json({
-                id: user.id,
-                username: user.username, 
-                name: user.name,
-                email: user.email,
-                admin: user.admin,
-                loans: user.loans,
-                reservations: user.reservations,
-                ratings: user.ratings,
-    
-            })
-        }
-
-        if (!validPassword(req.body.newPassword)) {
-            return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
-        }
-
+    if (!req.body.newPassword) {
         user.name = req.body.name
         user.email = req.body.email
-        user.passwordHash = await bcrypt.hash(req.body.newPassword, saltRounds)
         await user.save()
         return res.json({
             id: user.id,
@@ -145,12 +123,27 @@ router.post('/:id', tokenExtractor, async (req, res) => {
             ratings: user.ratings,
 
         })
-    
-    // }
-    // catch(err) {
-        // console.log(err)
-        // return res.status(400).json({error: 'Request failed'})
-    // }
+    }
+
+    if (!validPassword(req.body.newPassword)) {
+        return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
+    }
+
+    user.name = req.body.name
+    user.email = req.body.email
+    user.passwordHash = await bcrypt.hash(req.body.newPassword, saltRounds)
+    await user.save()
+    return res.json({
+        id: user.id,
+        username: user.username, 
+        name: user.name,
+        email: user.email,
+        admin: user.admin,
+        loans: user.loans,
+        reservations: user.reservations,
+        ratings: user.ratings,
+
+    })
     
   })
 
@@ -201,6 +194,10 @@ router.get('/:id', tokenExtractor, async (req, res) => {
 router.delete('/:id', tokenExtractor, async (req, res) => {
     const user = await User.findByPk(req.params.id)
 
+    if (!user) {
+        return res.status(404).end()
+    }
+
     if (user.id !== req.user.id && req.user.admin !== true ) {
         return res.status(403).end()
     }
@@ -215,48 +212,41 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     }
     }
    
-    try {
-        await sequelize.transaction(async t => {
-            const userLoans = await Loan.findAll({
-                where: {
-                    userId: user.id
-                },
-                transaction: t,
-            })
-            if (userLoans.length >0) {
-                return res.status(400).json({error: 'not permitted to delete user who has unreturned books'})
-            }
-       
-            const userReservations = await Reservation.findAll({
-                where: {
-                    userId: user.id
-                },
-                transaction: t,
-            })
-           
-            await Promise.all(userReservations.map(reservation => reservation.destroy({ transaction: t })))
-
-            await Session.destroy({ 
-                where: { 
-                    userId: user.id, 
-                },
-                transaction: t,
-            })
-            await Rating.destroy({ 
-                where: { 
-                    userId: user.id,
-                }, 
-                transaction: t, 
-            })
-            await user.destroy({ transaction: t })  
-            return res.status(204).end()
-        });
+    await sequelize.transaction(async t => {
+        const userLoans = await Loan.findAll({
+            where: {
+                userId: user.id
+            },
+            transaction: t,
+        })
+        if (userLoans.length >0) {
+            return res.status(400).json({error: 'not permitted to delete user who has unreturned books'})
+        }
     
-    } catch (error) {
-        console.log(error)
-        return res.status(400).end()
-    }
+        const userReservations = await Reservation.findAll({
+            where: {
+                userId: user.id
+            },
+            transaction: t,
+        })
+        
+        await Promise.all(userReservations.map(reservation => reservation.destroy({ transaction: t })))
 
+        await Session.destroy({ 
+            where: { 
+                userId: user.id, 
+            },
+            transaction: t,
+        })
+        await Rating.destroy({ 
+            where: { 
+                userId: user.id,
+            }, 
+            transaction: t, 
+        })
+        await user.destroy({ transaction: t })  
+        return res.status(204).end()
+    });
     
 })
 

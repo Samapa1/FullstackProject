@@ -45,6 +45,7 @@ const Home = ({user}) => {
 )}
 
 const App = () => {
+  console.log("rendering App")
   const dispatch = useDispatch()
 
   useEffect(() => {

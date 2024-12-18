@@ -10,6 +10,7 @@ import { setNotification } from '../reducers/notificationReducer.js'
 const Ratinglist = () => {
 
     const dispatch = useDispatch()
+    const ratings = useSelector(state => state.ratings)
 
     useEffect(() => {
         dispatch(getUserData());
@@ -28,9 +29,9 @@ const Ratinglist = () => {
         }  
     }
 
-    const ratings = useSelector(state => state.ratings)
-    console.log(ratings)
-    if (ratings.length > 0) {
+  
+    if (ratings) {
+        ratings.map(rating => console.log(rating))
         return(
             <div>
             <Notification/>
@@ -46,10 +47,10 @@ const Ratinglist = () => {
                 </tr>
             {ratings.map(rating => 
                 <tr key= {rating.id}>
-                    <td>{rating.book.title}</td> 
-                    <td>{rating.book.author}</td>
+                    <td>{rating.book?.title}</td> 
+                    <td>{rating.book?.author}</td>
                     <td>{rating.stars}</td>
-                    <td>{rating.user.name}</td>
+                    <td>{rating.user?.name}</td>
                     <td><Button onClick = {() => handleRemoval(rating)}>Remove</Button></td>
                 </tr>
             )}
@@ -65,25 +66,3 @@ const Ratinglist = () => {
 
 export default Ratinglist
 
-
-{/* <h1>Ratings</h1>
-<table>
-    <tbody>
-    <tr>
-        <th style= {{width: '200 px'}}>Book title</th>
-        <th style= {{width: '200 px'}}>Book author</th>
-        <th style= {{width: '200 px'}}>Stars</th>
-        <th style= {{width: '200 px'}}>Rated by</th>
-        <th></th>
-    </tr>
-{ratings.map(rating => 
-    <tr>
-            <td>{rating.book.title}</td> 
-            <td>{rating.book.author}</td>
-            <td>{rating.stars}</td>
-            <td>{rating.user.name}</td>
-            <td><Button onClick = {() => handleRemoval(rating)}>Remove</Button></td>
-    </tr>
-)}
-</tbody>
-</table> */}

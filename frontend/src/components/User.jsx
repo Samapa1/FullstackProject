@@ -6,7 +6,7 @@ import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
 import Reservation from './Reservation';
 import Notification from './Notification';
-import { linkStyle2 } from './Styles'
+import { linkStyle2, Table } from './Styles'
 
 const User = () => {
     const dispatch = useDispatch()
@@ -41,9 +41,13 @@ const User = () => {
                 <p>Email: {user.email}</p>
                 <Link style={linkStyle2} to="/userdata">Change user details</Link>
                 <p>Borrowed books:</p>
+                <Table>
                 {showLoans()}
+                </Table>
                 <p>Reservations:</p>
+                <Table>
                 {showReservations()}
+                </Table>
             </div>
         )
     }

@@ -32,7 +32,6 @@ router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
         return res.status(403).end()
     }
-
     try {
         await sequelize.transaction(async t => {  
             const book = await Book.findByPk(req.body.bookId, {transaction: t})

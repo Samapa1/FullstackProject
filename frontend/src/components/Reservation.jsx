@@ -28,18 +28,24 @@ const Reservation = ( { reservation }) => {
 
     if (reservation.available) {
     return (
-    <div>
-        <p>{reservation.book.title} by {reservation.book.author} {formatDate(reservation.dueDate)} <Button onClick= {() => remove(reservation.id)}> Cancel </Button>
-        <Button onClick= {() => borrow()}> Borrow </Button>
-        </p> 
-    </div>
+    <tbody>
+        <tr>
+        <td>{reservation.book.title} by {reservation.book.author}</td>
+        <td>{formatDate(reservation.dueDate)}</td>
+        <td><Button onClick= {() => remove(reservation.id)}> Cancel </Button></td>
+        <td><Button onClick= {() => borrow()}> Borrow </Button></td>
+        </tr>
+    </tbody>
     )
     }
 
     return (
-    <div>
-        <p>{reservation.book.title} by {reservation.book.author} <Button onClick= {() => remove(reservation.id)}> Cancel </Button></p> 
-    </div>
+    <tbody>
+        <tr>
+        <td>{reservation.book.title} by {reservation.book.author}</td>
+        <td><Button onClick= {() => remove(reservation.id)}> Cancel </Button></td>
+        </tr>
+    </tbody>
     )
 }
 

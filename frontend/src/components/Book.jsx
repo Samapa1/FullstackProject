@@ -9,9 +9,10 @@ import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
 import Notification from './Notification.jsx'
-import { Button, linkStyle2 } from './Styles'
+import { Button, linkStyle2, pstyle } from './Styles'
 import StarRating from './StarRating' 
 import StarBar from './StarBar'
+import BasicBookData from './BasicBookData.jsx'
 
 const Book = () => {  
     const id = useParams().id
@@ -78,8 +79,6 @@ const Book = () => {
         }))
         await dispatch(getUserData()) 
         await dispatch(setNotification( {data: `${book.title} borrowed`, type: 'info'}, 3000))
-        isAvailable()
-
     }
 
     const reserve = async () => {
@@ -96,19 +95,14 @@ const Book = () => {
             return (
                 <div>
                     <Notification/>
-                    <h2>{book.title}</h2>
-                    <p>Author: {book.author}</p>
-                    <p>Year: {book.year}</p>
-                    <p>Language: {book.language}</p>
-                    <p>Class: {book.class}</p>
-                    <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
-                    <div>
-                        <Button onClick= {borrow}>Borrow</Button>
-                    </div>
+                    <BasicBookData book={book}/>
+                    <Button onClick= {borrow}>Borrow</Button>
+                    <div style= {pstyle}>
                     <p>Your rating:</p>
                     <StarRating id = {book.id}/>
                     <p>Average: {book.rating.toFixed(2)}</p>
-                    <br></br>
+                    </div>
+                    <br/>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
                     : <></> }
@@ -120,17 +114,14 @@ const Book = () => {
         return (
             <div>
                 <Notification/>
-                <h2>{book.title}</h2>
-                <p>Author: {book.author}</p>
-                <p>Year: {book.year}</p>
-                <p>Language: {book.language}</p>
-                <p>Class: {book.class}</p>
-                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                <BasicBookData book={book}/>
                 <p>You have borrowed the book.</p>
+                <div style= {pstyle}>
                 <p>Your rating:</p>
                 <StarRating id = {book.id}/>
                 <p>Average: {book.rating.toFixed(2)}</p>
-                <br></br>
+                </div>
+                <br/>
                 {user && user.admin 
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
                 : <></> }
@@ -142,18 +133,17 @@ const Book = () => {
             return (
                 <div>
                     <Notification/>
-                    <h2>{book.title}</h2>
-                    <p>Author: {book.author}</p>
-                    <p>Year: {book.year}</p>
-                    <p>Language: {book.language}</p>
-                    <p>Class: {book.class}</p>
-                    <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                    <BasicBookData book={book}/>
+                    <div style= {pstyle}>
                     <p>Reservations: {numberOfReservations}</p>
                     <p>You have reserved the book.</p>
+                    </div>
+                    <div style= {pstyle}>
                     <p>Your rating:</p>
                     <StarRating id = {book.id}/>
                     <p>Average: {book.rating.toFixed(2)}</p>
-                    <br></br>
+                    </div>
+                    <br/>
                     {user && user.admin 
                     ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
                     : <></> }
@@ -164,20 +154,19 @@ const Book = () => {
         return (
             <div>
                 <Notification/>
-                <h2>{book.title}</h2>
-                <p>Author: {book.author}</p>
-                <p>Year: {book.year}</p>
-                <p>Language: {book.language}</p>
-                <p>Class: {book.class}</p>
-                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
+                <BasicBookData book={book}/>
+                <div style= {pstyle}>
                 <p>Not available (all books are borrowed).</p>
                 <p>Reservations: {numberOfReservations}</p>
+                </div>
                 <div>
                     <Button onClick= {reserve}>Reserve</Button>
                 </div>
+                <div style= {pstyle}>
                 <p>Your rating:</p>
                 <StarRating id = {book.id}/>
                 <p>Average: {book.rating.toFixed(2)}</p>
+                </div>
                 <br></br>
                 {user && user.admin
                 ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
@@ -189,16 +178,16 @@ const Book = () => {
         return (
             <div>
                 <Notification/>
-                <h2>{book.title}</h2>
-                <p>Author: {book.author}</p>
-                <p>Year: {book.year}</p>
-                <p>Language: {book.language}</p>
-                <p>Class: {book.class}</p>
-                <p>{book.genre ? `Genre: ${book.genre}` : `Subjects: ${book.subjects}`}</p>
-                {available ? <p>Available</p> : <p>Not available (all books are borrowed).</p>}
-                Rating
+                <BasicBookData book={book}/>
+                <div style={pstyle}>
+                {available ? <p>The book is available.</p> : <p>The book is not available (all items are borrowed).</p>}
+                </div>
+                <div style={pstyle}>
+                <p>Rating</p>
                 <StarBar book={book}/>
+                </div>
                 {available ? <p>Please log in to borrow or rate the book.</p> : <p>Please log in to reserve or rate the book.</p>}
+                <br/>
             </div>
                 )
     }

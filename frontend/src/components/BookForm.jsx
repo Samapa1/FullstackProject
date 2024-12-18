@@ -11,8 +11,32 @@ const BookForm = () => {
     const [year, setYear] = useState('')
     const [items, setItems] = useState('')
     const [language, setLanguage] = useState('')
+    const [libraryClass, setClass] = useState('')
+    const [genre, setGenre] = useState('')
+    const [subjects, setSubjects] = useState('')
+    const [fictionality, setFictionality] = useState("fiction")
 
     const dispatch = useDispatch()
+
+    const radioFilter = () => {
+      return (
+          <div><input 
+              type="radio" 
+              name="fictionality" 
+              onChange={() => setFictionality("fiction")} 
+              checked={fictionality === "fiction"}
+          />
+          <label htmlFor="fiction">fiction</label>
+          <input 
+              type="radio"
+              name="fictionality"
+              onChange={() => setFictionality("nonfiction")} 
+              checked={fictionality === "nonfiction"}
+          />
+          <label htmlFor="nonfiction">non-fiction</label>
+          </div>
+      )
+  }
 
     const handleForm = async (e) => {
       e.preventDefault()
@@ -23,6 +47,9 @@ const BookForm = () => {
                 author: author,
                 year: Number(year), 
                 language: language,
+                class: libraryClass,
+                genre: genre,
+                subjects: subjects,
                 numberOfBooks: items
             }
             await dispatch(addBook(bookObject))
@@ -40,6 +67,7 @@ const BookForm = () => {
         <div>
         <Notification/>
         <h1>Add a book to the database</h1>
+        {radioFilter()}
         <form onSubmit={handleForm}>
         <div>
           title
@@ -81,6 +109,39 @@ const BookForm = () => {
             onChange={({ target }) => setLanguage(target.value)}
           />
         </div>
+        <div>
+          class
+          <Input
+            data-testid="class"
+            type="text"
+            value={libraryClass}
+            name="class"
+            onChange={({ target }) => setClass(target.value)}
+          />
+        </div>
+        {fictionality === "fiction" ? 
+          <div>
+              genre
+              <Input
+                data-testid="genre"
+                type="text"
+                value={genre}
+                name="genre"
+                onChange={({ target }) => setGenre(target.value)}
+              />
+          </div>
+        :
+          <div>
+              subjects
+              <Input
+                data-testid="subjects"
+                type="text"
+                value={subjects}
+                name="subjects"
+                onChange={({ target }) => setSubjects(target.value)}
+              />
+          </div>
+        }
         <div>
           number of books
           <Input

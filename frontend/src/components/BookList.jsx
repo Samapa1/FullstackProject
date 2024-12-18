@@ -11,8 +11,6 @@ const Booklist = () => {
     const allBooks = useSelector(state => state.books)
     const [filtered, setFilter] = useState('')
     const [fictionality, setFictionality] = useState("fiction")
-    console.log(filtered)
-    console.log(fictionality)
 
     const filterBooks = () => {
         return (

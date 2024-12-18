@@ -3,7 +3,7 @@ import { removeLoan } from '../reducers/loanReducer'
 import { renewLoan } from '../reducers/loanReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
-import { Button } from './Styles'
+import { Button, Table } from './Styles'
 import { formatDate } from '../../utils/helper.js'
 
 const Loan = ( {loan} ) => {
@@ -31,13 +31,14 @@ const Loan = ( {loan} ) => {
     }
    
     return (
-    <div>
-        <p>{loan.book.title} by {loan.book.author} due date: {formatDate(loan.dueDate)}
-        <Button onClick= {() => returnBook(loan.id)}>Return</Button>
-        <Button onClick= {() => renewCurrentLoan(loan.id)}>Renew</Button>
-        </p> 
-      
-    </div>
+    <tbody>
+        <tr>
+        <td>{loan.book.title} by {loan.book.author} </td>
+        <td>due date: {formatDate(loan.dueDate)}</td>
+        <td><Button onClick= {() => returnBook(loan.id)}>Return</Button></td>
+        <td><Button onClick= {() => renewCurrentLoan(loan.id)}>Renew</Button></td> 
+        </tr>
+    </tbody>
     )
 }
 

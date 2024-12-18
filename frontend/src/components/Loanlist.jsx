@@ -55,8 +55,8 @@ const Loanlist = () => {
                 </tr>
             {loanList.map(loan=> 
                 <tr key= {loan.id}>
-                    <td>{loan.user.name}</td> 
-                    <td>{loan.book.title}</td>
+                    <td>{loan.user?.name}</td> 
+                    <td>{loan.book?.title}</td>
                     <td>{formatDate(loan.dueDate)}</td>
                     <td>{isLate(loan.dueDate)}</td>
                     <td><Button onClick= {() => returnLoan(loan)}>Return</Button></td>

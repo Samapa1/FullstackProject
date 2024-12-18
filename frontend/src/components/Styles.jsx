@@ -67,11 +67,14 @@ export const listStyle= {
   margin: '10px 0px 10px 0px' 
 }
 
-export const starStyle = {
-  cursor: 'pointer',
-  fontSize: '35px'
+export const pstyle = {
+  lineHeight: '80%',
+  padding: '3px 0px 3px 0px '
 }
 
+export const hstyle = {
+   padding: '10px 0px 0px 0px '
+}
 
 export const Table = styled.table`
 

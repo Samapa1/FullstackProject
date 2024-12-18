@@ -64,10 +64,14 @@ router.post('/', tokenExtractor, async (req, res) => {
 
 router.delete('/:id', tokenExtractor, async (req, res) => {
 
-    try {
-        await sequelize.transaction(async t => {
+    await sequelize.transaction(async t => {
 
         const loan = await Loan.findByPk(req.params.id, { transaction: t })
+
+        if (!loan) {
+            return res.status(404).end()
+        }
+
         const reservations = await Reservation.findAll({ 
             where: {bookId: loan.bookId, available: false}, 
             order: [['createdAt', 'ASC']],
@@ -79,7 +83,6 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
         }
 
         else if (loan && reservations[0]) {
-                
             await loan.destroy( { transaction: t })
             reservations[0].available = true
             reservations[0].dueDate = setDueDate()
@@ -91,10 +94,6 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             return res.status(204).end()
         }
     });
-    } catch (error) {
-        console.log(error)
-        return res.status(400).json({ error: 'Request failed' }).end()
-    }
 })
 
 
