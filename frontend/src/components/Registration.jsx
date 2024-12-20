@@ -2,12 +2,14 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
+import PasswordField from "./PasswordField.jsx";
 import { setNotification } from  "../reducers/notificationReducer.js"
 import userService from '../services/users'
 import { Button, Input } from './Styles'
 
 
 const Registration= () => {
+
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -16,7 +18,7 @@ const Registration= () => {
   const [password2, setPassword2] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  
+
   const validPassword = (password) => {
     if (password.length < 8) {
       return false
@@ -61,6 +63,7 @@ const Registration= () => {
 
   }
 
+
   return (
     <>
     <Notification/>
@@ -96,26 +99,8 @@ const Registration= () => {
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
-        <div>
-          password
-          <Input
-            data-testid="password"
-            type="text"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
-        <div>
-          confirm password
-          <Input
-            data-testid="password2"
-            type="text"
-            value={password2}
-            name="Password2"
-            onChange={({ target }) => setPassword2(target.value)}
-          />
-        </div>
+          <PasswordField inputText={"password"} password={password} handleChange={({ target }) => setPassword(target.value)}/>
+          <PasswordField inputText={"confirm password"} password={password2} handleChange={({ target }) => setPassword2(target.value)} />
         <Button type="submit">register</Button>
       </form>
     </>

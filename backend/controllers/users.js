@@ -83,7 +83,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
         return res.status(403).end()
     }
 
-    if (req.user.admin) {
+    if (req.user.admin && req.user.id !== user.id) {
         user.username = req.body.username
         user.name = req.body.name
         user.email = req.body.email
@@ -103,7 +103,6 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     }
 
     const passwordCorrect = await bcrypt.compare(req.body.oldPassword, user.passwordHash)
-
     if (!passwordCorrect) {
         return res.status(401).json({ error: 'wrong password' })
     }
@@ -124,6 +123,9 @@ router.post('/:id', tokenExtractor, async (req, res) => {
 
         })
     }
+
+    if (req.body.newPassword !== req.body.newPassword2)
+        return res.status(400).json({error: 'New passwords do not match'})
 
     if (!validPassword(req.body.newPassword)) {
         return res.status(400).json({ error: 'Password must have at least 8 characters (including at least one number)' })
@@ -148,7 +150,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
   })
 
 router.get('/:id', tokenExtractor, async (req, res) => {
-  
+
     if (Number(req.params.id) !== Number(req.user.id) && !req.user.admin ) {
         return res.status(403).end()
     }

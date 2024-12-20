@@ -7,6 +7,7 @@ import { linkStyle1 } from './Styles.jsx'
 
 const Userlist = () => {
     const dispatch = useDispatch()
+    const adminUser = useSelector((state) => state.user);
 
     useEffect(() => {
         dispatch(getUserData());
@@ -22,7 +23,7 @@ const Userlist = () => {
         return (
             <div>
                 <h1>Users</h1>
-                    {userlist.map(user => 
+                    {userlist.filter(user => user.id !== adminUser.id).map(user => 
                         <div key={user.id}>
                             <Link style={linkStyle1} to={`/users/${user.id}`}>{user.name}</Link>
                         </div>

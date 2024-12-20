@@ -9,6 +9,7 @@ import { removeUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
 import Notification from './Notification';
 import { Button, Input } from './Styles'
+import PasswordField from './PasswordField';
 
 const UserData = () => {
 
@@ -60,15 +61,9 @@ const UserData = () => {
                 await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password}))
                 await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
             }
-            else if (newPassword === newPassword2) {
-                await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password, newPassword: newPassword}))
-                await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
-            }
-               
-            else {
-                await dispatch(setNotification( {data: `Passwords don't match`, type: 'error'}, 3000))
-                return
-            }
+
+            await dispatch(updateUser({...user, name: nameOfTheUser, email: email, oldPassword: password, newPassword: newPassword, newPassword2: newPassword2}))
+            await dispatch(setNotification( {data: `Changes saved succesfully`, type: 'info'}, 3000))
         }
       
         catch(exception){
@@ -101,33 +96,9 @@ const UserData = () => {
                     onChange={({ target }) => setEmail(target.value)}
                 />
             </div>
-            <div>
-                current password
-                <Input
-                    type="text"
-                    value={password}
-                    name="newPassword"
-                    onChange={({ target }) => setPassword(target.value)}
-                />
-            </div>
-            <div>
-                new password
-                <Input
-                    type="text"
-                    value={newPassword}
-                    name="newPassword"
-                    onChange={({ target }) => setNewPassword(target.value)}
-                />
-            </div>
-            <div>
-                type password again
-                <Input
-                    type="text"
-                    value={newPassword2}
-                    name="newPassword2"
-                    onChange={({ target }) => setNewPassword2(target.value)}
-                />
-            </div>
+            <PasswordField inputText={"password"} password={password} handleChange={({ target }) => setPassword(target.value)}/>
+            <PasswordField inputText={"new password"} password={newPassword} handleChange={({ target }) => setNewPassword(target.value)}/>
+            <PasswordField inputText={"confirm new password"} password={newPassword2} handleChange={({ target }) => setNewPassword2(target.value)}/>
             <Button type="submit">Save changes</Button>
         </form>
         <br></br>

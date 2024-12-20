@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
 import { Button, Input, linkStyle2 } from './Styles'
+import PasswordField from "./PasswordField.jsx";
 
 
 const Login = () => {
@@ -48,15 +49,7 @@ const Login = () => {
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
-        <div>
-          password
-          <Input
-            type="password"
-            value={password}
-            name="Password"
-            onChange={({ target }) => setPassword(target.value)}
-          />
-        </div>
+        <PasswordField inputText={"password"} password={password} handleChange={({ target }) => setPassword(target.value)}/>
         <Button type="submit">log in</Button>
       </form>
       <div>

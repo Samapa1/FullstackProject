@@ -88,10 +88,4 @@ export const addUserBookRating = (ratingObject) => {
   }
 }
 
-// export const addUserBookReservation= (reservationObject) => {
-//   return dispatch => {
-//     dispatch(setUserBookReservation(reservationObject))
-//   }
-// }
-
 export default userSlice.reducer

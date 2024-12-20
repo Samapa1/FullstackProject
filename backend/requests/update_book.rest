@@ -1,6 +1,6 @@
 PUT http://localhost:3003/api/books/11
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InN1cGVydXNlciIsImlkIjoyLCJpYXQiOjE3MzQ0NDE4NDh9.huK8mYnx-tRQRahU3ZGi-YO8USy5t0JmUfrwozyiVow
+Authorization: Bearer xxx
 {
     "author": "Ann McKensie",
     "title": "Christmas Tales",

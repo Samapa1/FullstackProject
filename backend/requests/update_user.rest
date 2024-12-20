@@ -3,8 +3,10 @@ Content-Type: application/json
 Authorization: Bearer xxx
 
 {
-    "name": "Ulla Lahtelainen",
-    "email": "ulla.lahtelainenn@gmail.com",
+    "name": "",
+    "username": "",
+    "email": "",
     "oldPassword": "",
-    "newPassword": ""
+    "newPassword": "",
+    "newPassword2": ""
 }

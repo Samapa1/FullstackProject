@@ -90,5 +90,7 @@ Date              Hours                    Tasks
 17.12.24          1                        Developing update book functionality (frontend & backend) and errorhandling middleware
 18.12.24          1.5                      Adding radio button to booklist, developing book component
 18.12.24          1.5                      Styling 
-18.12.24          1                        Refatoring, fixing components
+18.12.24          1                        Refactoring, fixing components
 18.12.24          1                        Improving errorhandling (in backend)
+20.12.24          1                        Developing usersrouter (backend) and password validation
+20.12.24          2                        Developing PasswordField component
