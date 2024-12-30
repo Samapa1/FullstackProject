@@ -22,6 +22,13 @@ router.get('/', tokenExtractor, async (req, res) => {
     }
 
     const users = await User.findAll({
+        attributes: [ 
+            'id',
+            'username', 
+            'name',
+            'email',
+            'admin'
+        ],
         include: [
             {
             model: Loan,
@@ -64,7 +71,13 @@ router.post('/', async (req, res) => {
             passwordHash
         })
     
-        res.status(201).json(user)
+        res.status(201).json({
+            id: user.id,
+            username: user.username, 
+            name: user.name,
+            email: user.email,
+            admin: user.admin,
+        })
     } catch (err) {
         if (err.errors[0].path === 'username' && err.errors[0].type === 'unique violation') {
             return res.status(400).json({ error: "username already in use" })
@@ -98,7 +111,6 @@ router.post('/:id', tokenExtractor, async (req, res) => {
             loans: user.loans,
             reservations: user.reservations,
             ratings: user.ratings,
-
         })
     }
 
@@ -205,13 +217,13 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
     }
 
     if (!req.user.admin) {
-    const password = req.get('password')
-   
-    const passwordCorrect = await bcrypt.compare(password, user.passwordHash)
+        const password = req.get('password')
+    
+        const passwordCorrect = await bcrypt.compare(password, user.passwordHash)
 
-    if (!passwordCorrect) {
-        return res.status(401).json({ error: 'wrong password' })
-    }
+        if (!passwordCorrect) {
+            return res.status(401).json({ error: 'wrong password' })
+        }
     }
    
     await sequelize.transaction(async t => {
@@ -246,9 +258,9 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             }, 
             transaction: t, 
         })
-        await user.destroy({ transaction: t })  
-        return res.status(204).end()
+        await user.destroy({ transaction: t })
     });
+    return res.status(204).end()
     
 })
 

@@ -1,7 +1,7 @@
 const Queue = require('bull')
 const { Reservation } = require('../models')
 
-const reservationQueque = () => {
+const reservationQueue = () => {
 
 const testqueue = new Queue("myQueue");
 
@@ -32,5 +32,5 @@ testqueue.process((job, done) => {
 }
 
 
-module.exports = reservationQueque
+module.exports = reservationQueue
 

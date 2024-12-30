@@ -21,8 +21,8 @@ router.post('/', tokenExtractor, async (req, res) => {
   if (req.user.admin !== true) {
     return res.status(403).json({error: 'Only admins are allowed to add books.'})
   }
-    const book = await Book.create({...req.body})
-    return res.status(201).json(book)
+  const book = await Book.create({...req.body})
+  return res.status(201).json(book)
 })
 
 router.put('/:id', tokenExtractor, async (req, res) => {
@@ -30,7 +30,7 @@ router.put('/:id', tokenExtractor, async (req, res) => {
     return res.status(403).json({error: 'Only admins are allowed to modify books.'})
   }
 
-    await sequelize.transaction(async t => {
+  const updatedBook = await sequelize.transaction(async t => {
     const book = await Book.findByPk(req.params.id, {
       include: [
           {
@@ -44,8 +44,6 @@ router.put('/:id', tokenExtractor, async (req, res) => {
     if (book.loans.length > req.body.numberOfBooks) {
       return res.status(403).json({error: 'Please return books before removing them.'})
     }
-
-    console.log(req.body.subjects)
 
     if (!req.body.genre && !req.body.subjects) {
       return res.status(400).json({error: 'Please fill genre/subjects -field.'})
@@ -110,9 +108,11 @@ router.put('/:id', tokenExtractor, async (req, res) => {
       } 
     }
 
-    return res.json(book)
-
+    return book;
   })
+  
+  return res.json(updatedBook)
+
 })
 
 router.delete('/:id', tokenExtractor, async (req, res) => {

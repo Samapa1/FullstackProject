@@ -28,17 +28,13 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
+      'prefer-const': 'error',
       'react/jsx-no-target-blank': 'off',
+      'react/prop-types': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
     },
-  },
-  {
-    "extends": ["plugin:vitest-globals/recommended"],
-    "env": {
-      "vitest-globals/env": true
-    }
-  },
+  }
 ]

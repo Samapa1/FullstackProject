@@ -12,7 +12,7 @@ const reservationRouter = require ('./controllers/reservations')
 const testingRouter = require('./controllers/testing')
 const ratingRouter = require('./controllers/ratings')
 const middleware = require('./utils/middleware');
-const reservationQueque = require ('./controllers/queques')
+const reservationQueue = require ('./controllers/queues')
 
 
 const { connectToDatabase } = require('./utils/db')
@@ -48,7 +48,7 @@ const start = async () => {
 
 start()
 
-reservationQueque()
+reservationQueue()
 
 app.use(middleware.errorHandler)
 

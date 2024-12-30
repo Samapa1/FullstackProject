@@ -49,8 +49,8 @@ const Registration= () => {
           name: name,
           email: email,
           password: password
-
       }
+      
       await userService.create(userObject)
       await dispatch(setNotification({data: `Registration ok`, type: 'info'}, 3000))
       navigate("/login"); 

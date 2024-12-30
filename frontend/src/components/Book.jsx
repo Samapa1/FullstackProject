@@ -91,12 +91,12 @@ const Book = () => {
     }
 
     if (book && user) {
-        if (available && !borrowed) {
+        if (available) {
             return (
                 <div>
                     <Notification/>
                     <BasicBookData book={book}/>
-                    <Button onClick= {borrow}>Borrow</Button>
+                    {!borrowed ? <Button onClick= {borrow}>Borrow</Button> : <p>You have borrowed the book.</p>}
                     <div style= {pstyle}>
                     <p>Your rating:</p>
                     <StarRating id = {book.id}/>
@@ -109,25 +109,6 @@ const Book = () => {
                 </div>
             )
             }
-            
-        if (borrowed) {
-        return (
-            <div>
-                <Notification/>
-                <BasicBookData book={book}/>
-                <p>You have borrowed the book.</p>
-                <div style= {pstyle}>
-                <p>Your rating:</p>
-                <StarRating id = {book.id}/>
-                <p>Average: {book.rating.toFixed(2)}</p>
-                </div>
-                <br/>
-                {user && user.admin 
-                ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-                : <></> }
-            </div>
-        )
-        }
 
         if (reserved) {
             return (

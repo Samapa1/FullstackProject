@@ -57,7 +57,7 @@ router.post('/:id', tokenExtractor, async (req, res) => {
     }
 
     try {
-        await sequelize.transaction(async t => {
+        const newData = await sequelize.transaction(async t => {
             const reservation = await Reservation.findByPk(req.params.id, {transaction: t})
 
             if (reservation.available !== true) {
@@ -68,8 +68,9 @@ router.post('/:id', tokenExtractor, async (req, res) => {
             const dueDate = setDueDate()
             const newloan = await Loan.create({...req.body, borrowingDate, dueDate}, { transaction: t })
             await reservation.destroy({ transaction: t })
-            return res.json(newloan)
+            return newloan
         });
+        return res.json(newData)
       
       } catch (error) {
             console.log(error)
@@ -92,17 +93,17 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
                 order: [['createdAt', 'ASC']],
                 transaction: t, 
             })
+
+            await reservation.destroy({transaction: t})
        
             if (notAvailableReservations[0]) {
-                await reservation.destroy({transaction: t})
                 notAvailableReservations[0].available = true
                 notAvailableReservations[0].dueDate = setDueDate()
                 await notAvailableReservations[0].save({transaction: t})
-                return res.status(204).end()
-            };
-            await reservation.destroy({transaction: t})
-            return res.status(204).end()
+            }
         });
+        return res.status(204).end()
+
     } catch (err) {
         console.log(err)
         return res.status(400).json({error: 'Request failed'}).end()

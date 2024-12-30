@@ -24,7 +24,7 @@ const Reservationlist = () => {
     const handleRemoval = async (reservation) => {
       
         if (window.confirm(`Remove ${reservation.user.name}'s book ${reservation.book.title} by ${reservation.book.author}?`)) {
-            dispatch(removeReservation(reservation.id))
+            await dispatch(removeReservation(reservation.id))
             dispatch(setNotification( {data: `Reservation removed`, type: 'info'}, 3000))
         }  
     }

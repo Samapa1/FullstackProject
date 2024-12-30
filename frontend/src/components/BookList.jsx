@@ -29,6 +29,7 @@ const Booklist = () => {
     const radioFilter = () => {
         return (
             <div><input 
+                id="fiction"
                 type="radio" 
                 name="fictionality" 
                 onChange={() => setFictionality("fiction")} 
@@ -36,6 +37,7 @@ const Booklist = () => {
             />
             <label htmlFor="fiction">fiction</label>
             <input 
+                id="nonfiction"
                 type="radio"
                 name="fictionality"
                 onChange={() => setFictionality("nonfiction")} 

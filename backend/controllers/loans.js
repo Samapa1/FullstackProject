@@ -87,13 +87,13 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             reservations[0].available = true
             reservations[0].dueDate = setDueDate()
             await reservations[0].save({ transaction: t })
-            return res.status(204).end()
+
         } 
         else if (loan) {
             await loan.destroy({ transaction: t })
-            return res.status(204).end()
         }
     });
+    return res.status(204).end()
 })
 
 

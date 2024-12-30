@@ -1,7 +1,7 @@
-const StarBar = ( {book} ) => {
 
-    let starBarNumbers = [1,2,3,4,5]
-  
+const starBarNumbers = [1,2,3,4,5]
+
+const StarBar = ( {book} ) => {
     const bookStars = Math.round(book.rating)
 
     return (

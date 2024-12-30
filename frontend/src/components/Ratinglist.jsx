@@ -30,12 +30,12 @@ const Ratinglist = () => {
     }
 
   
-    if (ratings) {
-        ratings.map(rating => console.log(rating))
-        return(
-            <div>
-            <Notification/>
-            <h1>Ratings</h1>
+
+    return(
+        <div>
+        <Notification/>
+        <h1>Ratings</h1>
+        {ratings ? 
             <Table>
                 <tbody>
                 <tr>
@@ -56,12 +56,10 @@ const Ratinglist = () => {
             )}
             </tbody>
             </Table>
-            </div>
-        )
-    }
-    return (
-        <h1>Ratings</h1>
+        : null}
+        </div>
     )
+    
 }
 
 export default Ratinglist
