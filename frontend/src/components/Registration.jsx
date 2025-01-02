@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import Notification from "./Notification"
 import PasswordField from "./PasswordField.jsx";
 import { setNotification } from  "../reducers/notificationReducer.js"
 import userService from '../services/users'
@@ -66,7 +65,6 @@ const Registration= () => {
 
   return (
     <>
-    <Notification/>
       <h2>Register</h2>
       <form onSubmit={handleRegistration}>
       <div>

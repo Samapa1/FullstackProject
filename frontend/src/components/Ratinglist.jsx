@@ -4,7 +4,6 @@ import { getRatings } from "../reducers/ratingReducer";
 import { removeRating } from "../reducers/ratingReducer";
 import { getUserData } from "../reducers/userReducer"
 import { Button, Table } from './Styles.jsx'
-import Notification from './Notification.jsx'
 import { setNotification } from '../reducers/notificationReducer.js'
 
 const Ratinglist = () => {
@@ -29,11 +28,8 @@ const Ratinglist = () => {
         }  
     }
 
-  
-
     return(
         <div>
-        <Notification/>
         <h1>Ratings</h1>
         {ratings ? 
             <Table>

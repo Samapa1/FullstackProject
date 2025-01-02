@@ -5,7 +5,6 @@ import { updateBook} from '../reducers/bookReducer'
 import { removeBook } from "../reducers/bookReducer"
 import { Button, Input } from './Styles'
 import { setNotification } from '../reducers/notificationReducer';
-import Notification from './Notification';
 
 const BookData = () => {
     const id = useParams().id
@@ -71,7 +70,6 @@ const BookData = () => {
     if (book) {
     return (
         <div>
-        <Notification/>
         <h2>Change book details</h2>
         <form onSubmit={handleChanges}>
             <div>

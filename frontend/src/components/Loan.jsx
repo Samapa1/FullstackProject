@@ -3,7 +3,7 @@ import { removeLoan } from '../reducers/loanReducer'
 import { renewLoan } from '../reducers/loanReducer'
 import { getUserData } from '../reducers/userReducer'
 import { setNotification } from '../reducers/notificationReducer.js'
-import { Button, Table } from './Styles'
+import { Button } from './Styles'
 import { formatDate } from '../../utils/helper.js'
 
 const Loan = ( {loan} ) => {

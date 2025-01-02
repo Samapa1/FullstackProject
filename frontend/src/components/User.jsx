@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { getUserData } from '../reducers/userReducer'
 import Loan from './Loan';
 import Reservation from './Reservation';
-import Notification from './Notification';
 import { linkStyle2, Table } from './Styles'
 
 const User = () => {
@@ -35,7 +34,6 @@ const User = () => {
     if (user) {
         return (
             <div>
-                <Notification/>
                 <h1>User</h1>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>

@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react'
 import { useSelector} from 'react-redux'
 import { setNotification } from '../reducers/notificationReducer.js'
 import statusService from "../services/status"
-import Notification from './Notification.jsx'
 import { Button, linkStyle2, pstyle } from './Styles'
 import StarRating from './StarRating' 
 import StarBar from './StarBar'
@@ -17,10 +16,10 @@ import BasicBookData from './BasicBookData.jsx'
 const Book = () => {  
     const id = useParams().id
 
-    const [available, changeAvailability] = useState(null)
-    const [borrowed, changeBorrowed] = useState(null)
-    const [reserved, changeReserved] = useState(null)
-    const [numberOfReservations, changeNumberOfReservations] = useState(null)
+    const [available, setAvailability] = useState(null)
+    const [borrowed, setBorrowed] = useState(null)
+    const [reserved, setReserved] = useState(null)
+    const [numberOfReservations, setNumberOfReservations] = useState(null)
     const allBooks = useSelector(state => state.books)
     const book = allBooks.find(book => book.id === Number(id))
     const user = useSelector(state => state.user)
@@ -34,13 +33,13 @@ const Book = () => {
     useEffect(() => {
         const checkAvailability = async () => {
             if (book) {
-                let bookStatus = await statusService.getStatus(book.id)
-                changeNumberOfReservations(bookStatus.reservations)
+                const bookStatus = await statusService.getStatus(book.id)
+                setNumberOfReservations(bookStatus.reservations)
                 if (bookStatus.status === "available") {
-                    changeAvailability(true)
+                    setAvailability(true)
                 }
                 else {
-                    changeAvailability(false)
+                    setAvailability(false)
                 }
             }
         }
@@ -50,11 +49,11 @@ const Book = () => {
     useEffect(() => {
         if (user && user.loans) {
         if (user.loans.find(userbook => userbook.book.title === book.title )) {
-            changeBorrowed(true)
+            setBorrowed(true)
 
         }
         else {
-            changeBorrowed(false)
+            setBorrowed(false)
         }
     }
     }, [book, user])
@@ -63,11 +62,11 @@ const Book = () => {
     useEffect(() => {
         if (user && user.reservations) {
             if (user.reservations.find(reservedBook => reservedBook.bookId === book.id )) {
-                changeReserved(true)
+                setReserved(true)
 
             }
             else {
-                changeReserved(false)
+                setReserved(false)
             }
         }
     }, [book, user])
@@ -91,33 +90,15 @@ const Book = () => {
     }
 
     if (book && user) {
-        if (available) {
             return (
                 <div>
-                    <Notification/>
-                    <BasicBookData book={book}/>
-                    {!borrowed ? <Button onClick= {borrow}>Borrow</Button> : <p>You have borrowed the book.</p>}
-                    <div style= {pstyle}>
-                    <p>Your rating:</p>
-                    <StarRating id = {book.id}/>
-                    <p>Average: {book.rating.toFixed(2)}</p>
-                    </div>
-                    <br/>
-                    {user && user.admin 
-                    ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-                    : <></> }
-                </div>
-            )
-            }
-
-        if (reserved) {
-            return (
-                <div>
-                    <Notification/>
                     <BasicBookData book={book}/>
                     <div style= {pstyle}>
+                    {!borrowed && available && !reserved ? <Button onClick= {borrow}>Borrow</Button> : null}
+                    { borrowed ? <p>You have borrowed the book.</p> : null}
                     <p>Reservations: {numberOfReservations}</p>
-                    <p>You have reserved the book.</p>
+                    { reserved ? <p>You have reserved the book.</p> : null}
+                    {!available && !borrowed && !reserved ? <Button onClick= {reserve}>Reserve</Button> : null}
                     </div>
                     <div style= {pstyle}>
                     <p>Your rating:</p>
@@ -130,35 +111,10 @@ const Book = () => {
                     : <></> }
                 </div>
             )
-        }
-
-        return (
-            <div>
-                <Notification/>
-                <BasicBookData book={book}/>
-                <div style= {pstyle}>
-                <p>Not available (all books are borrowed).</p>
-                <p>Reservations: {numberOfReservations}</p>
-                </div>
-                <div>
-                    <Button onClick= {reserve}>Reserve</Button>
-                </div>
-                <div style= {pstyle}>
-                <p>Your rating:</p>
-                <StarRating id = {book.id}/>
-                <p>Average: {book.rating.toFixed(2)}</p>
-                </div>
-                <br></br>
-                {user && user.admin
-                ? <Link style= {linkStyle2} to={`/bookdata/${book.id}`}>Change book details or delete it from the database.</Link>
-                : <></> }
-            </div>
-        )
     }
     if (book) {
         return (
             <div>
-                <Notification/>
                 <BasicBookData book={book}/>
                 <div style={pstyle}>
                 {available ? <p>The book is available.</p> : <p>The book is not available (all items are borrowed).</p>}

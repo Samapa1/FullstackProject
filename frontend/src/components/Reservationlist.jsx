@@ -29,12 +29,11 @@ const Reservationlist = () => {
         }  
     }
 
-
-    if (reservations.length > 0) {
         return(
             <div>
             <Notification/>
             <h1>Reservations</h1>
+            {reservations.length > 0 ? 
             <Table>
                 <tbody>
                 <tr>
@@ -52,13 +51,11 @@ const Reservationlist = () => {
             )}
             </tbody>
             </Table>
+            : null }
             </div>
         )
-    }
-
-    return(
-        <h1>Reservations</h1>
-    )
 }
+
+ 
 
 export default Reservationlist

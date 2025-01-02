@@ -35,30 +35,36 @@ router.post('/', tokenExtractor, async (req, res) => {
     if (req.body.userId !== req.user.id) {
         return res.status(403).end()
     }
-    const book = await Book.findByPk(req.body.bookId, {
-        include: [
-            {
-            model: Reservation
-            },
-            {
-            model: Loan
-            }
-        ]
-    })
-   
-   if (book.loans.find(loan => loan.userId === req.body.userId))
-        return res.status(400).json({ error: 'You have already borrowed the book' })
- 
-    if ((book.numberOfBooks) > ((book.loans.length) + (book.reservations.length))) {
-        const borrowingDate = new Date()
-        const dueDate = setDueDate()
-        const newloan = await Loan.create({...req.body, borrowingDate, dueDate})
-        return res.json(newloan)
-    }
 
-    else {
-        return res.status(400).json({ error: 'No books available.' }).end()
-    }
+    const newLoan = await sequelize.transaction(async t => {
+        const book = await Book.findByPk(req.body.bookId, {
+            include: [
+                {
+                model: Reservation
+                },
+                {
+                model: Loan
+                }
+            ],
+            transaction: t, 
+        })
+    
+        if (book.loans.find(loan => loan.userId === req.body.userId))
+            return res.status(400).json({ error: 'You have already borrowed the book' }).end()
+        
+        if ((book.numberOfBooks) > ((book.loans.length) + (book.reservations.length))) {
+            const borrowingDate = new Date()
+            const dueDate = setDueDate()
+            const newloan = await Loan.create({...req.body, borrowingDate, dueDate}, { transaction: t })
+            return newloan
+        }
+
+        else {
+            return res.status(400).json({ error: 'No books available.' }).end()
+        }
+    })
+
+    return res.json(newLoan)
 
 })
 
@@ -98,24 +104,29 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
 
 
 router.post('/:id', tokenExtractor, async (req, res) => {
-    const loan = await Loan.findByPk(req.params.id)
-    const reservation = await Reservation.findOne({ 
-        where: {bookId: loan.bookId, available: false} 
+
+    const updatedLoan = await sequelize.transaction(async t => {
+        const loan = await Loan.findByPk(req.params.id, { transaction: t })
+        const reservation = await Reservation.findOne({ 
+            where: {bookId: loan.bookId, available: false},
+            transaction: t  
+        })
+
+        if (loan.userId !== req.user.id) {
+            return res.status(403).end()
+        }
+
+        else if (loan && !reservation) {
+            loan.dueDate = setDueDate()
+            loan.borrowingDate = new Date()
+            await loan.save({ transaction: t }) 
+            return loan
+        }
+        else {
+            return res.status(409).json({error: 'The loan cannot be renewed.'}).end()
+        }
     })
-
-    if (loan.userId !== req.user.id) {
-        return res.status(403).end()
-    }
-
-    else if (loan && !reservation) {
-        loan.dueDate = setDueDate()
-        loan.borrowingDate = new Date()
-        await loan.save() 
-        return res.status(200).json(loan)
-    }
-    else {
-        return res.status(409).json({error: 'The loan cannot be renewed.'})
-    }
+    return res.status(200).json(updatedLoan)
 })
 
 module.exports = router

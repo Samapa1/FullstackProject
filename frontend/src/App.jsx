@@ -35,7 +35,6 @@ const Home = ({user}) => {
   
   return ( 
     <div>
-      <Notification/>
       <h1>Welcome to the book app</h1>
       <p>Here you can borrow books and return your loans.</p>
       {reservationsForCollection ? 
@@ -98,6 +97,7 @@ const App = () => {
       } 
       </NavBar>
     <div>
+    <Notification></Notification>
     <Routes>
       <Route path="/books" element={<Booklist />} />
       <Route path="/books/:id" element={<Book />} />

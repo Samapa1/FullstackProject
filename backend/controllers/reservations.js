@@ -89,7 +89,7 @@ router.delete('/:id', tokenExtractor, async (req, res) => {
             }
         
             const notAvailableReservations = await Reservation.findAll({ 
-                where: {available: false}, 
+                where: {bookId: reservation.bookId, available: false}, 
                 order: [['createdAt', 'ASC']],
                 transaction: t, 
             })

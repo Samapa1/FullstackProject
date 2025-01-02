@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from 'react-redux'
 import { addBook } from '../reducers/bookReducer'
-import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
 import { Button, Input } from './Styles'
 
@@ -65,7 +64,6 @@ const BookForm = () => {
 
     return (
         <div>
-        <Notification/>
         <h1>Add a book to the database</h1>
         {radioFilter()}
         <form onSubmit={handleForm}>

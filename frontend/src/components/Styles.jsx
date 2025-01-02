@@ -99,3 +99,25 @@ export const Table2 = styled.table`
     }
 `;
 
+export const notificationStyle = {
+  color: 'white',
+  background: '#54A4A6',
+  fontSize: 16, 
+  borderRadius: 5,
+  padding: 10,
+  marginBottom: 20,
+  marginTop: 20,
+  marginRight: 800
+}
+
+export const notificationStyleError = {
+  color: 'white',
+  background: '#FF342F',
+  fontSize: 16, 
+  borderRadius: 5,
+  padding: 10,
+  marginBottom: 20,
+  marginTop: 20,
+  marginRight: 800
+}
+

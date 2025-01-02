@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom"
 import { updateUser } from '../reducers/usersReducer'
 import { removeUser } from '../reducers/usersReducer'
 import { setNotification } from '../reducers/notificationReducer';
-import Notification from './Notification';
 import { Button, Input } from './Styles'
 
 import { getUserData } from "../reducers/userReducer"
@@ -74,18 +73,16 @@ const UserDataAdmin = () => {
           }
       }
   
-          const handleRemoveUser = async (user) => {
-              if (window.confirm(`Remove ${user.name} permanently?`)) {
-                  navigate("/users")
-                  await dispatch(removeUser(user))
-                  handleChange(null)
-                  await dispatch(setNotification( {data: `${user.name} removed`, type: 'info'}, 3000))
-                  }
-          }
+        const handleRemoveUser = async (user) => {
+            if (window.confirm(`Remove ${user.name} permanently?`)) {
+                navigate("/users")
+                await dispatch(removeUser(user))
+                await dispatch(setNotification( {data: `${user.name} removed`, type: 'info'}, 3000))
+                }
+        }
     if (user) {
       return (
           <div>
-              <Notification/>
               <h1>User</h1>
               <form onSubmit={handleChanges}>
               <div>

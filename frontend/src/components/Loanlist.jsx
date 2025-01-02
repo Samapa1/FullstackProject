@@ -30,7 +30,7 @@ const Loanlist = () => {
     }
 
     const isLate = (duedate) => {
-        let date = new Date()
+        const date = new Date()
         if (Date.parse(duedate) < date) {
             return <div>late</div>
         }

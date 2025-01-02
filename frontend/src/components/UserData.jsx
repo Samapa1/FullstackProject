@@ -7,7 +7,6 @@ import { getUserData } from '../reducers/userReducer'
 import { updateUser } from '../reducers/userReducer'
 import { removeUser } from '../reducers/userReducer';
 import { setNotification } from '../reducers/notificationReducer';
-import Notification from './Notification';
 import { Button, Input } from './Styles'
 import PasswordField from './PasswordField';
 
@@ -75,7 +74,6 @@ const UserData = () => {
 
     return (
         <div>
-            <Notification/>
             <br></br>
             <form onSubmit={handleChanges}>
             <div>

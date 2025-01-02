@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { loginUser } from "../reducers/userReducer.js"
 import { useNavigate } from "react-router-dom"
-import Notification from "./Notification"
 import { setNotification } from  "../reducers/notificationReducer.js"
 import { Button, Input, linkStyle2 } from './Styles'
 import PasswordField from "./PasswordField.jsx";
@@ -37,7 +36,6 @@ const Login = () => {
 
   return (
     <>
-    <Notification/>
       <h2>Log in to application</h2>
       <form onSubmit={handleLogin}>
         <div>

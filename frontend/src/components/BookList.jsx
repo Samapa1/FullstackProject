@@ -2,7 +2,6 @@ import { useSelector} from 'react-redux'
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { linkStyle1, linkStyle2 } from './Styles'
-import Notification from './Notification';
 import { Input } from './Styles'
 
 
@@ -50,79 +49,30 @@ const Booklist = () => {
 
     const booksToShow = allBooks.filter(book => book.title.toLowerCase().includes(filtered.toLowerCase()) || book.author.toLowerCase().includes(filtered.toLowerCase()))
     
-    if (user && user.admin){
-        return (
-            <div>
-            <Notification/>
-            <><h1>Books</h1>
-            {filterBooks()}
-            {radioFilter()}
-            <br></br>
-            {fictionality === "fiction" ? 
-            booksToShow.filter(book => book.class === "84.2" || book.class === "85").map(book => 
-                <div key={book.id}>
-                <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-            </div>
-            )    
-            :
-            booksToShow.filter(book=> book.class !== "84.2" && book.class !== "85").map(book => 
-            <div key={book.id}>
-                <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-            </div>
-            )
-            }
-            </>
-            <br></br>
-            <Link style={linkStyle2} to={`/addBook`}>Add a book</Link>
-            </div>
-        )
-    }
-    
-    else {
     return (
         <div>
-        <Notification/>
-        {user 
-        ? <><h1>Books</h1>
-            {filterBooks()}
-            {radioFilter()}
-            <br></br>
-            {fictionality === "fiction" ? 
-            booksToShow.filter(book => book.class === "84.2" || book.class === "85").map(book => 
-                <div key={book.id}>
-                <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-            </div>
-            )    
-            :
-            booksToShow.filter(book=> book.class !== "84.2" && book.class !== "85").map(book => 
+        <><h1>Books</h1>
+        {filterBooks()}
+        {radioFilter()}
+        <br></br>
+        {fictionality === "fiction" ? 
+        booksToShow.filter(book => book.class === "84.2" || book.class === "85").map(book => 
             <div key={book.id}>
-                <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-            </div>
-            )
-            }
-            </>
-        : <><h1>Books</h1>
-            {filterBooks()}
-            {radioFilter()}
-            <br></br>
-            {fictionality === "fiction" ? 
-                booksToShow.filter(book => book.class === "84.2" || book.class === "85").map(book => 
-                    <div key={book.id}>
-                    <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-                </div>
-                )    
-                :
-                booksToShow.filter(book=> book.class !== "84.2" && book.class !== "85").map(book => 
-                <div key={book.id}>
-                    <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
-                </div>
-                )
-                }
-            </>
+            <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
+        </div>
+        )    
+        :
+        booksToShow.filter(book=> book.class !== "84.2" && book.class !== "85").map(book => 
+        <div key={book.id}>
+            <Link style={linkStyle1} to={`/books/${book.id}`}>{book.title} by {book.author}</Link>
+        </div>
+        )
         }
+        </>
+        <br></br>
+        {user && user.admin ? <Link style={linkStyle2} to={`/addBook`}>Add a book</Link> : null}
         </div>
     )
-}
 }
 
 

@@ -83,6 +83,7 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ error: "username already in use" })
         }
         else {
+            console.log(err)
             return res.status(400).json({error: 'Request failed'})
         }  
     }
