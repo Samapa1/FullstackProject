@@ -1,21 +1,19 @@
-import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 
-import { notificationStyle, notificationStyleError } from './Styles'
+import { notificationStyle, notificationStyleError } from "./Styles";
 
 const Notification = () => {
+  const message = useSelector((state) => state.notification);
 
-    const message = useSelector((state) => state.notification)
+  if (message.data === null) {
+    return;
+  }
 
-    if (message.data === null) {
-      return
-    }
-  
-    if (message.type === 'error') {
-      return <div style= {notificationStyleError}>{message.data}</div>
-    }
-  
-    return <div style= {notificationStyle}>{message.data}</div>
-  
-}
+  if (message.type === "error") {
+    return <div style={notificationStyleError}>{message.data}</div>;
+  }
 
-export default Notification
+  return <div style={notificationStyle}>{message.data}</div>;
+};
+
+export default Notification;

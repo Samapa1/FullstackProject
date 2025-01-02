@@ -1,29 +1,26 @@
-let token = null
+let token = null;
 
 const setToken = (createdToken) => {
-  token = `Bearer ${createdToken}`
-}
+  token = `Bearer ${createdToken}`;
+};
 
 const getConfig = () => {
-  console.log("getconfig")
+  console.log("getconfig");
   const config = {
-      headers: { Authorization: token },
-    }
-  console.log(config)
-  return config
-}
+    headers: { Authorization: token },
+  };
+  console.log(config);
+  return config;
+};
 
 const getPasswordConfig = (password) => {
   const config = {
-      headers: { 
-        Authorization: token, 
-        Password: password
-       },
-    }
-  return config
-}
+    headers: {
+      Authorization: token,
+      Password: password,
+    },
+  };
+  return config;
+};
 
-export default {setToken, getConfig, getPasswordConfig}
-
-
-
+export default { setToken, getConfig, getPasswordConfig };

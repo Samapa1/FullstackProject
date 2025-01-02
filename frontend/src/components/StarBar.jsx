@@ -1,26 +1,23 @@
+const starBarNumbers = [1, 2, 3, 4, 5];
 
-const starBarNumbers = [1,2,3,4,5]
+const StarBar = ({ book }) => {
+  const bookStars = Math.round(book.rating);
 
-const StarBar = ( {book} ) => {
-    const bookStars = Math.round(book.rating)
+  return (
+    <div>
+      {starBarNumbers.map((star) => (
+        <span
+          key={star}
+          style={{
+            color: bookStars >= star ? "gold" : "gray",
+            fontSize: `30px`,
+          }}
+        >
+          &#9733;
+        </span>
+      ))}
+    </div>
+  );
+};
 
-    return (
-        <div>
-        {starBarNumbers.map((star) => <span
-              key={star}
-              style={{
-                color: bookStars >= star ? 'gold' : 'gray',
-                fontSize: `30px`,
-              }}          
-            >
-              &#9733;
-            </span>
-          )
-        }
-        </div>
-      )
-
-    }
-
-
-export default StarBar
+export default StarBar;

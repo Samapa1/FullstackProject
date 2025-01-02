@@ -9,7 +9,8 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "test": "NODE_ENV=test node --test",
     "start:test": "NODE_ENV=test node index.js",
-    "migration:down": "node utils/rollback.js"
+    "migration:down": "node utils/rollback.js",
+    "lint": "eslint ."
   },
   "author": "Saija Pajari",
   "license": "ISC",
@@ -28,8 +29,16 @@
     "umzug": "^3.8.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@stylistic/eslint-plugin-js": "^2.12.1",
+    "eslint": "^9.17.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.14.0",
     "json-server": "^1.0.0-beta.3",
     "nodemon": "^3.1.7",
+    "prettier": "3.4.2",
+    "prettier-eslint": "^16.3.0",
     "supertest": "^7.0.0"
   }
 }
