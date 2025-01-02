@@ -46,7 +46,9 @@ const start = async () => {
 
 start();
 
-reservationQueue();
+if (process.env.NODE_ENV !== "test") {
+  reservationQueue();
+}
 
 app.use(middleware.errorHandler);
 

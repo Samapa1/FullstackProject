@@ -5,7 +5,6 @@ import { removeReservation } from "../reducers/reservationReducer";
 import { getUserData } from "../reducers/userReducer";
 import { formatDate } from "../../utils/helper.js";
 import { Button, Table } from "./Styles.jsx";
-import Notification from "./Notification.jsx";
 import { setNotification } from "../reducers/notificationReducer.js";
 
 const Reservationlist = () => {
@@ -35,7 +34,6 @@ const Reservationlist = () => {
 
   return (
     <div>
-      <Notification />
       <h1>Reservations</h1>
       {reservations.length > 0 ? (
         <Table>

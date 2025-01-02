@@ -81,6 +81,11 @@ router.post("/", async (req, res) => {
       err.errors[0].type === "unique violation"
     ) {
       return res.status(400).json({ error: "username already in use" });
+    } else if (
+      err.errors[0].path === "email" &&
+      err.errors[0].type === "unique violation"
+    ) {
+      return res.status(400).json({ error: "email already in use" });
     } else {
       console.log(err);
       return res.status(400).json({ error: "Request failed" });

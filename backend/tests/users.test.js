@@ -66,10 +66,10 @@ describe("initially one user at the db", () => {
 
     const updatedUsers = await usersInDB();
     assert.strictEqual(updatedUsers.length, users.length);
+    // console.log(process._getActiveHandles());
   });
 
   after(() => {
-    console.log("done");
     disconnectFromDatabase();
   });
 });
