@@ -42,4 +42,18 @@ const connectToDatabase = async () => {
   return null;
 };
 
-module.exports = { connectToDatabase, sequelize, rollbackMigration };
+const disconnectFromDatabase = async () => {
+  try {
+    sequelize.close();
+    console.log("database disconnected");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = {
+  connectToDatabase,
+  disconnectFromDatabase,
+  sequelize,
+  rollbackMigration,
+};

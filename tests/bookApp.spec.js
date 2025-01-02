@@ -33,8 +33,8 @@ describe('Book app', () => {
     await page.getByTestId('name').fill('timothy davids')
     await page.getByTestId('email').fill('timothy@gmail.com')
     await page.getByTestId('username').fill('timothy')
-    await page.getByTestId('password').fill('mysecret12')
-    await page.getByTestId('password2').fill('mysecret12')
+    await page.getByTestId('password').first().fill('mysecret12')
+    await page.getByTestId('password').last().fill('mysecret12')
     await page.getByText('register', { exact: true }).click()
     await expect(page.getByText('Registration ok')).toBeVisible()
 

@@ -7,7 +7,7 @@ const api = supertest(app);
 test("there are five books", async () => {
   const response = await api.get("/api/books");
 
-  assert.strictEqual(response.body.length, 5);
+  assert.strictEqual(response.body.length, 50);
 });
 
 test("booklist contains The Stranger", async () => {
