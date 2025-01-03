@@ -94,3 +94,6 @@ Date              Hours                    Tasks
 18.12.24          1                        Improving errorhandling (in backend)
 20.12.24          1                        Developing usersrouter (backend) and password validation
 20.12.24          2                        Developing PasswordField component
+2.1.25            2                        Refactoring and fixing the code
+2.1.25            2                        Fixing tests (backend and e2e)
+2.1.25            2                        Installing prettier and eslint 
