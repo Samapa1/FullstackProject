@@ -2,8 +2,9 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-    "username": "elsala",
-    "name": "elsa lahti",
-    "email": "elsalahti@gmail.com",
-    "password": ""
+    "username": "testuser",
+    "name": "tuomo teiskanen",
+    "email": "tuomo@gmail.com",
+    "password": "marjat80"
 }
+

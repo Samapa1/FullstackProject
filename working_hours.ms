@@ -97,3 +97,4 @@ Date              Hours                    Tasks
 2.1.25            2                        Refactoring and fixing the code
 2.1.25            2                        Fixing tests (backend and e2e)
 2.1.25            2                        Installing prettier and eslint 
+3.1.25            2                        Setting docker compose for production
