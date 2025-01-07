@@ -1,9 +1,7 @@
-import axios from "axios";
-
-const baseUrl = "http://localhost:3003/api/status";
+import axios from "../../utils/apiClient.js";
 
 const getStatus = async (id) => {
-  const response = await axios.get(`${baseUrl}/${id}`);
+  const response = await axios.get(`status/${id}`);
   return response.data;
 };
 

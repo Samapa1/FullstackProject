@@ -1,9 +1,8 @@
-import axios from "axios";
-const baseUrl = "http://localhost:3003/api/logout";
+import axios from "../../utils/apiClient.js";
 import apiService from "./apiservice";
 
 const logout = async () => {
-  const response = await axios.delete(baseUrl, apiService.getConfig());
+  const response = await axios.delete("/logout", apiService.getConfig());
   console.log(response.data);
   return response.data;
 };

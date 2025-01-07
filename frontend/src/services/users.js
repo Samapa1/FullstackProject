@@ -1,25 +1,24 @@
-import axios from "axios";
+import axios from "../../utils/apiClient.js";
 import apiService from "./apiservice";
-const baseUrl = "http://localhost:3003/api/users";
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl, apiService.getConfig());
+  const response = await axios.get("/users", apiService.getConfig());
   return response.data;
 };
 
 const getOne = async (id) => {
-  const response = await axios.get(`${baseUrl}/${id}`, apiService.getConfig());
+  const response = await axios.get(`users/${id}`, apiService.getConfig());
   return response.data;
 };
 
 const create = async (newUser) => {
-  const response = await axios.post(baseUrl, newUser);
+  const response = await axios.post("/users", newUser);
   return response.data;
 };
 
 const update = async (userObject) => {
   const response = await axios.post(
-    `${baseUrl}/${userObject.id}`,
+    `users/${userObject.id}`,
     userObject,
     apiService.getConfig(),
   );
@@ -28,7 +27,7 @@ const update = async (userObject) => {
 
 const remove = async (userObject) => {
   const response = await axios.delete(
-    `${baseUrl}/${userObject.id}`,
+    `users/${userObject.id}`,
     apiService.getPasswordConfig(userObject.password),
   );
   return response.data;
@@ -36,7 +35,7 @@ const remove = async (userObject) => {
 
 const adminRemove = async (userObject) => {
   const response = await axios.delete(
-    `${baseUrl}/${userObject.id}`,
+    `users/${userObject.id}`,
     apiService.getConfig(),
   );
   return response.data;

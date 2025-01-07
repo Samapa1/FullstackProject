@@ -98,3 +98,5 @@ Date              Hours                    Tasks
 2.1.25            2                        Fixing tests (backend and e2e)
 2.1.25            2                        Installing prettier and eslint 
 3.1.25            2                        Setting docker compose for production
+7.1.25            2                        Setting the project for production (docker)
+7.1.25            3                        Learning about Docker & Render, configuring render.yaml

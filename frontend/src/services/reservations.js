@@ -1,10 +1,8 @@
-import axios from "axios";
+import axios from "../../utils/apiClient.js";
 import apiService from "./apiservice";
 
-const baseUrl = "http://localhost:3003/api/reservations";
-
 const getAll = async () => {
-  const response = await axios.get(baseUrl, apiService.getConfig());
+  const response = await axios.get("/reservations", apiService.getConfig());
   return response.data;
 };
 
@@ -13,7 +11,11 @@ const create = async (reservationData) => {
     userId: reservationData.user.id,
     bookId: reservationData.book.id,
   };
-  const response = await axios.post(baseUrl, newObject, apiService.getConfig());
+  const response = await axios.post(
+    "/reservations",
+    newObject,
+    apiService.getConfig(),
+  );
   return response.data;
 };
 
@@ -23,7 +25,7 @@ const collect = async (data) => {
     bookId: data.bookId,
   };
   const response = await axios.post(
-    `${baseUrl}/${data.reservationId}`,
+    `/reservations/${data.reservationId}`,
     loanData,
     apiService.getConfig(),
   );
@@ -32,7 +34,7 @@ const collect = async (data) => {
 
 const remove = async (id) => {
   const response = await axios.delete(
-    `${baseUrl}/${id}`,
+    `/reservations/${id}`,
     apiService.getConfig(),
   );
   return response.data;

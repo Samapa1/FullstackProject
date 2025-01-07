@@ -1,8 +1,7 @@
-import axios from "axios";
-const baseUrl = "http://localhost:3003/api/login";
+import axios from "../../utils/apiClient.js";
 
 const login = async (loginData) => {
-  const response = await axios.post(baseUrl, loginData);
+  const response = await axios.post("/login", loginData);
   return response.data;
 };
 

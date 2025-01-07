@@ -1,0 +1,24 @@
+services:
+- type: web
+    runtime: docker
+    name: project-back-prod
+    dockerfilePath: ./backend/Dockerfile
+    envVars:
+    - key: REDIS_URL
+      value: redis://redis:6379
+    - key: DATABASE
+      value: postgres://postgres:example@db:5432/postgres
+- type: web
+    runtime: docker
+    name: project-front-prod
+    dockerfilePath: ./frontend/Dockerfile
+- type: redis 
+    name: app-redis
+    ipAllowList: # Required
+      - source: 0.0.0.0/0
+        description: everywhere
+
+
+
+databases:
+  - name: elephant

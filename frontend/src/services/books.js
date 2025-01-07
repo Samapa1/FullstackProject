@@ -1,25 +1,24 @@
-import axios from "axios";
+import axios from "../../utils/apiClient.js";
 import apiService from "./apiservice";
-const baseUrl = "http://localhost:3003/api/books";
 
 const getAll = async () => {
-  const response = await axios.get(baseUrl);
+  const response = await axios.get("/books");
   return response.data;
 };
 
 const getOne = async (id) => {
-  const response = await axios.get(`${baseUrl}/${id}`);
+  const response = await axios.get(`books/${id}`);
   return response.data;
 };
 
 const create = async (newBook) => {
-  const response = await axios.post(baseUrl, newBook, apiService.getConfig());
+  const response = await axios.post("/books", newBook, apiService.getConfig());
   return response.data;
 };
 
 const update = async (updatedBook) => {
   const response = await axios.put(
-    `${baseUrl}/${updatedBook.id}`,
+    `books/${updatedBook.id}`,
     updatedBook,
     apiService.getConfig(),
   );
@@ -27,7 +26,7 @@ const update = async (updatedBook) => {
 };
 
 const remove = async (id) => {
-  await axios.delete(`${baseUrl}/${id}`, apiService.getConfig());
+  await axios.delete(`books/${id}`, apiService.getConfig());
 };
 
 export default { getAll, getOne, create, update, remove };

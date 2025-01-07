@@ -1,23 +1,22 @@
-import axios from "axios";
+import axios from "../../utils/apiClient.js";
 import apiService from "./apiservice";
 
-const baseUrl = "http://localhost:3003/api/ratings";
-
 const getAll = async () => {
-  const response = await axios.get(baseUrl, apiService.getConfig());
+  const response = await axios.get("/ratings", apiService.getConfig());
   return response.data;
 };
 
 const create = async (newObject) => {
-  const response = await axios.post(baseUrl, newObject, apiService.getConfig());
+  const response = await axios.post(
+    "/ratings",
+    newObject,
+    apiService.getConfig(),
+  );
   return response.data;
 };
 
 const remove = async (id) => {
-  const response = await axios.delete(
-    `${baseUrl}/${id}`,
-    apiService.getConfig(),
-  );
+  const response = await axios.delete(`ratings/${id}`, apiService.getConfig());
   return response;
 };
 
