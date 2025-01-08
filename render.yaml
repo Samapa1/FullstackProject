@@ -16,8 +16,6 @@ services:
           type: redis
           name: project-prod-redis 
           property: connectionString
-      - key: VITE_BACKEND_URL
-        value: https://project-prod-backend.onrender.com/
 
   - type: web
     env: static
@@ -25,6 +23,9 @@ services:
     repo: https://github.com/Samapa1/FullstackProject
     buildCommand: cd frontend; npm ci; npm run build
     staticPublishPath: ./frontend/dist
+    envVars:
+      - key: VITE_BACKEND_URL
+        value: https://project-prod-backend.onrender.com/
 
   - type: redis
     name: project-prod-redis 
