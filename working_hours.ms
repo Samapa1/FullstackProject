@@ -100,3 +100,5 @@ Date              Hours                    Tasks
 3.1.25            2                        Setting docker compose for production
 7.1.25            2                        Setting the project for production (docker)
 7.1.25            3                        Learning about Docker & Render, configuring render.yaml
+8.1.25            3                        Learning about Render Blueprints
+8.1.25            1                        Configuring render.yaml

@@ -3,6 +3,8 @@ require("dotenv").config();
 const { Umzug, SequelizeStorage } = require("umzug");
 const { DATABASE_URL } = require("./config.js");
 
+console.log(`Database URL is ${DATABASE_URL}`)
+
 const sequelize = new Sequelize(DATABASE_URL);
 
 const migrationConf = {
