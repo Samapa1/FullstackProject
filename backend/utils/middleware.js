@@ -30,7 +30,8 @@ const tokenExtractor = async (req, res, next) => {
 };
 
 const errorHandler = (error, req, res) => {
-  console.log(error.name);
+  //console.log(error.name);
+  console.log(typeof req);
 
   if (error.name === "JsonWebTokenError") {
     console.log(error);

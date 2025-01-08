@@ -40,15 +40,19 @@ if (process.env.NODE_ENV === "test") {
   app.use("/api/testing", testingRouter);
 }
 
+app.use((req, res) => {
+  res.status(404).end();
+});
+
 const start = async () => {
   await connectToDatabase();
 };
 
 start();
 
-// if (process.env.NODE_ENV !== "test") {
-//   reservationQueue();
-// }
+if (process.env.NODE_ENV !== "test") {
+  reservationQueue();
+}
 
 app.use(middleware.errorHandler);
 
