@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "rm -rf dist && cd ../frontend && npm run build && cp -r dist ../backend",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run"

@@ -1,44 +1,36 @@
 services:
-- type: web
-    runtime: image
-    name: project-front-prod
-    image:
-      url: docker.io/saijapa/bookapp-frontend:latest
-- type: web
-    runtime: image
-    name: project-back-prod
-    image:
-      url: docker.io/saijapa/bookapp-backend:latest
-- type: web 
-    runtime: image
-    name: app-nginx
-    image:
-      url: docker.io/library/nginx:latest
+  - type: web
+    env: node
+    name: project-prod-backend
+    repo: https://github.com/Samapa1/FullstackProject
+    buildCommand: cd backend; npm install 
+    startCommdand: cd backend; npm start
     envVars:
-      - key: HOST
-        value: "0.0.0.0"
-      - key: PORT
-        value: 8080
-- type: web 
-    runtime: image
-    name: app-postgres
-    image:
-      url: docker.io/library/postgres:latest
-    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: project-prod-db 
+          property: connectionString
       - key: REDIS_URL
-        value: redis://redis:6379
-      - key: DATABASE
-        value: postgres://postgres:example@db:5432/postgres
-      - key: PORT
-        value: 5432
-- type: web 
-    runtime: image
-    name: app-redis
-    image:
-      url: docker.io/library/redis:latest
-    envVars:
-      - key: PORT
-        value: 6379
+        fromService:
+          name: project-prod-redis 
+          property: connectionString
+
+  - type: web
+    env: static
+    name: project-prod-frontend
+    repo: https://github.com/Samapa1/FullstackProject
+    buildCommand: cd frontend; npm build
+    staticPublisPath: ./frontend/dist/assets
+
+  - type: redis
+    name: project-prod-redis 
+    ipAllowList: []
+
+databases: 
+  - name: project-prod-db
+
+
+
 
 
   
