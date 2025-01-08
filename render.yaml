@@ -3,8 +3,8 @@ services:
     env: node
     name: project-prod-backend
     repo: https://github.com/Samapa1/FullstackProject
-    buildCommand: cd backend; npm install 
-    startCommand: cd backend; npm start
+    buildCommand: cd backend; npm run install 
+    startCommand: cd backend; npm run start
     plan: free
     envVars:
       - key: DATABASE_URL
@@ -21,7 +21,7 @@ services:
     env: static
     name: project-prod-frontend
     repo: https://github.com/Samapa1/FullstackProject
-    buildCommand: cd frontend; npm build
+    buildCommand: cd frontend; npm run build
     staticPublishPath: ./frontend/dist
 
   - type: redis
