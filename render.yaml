@@ -5,6 +5,7 @@ services:
     repo: https://github.com/Samapa1/FullstackProject
     buildCommand: cd backend; npm install 
     startCommand: cd backend; npm start
+    plan: free
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -26,9 +27,11 @@ services:
   - type: redis
     name: project-prod-redis 
     ipAllowList: []
+    plan: free
 
 databases: 
   - name: project-prod-db
+    plan: free
 
 
 
