@@ -4,7 +4,7 @@ services:
     name: project-prod-backend
     repo: https://github.com/Samapa1/FullstackProject
     buildCommand: cd backend; npm install 
-    startCommdand: cd backend; npm start
+    startCommand: cd backend; npm start
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -20,7 +20,7 @@ services:
     name: project-prod-frontend
     repo: https://github.com/Samapa1/FullstackProject
     buildCommand: cd frontend; npm build
-    staticPublisPath: ./frontend/dist/assets
+    staticPublishPath: ./frontend/dist/assets
 
   - type: redis
     name: project-prod-redis 
