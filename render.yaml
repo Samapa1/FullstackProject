@@ -16,6 +16,8 @@ services:
           type: redis
           name: project-prod-redis 
           property: connectionString
+      - key: VITE_BACKEND_URL
+        value: https://project-prod-backend.onrender.com/
 
   - type: web
     env: static
