@@ -12,6 +12,7 @@ services:
           property: connectionString
       - key: REDIS_URL
         fromService:
+          type: redis
           name: project-prod-redis 
           property: connectionString
 
@@ -20,7 +21,7 @@ services:
     name: project-prod-frontend
     repo: https://github.com/Samapa1/FullstackProject
     buildCommand: cd frontend; npm build
-    staticPublishPath: ./frontend/dist/assets
+    staticPublishPath: ./frontend/dist
 
   - type: redis
     name: project-prod-redis 
