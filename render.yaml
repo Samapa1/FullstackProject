@@ -21,8 +21,8 @@ services:
     env: static
     name: project-prod-frontend
     repo: https://github.com/Samapa1/FullstackProject
-    buildCommand: cd frontend; npm run build; npm ci
-    staticPublishPath: ./dist
+    buildCommand: cd frontend; npm ci; npm run build
+    staticPublishPath: ./frontend/dist
 
   - type: redis
     name: project-prod-redis 
