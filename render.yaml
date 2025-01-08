@@ -3,7 +3,7 @@ services:
     env: node
     name: project-prod-backend
     repo: https://github.com/Samapa1/FullstackProject
-    buildCommand: cd backend; npm run install 
+    buildCommand: cd backend; npm install 
     startCommand: cd backend; npm run start
     plan: free
     envVars:
