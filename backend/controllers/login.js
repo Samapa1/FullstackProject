@@ -49,7 +49,7 @@ router.post("/", async (req, res) => {
 
   const passwordCorrect = await bcrypt.compare(
     req.body.password,
-    user.passwordHash,
+    user?.passwordHash,
   );
 
   if (!(user && passwordCorrect)) {
