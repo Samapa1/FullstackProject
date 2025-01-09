@@ -25,7 +25,7 @@ services:
     staticPublishPath: ./frontend/dist
     envVars:
       - key: VITE_BACKEND_URL
-        value: https://project-prod-backend.onrender.com/
+        value: https://project-prod-backend.onrender.com/api/
 
   - type: redis
     name: project-prod-redis 
