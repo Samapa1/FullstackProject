@@ -5,7 +5,7 @@ const DATABASE_URL =
     ? process.env.TEST_DATABASE
     : process.env.DATABASE;
 
-const REDIS_URL = process.env.REDIS;
+const REDIS_URL = process.env.REDIS_URL;
 
 module.exports = {
   DATABASE_URL,
