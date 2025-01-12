@@ -12,7 +12,6 @@ const loanSlice = createSlice({
     },
     appendLoan(state, action) {
       state.push(action.payload);
-      return state;
     },
     deleteLoan(state, action) {
       console.log(JSON.parse(JSON.stringify(state)));

@@ -13,9 +13,6 @@ const bookSlice = createSlice({
     appendBook(state, action) {
       state.push(action.payload);
     },
-    selectedBook(state, action) {
-      return action.payload;
-    },
     updateBooks(state, action) {
       const updatedBook = action.payload;
       return state.map((book) =>
@@ -36,14 +33,6 @@ export const initializeBooks = () => {
   return async (dispatch) => {
     const books = await bookService.getAll();
     dispatch(setBooks(books));
-  };
-};
-
-export const selectBook = () => {
-  return async (dispatch) => {
-    const books = await bookService.getAll();
-    console.log(books[0]);
-    dispatch(selectedBook(books[0]));
   };
 };
 

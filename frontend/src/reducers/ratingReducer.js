@@ -19,7 +19,7 @@ const ratingSlice = createSlice({
         );
         return updatedRatings;
       }
-      state.push(action.payload);
+      return [...state, action.payload];
     },
     setRatings(state, action) {
       return action.payload;
