@@ -1,8 +1,9 @@
 const Queue = require("bull");
 const { Reservation } = require("../models");
+const { REDIS_URL } = require("../utils/config.js");
 
 const reservationQueue = () => {
-  const testqueue = new Queue("myQueue");
+  const testqueue = new Queue("myQueue", REDIS_URL);
 
   const checkStatus = async () => {
     const reservations = await Reservation.findAll({

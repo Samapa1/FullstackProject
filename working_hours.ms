@@ -102,3 +102,4 @@ Date              Hours                    Tasks
 7.1.25            3                        Learning about Docker & Render, configuring render.yaml
 8.1.25            3                        Learning about Render Blueprints
 8.1.25            1                        Configuring render.yaml
+9.1.25            4                        Setting the app on render and fixing logi nrouter (backend)
