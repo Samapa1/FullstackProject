@@ -26,7 +26,7 @@ jobs:
         run: npm install
         working-directory: ./frontend
       - name: e2e tests 1
-        run: npx playwright install --with-deps
+        run: npm install && npx playwright install --with-deps
       - name: e2e test 2
         run: npx playwright test
         env: 
@@ -39,6 +39,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+          
       # - name: Trigger deployment
       #   if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }} 
       #   run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
