@@ -5,7 +5,10 @@ on:
     branches:
       - main
 
-services:
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    services:
       postgres:
         image: postgres
         env:
@@ -17,11 +20,6 @@ services:
           --health-retries 5
         ports:
           - 5432:5432
-
-
-jobs:
-  simple_deployment_pipeline:
-    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
