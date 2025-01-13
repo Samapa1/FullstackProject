@@ -5,6 +5,20 @@ on:
     branches:
       - main
 
+services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: testing
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-20.04
@@ -30,8 +44,7 @@ jobs:
       - name: e2e test 2
         run: npx playwright test
         env: 
-          TEST_DATABASE: ${{ secrets.TEST_DATABASE }}
-          PORT: 3003
+          TEST_DATABASE: postgres://postgres:testing@localhost:5432/postgres
         working-directory: ./
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
@@ -39,6 +52,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      
           
       # - name: Trigger deployment
       #   if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }} 
