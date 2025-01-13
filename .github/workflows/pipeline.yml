@@ -31,7 +31,8 @@ jobs:
         run: npx playwright test
         env: 
           TEST_DATABASE: ${{ secrets.TEST_DATABASE }}
-          # PORT: 3001
+          PORT: 3003
+        working-directory: ./
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
