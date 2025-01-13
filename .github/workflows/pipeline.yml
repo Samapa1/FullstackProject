@@ -1,0 +1,54 @@
+# name: Deployment pipeline
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   simple_deployment_pipeline:
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-node@v4
+#         with:
+#           node-version: '20'
+#       - name: Install dependencies backend
+#         run: npm install
+#         working-directory: ./backend
+#       - name: Check style
+#         run: npm run lint
+#         working-directory: ./backend
+#       # - name: Unit test
+#       #   run: npm run test
+#       #   working-directory: ./backend
+#       - name: Install dependencies frontend
+#         run: npm install
+#         working-directory: ./frontend
+#       - name: e2e tests 1
+#         run: npx playwright install --with-deps
+#       - name: e2e test 2
+#         run: npx playwright test
+#         env: 
+#           TEST_DATABASE: ${{ secrets.TEST_DATABASE }}
+#           # PORT: 3001
+#       - uses: actions/upload-artifact@v4
+#         if: ${{ !cancelled() }}
+#         with:
+#           name: playwright-report
+#           path: playwright-report/
+#           retention-days: 30
+#       - name: Trigger deployment
+#         if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }} 
+#         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+#   tag_release:
+#     needs: [simple_deployment_pipeline]
+#     runs-on: ubuntu-20.04
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Bump version and push tag
+#         if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+#         uses: anothrNick/github-tag-action@1.70.0
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           DEFAULT_BUMP: patch
