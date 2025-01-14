@@ -34,7 +34,8 @@ describe('Book app', () => {
       await page.getByRole('textbox').first().fill('testuser')
       await page.getByRole('textbox').last().fill('secret10')
       await page.getByRole('button', { name: 'log in' }).click()
-      await expect(page.getByText('Here you can borrow books and return your loans.')).toBeVisible()
+      await page.getByText('Here you can borrow books and return your loans.').waitFor()
+      // await expect(page.getByText('Here you can borrow books and return your loans.')).toBeVisible()
       // await expect(page.getByText('testuser logged in')).toBeVisible()
     } )
 
@@ -44,7 +45,8 @@ describe('Book app', () => {
     await expect(page.getByText('The Stranger')).toBeVisible()
     await expect(page.getByText('author: Albert Camus')).toBeVisible()
     await page.getByRole('button', { name: 'borrow' }).click()
-    await expect(page.getByText('You have borrowed the book.')).toBeVisible()
+    await page.getByText('You have borrowed the book.').waitFor()
+    // await expect(page.getByText('You have borrowed the book.')).toBeVisible()
 
     page.on('dialog', dialog => dialog.accept());
     await page.getByText('my page').click()
