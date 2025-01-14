@@ -78,7 +78,7 @@ module.exports = defineConfig({
     {
       // backend
       command: 'cd backend/ && npm run start:test',
-      url: 'http://localhost:3003/api/books',
+      url: 'http://localhost:3003/api',
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI,
       stderr: 'pipe',

@@ -40,6 +40,10 @@ if (process.env.NODE_ENV === "test") {
   app.use("/api/testing", testingRouter);
 }
 
+app.use("/api", (req, res) => {
+  res.status(204).end();
+});
+
 app.use((req, res) => {
   res.status(404).end();
 });
