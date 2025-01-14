@@ -26,19 +26,5 @@ describe('Book app', () => {
     await page.getByRole('button', { name: 'log in' }).click()
     await page.getByText('testuser logged in').waitFor()
   })
-    // test('booklist can be opened', async ({ page }) => {
-  //   await expect(page.getByText('Welcome to the book app')).toBeVisible()
-  //   await page.getByText('books', { exact: true }).click()
-  //   await page.getByText('The Stranger by Albert Camus').waitFor()
-  // })
-
-  // test('login fails with wrong credentials', async ({ page }) => {
-  //   await page.getByText('log in').click()
-  //   await expect(page.getByText('Log in to application')).toBeVisible()
-  //   await page.getByRole('textbox').first().fill('testuser')
-  //   await page.getByRole('textbox').last().fill('secret1')
-  //   await page.getByRole('button', { name: 'log in' }).click()
-  //   await expect(page.getByText('invalid username or password')).toBeVisible()
-  // })
-
+ 
 })

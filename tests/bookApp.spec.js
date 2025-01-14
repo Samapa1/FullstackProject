@@ -53,7 +53,6 @@ describe('Book app', () => {
     await expect(page.getByText('The Stranger by Albert Camus')).toBeVisible()
     await page.getByRole('button', { name: 'Return' }).click(); 
     await expect(page.getByRole('button', { name: 'Return'} )).not.toBeVisible()
-    // await expect(page.getByText('The Stranger by Albert Camus')).not.toBeVisible()
   })
   })
   test('registration succeeds', async ({ page, request }) => {
