@@ -89,9 +89,10 @@ module.exports = defineConfig({
       command: 'cd frontend/ && npm run dev',
       url: 'http://localhost:5173',
       timeout: 120 * 1000,
+      env: { ['VITE_BACKEND_URL']: 'http://localhost:3003/api' },
       reuseExistingServer: !process.env.CI,
     },
   ],
-
+   
 });
 
