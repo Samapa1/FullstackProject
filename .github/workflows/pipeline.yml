@@ -33,6 +33,8 @@ jobs:
         working-directory: ./backend
       - name: Unit tests
         run: npm run test
+        env: 
+          TEST_DATABASE: postgres://postgres:testing@localhost:5432/postgres
         working-directory: ./backend
       - name: Install dependencies frontend
         run: npm install
