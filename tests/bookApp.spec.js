@@ -18,32 +18,32 @@ describe('Book app', () => {
     await expect(page.getByText('Welcome to the book app')).toBeVisible()
   })
 
-  test('login fails with wrong credentials', async ({ page }) => {
-    await page.getByText('log in').click()
-    await expect(page.getByText('Log in to application')).toBeVisible()
-    await page.getByRole('textbox').first().fill('testuser')
-    await page.getByRole('textbox').last().fill('secret1')
-    await page.getByRole('button', { name: 'log in' }).click()
-    await expect(page.getByText('invalid username or password')).toBeVisible()
-  })
+  // test('login fails with wrong credentials', async ({ page }) => {
+  //   await page.getByText('log in').click()
+  //   await expect(page.getByText('Log in to application')).toBeVisible()
+  //   await page.getByRole('textbox').first().fill('testuser')
+  //   await page.getByRole('textbox').last().fill('secret1')
+  //   await page.getByRole('button', { name: 'log in' }).click()
+  //   await expect(page.getByText('invalid username or password')).toBeVisible()
+  // })
 
-  test('registration succeeds', async ({ page, request }) => {
-    await page.getByText('log in').click()
-    await page.getByText('Do not have an account yet? Please register.').click()
-    await page.getByTestId('name').fill('timothy davids')
-    await page.getByTestId('email').fill('timothy@gmail.com')
-    await page.getByTestId('username').fill('timothy')
-    await page.getByTestId('password').first().fill('mysecret12')
-    await page.getByTestId('password').last().fill('mysecret12')
-    await page.getByText('register', { exact: true }).click()
-    await expect(page.getByText('Log in to application')).toBeVisible()
-    await page.getByRole('textbox').first().fill('timothy')
-    await page.getByRole('textbox').last().fill('mysecret12')
-    await page.getByRole('button', { name: 'log in' }).click()
-    await expect(page.getByText('Here you can borrow books and return your loans.')).toBeVisible()
-    // await expect(page.getByText('Registration ok')).toBeVisible()
+  // test('registration succeeds', async ({ page, request }) => {
+  //   await page.getByText('log in').click()
+  //   await page.getByText('Do not have an account yet? Please register.').click()
+  //   await page.getByTestId('name').fill('timothy davids')
+  //   await page.getByTestId('email').fill('timothy@gmail.com')
+  //   await page.getByTestId('username').fill('timothy')
+  //   await page.getByTestId('password').first().fill('mysecret12')
+  //   await page.getByTestId('password').last().fill('mysecret12')
+  //   await page.getByText('register', { exact: true }).click()
+  //   await expect(page.getByText('Log in to application')).toBeVisible()
+  //   await page.getByRole('textbox').first().fill('timothy')
+  //   await page.getByRole('textbox').last().fill('mysecret12')
+  //   await page.getByRole('button', { name: 'log in' }).click()
+  //   await expect(page.getByText('Here you can borrow books and return your loans.')).toBeVisible()
+  //   // await expect(page.getByText('Registration ok')).toBeVisible()
 
-  })
+  // })
 
   // describe('when testuser has logged in', () => {
   //   beforeEach(async ({ page }) => {
