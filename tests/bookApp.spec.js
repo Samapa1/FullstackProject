@@ -18,14 +18,14 @@ describe('Book app', () => {
     await expect(page.getByText('Welcome to the book app')).toBeVisible()
   })
 
-  // test('login fails with wrong credentials', async ({ page }) => {
-  //   await page.getByText('log in').click()
-  //   await expect(page.getByText('Log in to application')).toBeVisible()
-  //   await page.getByRole('textbox').first().fill('testuser')
-  //   await page.getByRole('textbox').last().fill('secret1')
-  //   await page.getByRole('button', { name: 'log in' }).click()
-  //   await expect(page.getByText('invalid username or password')).toBeVisible()
-  // })
+  test('login fails with wrong credentials', async ({ page }) => {
+    await page.getByText('log in').click()
+    await expect(page.getByText('Log in to application')).toBeVisible()
+    await page.getByRole('textbox').first().fill('testuser')
+    await page.getByRole('textbox').last().fill('secret1')
+    await page.getByRole('button', { name: 'log in' }).click()
+    await expect(page.getByText('invalid username or password')).toBeVisible()
+  })
 
   // test('registration succeeds', async ({ page, request }) => {
   //   await page.getByText('log in').click()
