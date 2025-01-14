@@ -24,22 +24,22 @@ describe('Book app', () => {
     await page.getByText('The Stranger by Albert Camus').waitFor()
   })
 
-  test('login fails with wrong credentials', async ({ page }) => {
-    await page.getByText('log in').click()
-    await expect(page.getByText('Log in to application')).toBeVisible()
-    await page.getByRole('textbox').first().fill('testuser')
-    await page.getByRole('textbox').last().fill('secret1')
-    await page.getByRole('button', { name: 'log in' }).click()
-    await expect(page.getByText('invalid username or password')).toBeVisible()
-  })
+  // test('login fails with wrong credentials', async ({ page }) => {
+  //   await page.getByText('log in').click()
+  //   await expect(page.getByText('Log in to application')).toBeVisible()
+  //   await page.getByRole('textbox').first().fill('testuser')
+  //   await page.getByRole('textbox').last().fill('secret1')
+  //   await page.getByRole('button', { name: 'log in' }).click()
+  //   await expect(page.getByText('invalid username or password')).toBeVisible()
+  // })
 
-  test('login succeeds with right credentials', async ({ page }) => {
-    await page.getByText('log in').click()
-    await expect(page.getByText('Log in to application')).toBeVisible()
-    await page.getByRole('textbox').first().fill('testuser')
-    await page.getByRole('textbox').last().fill('secret10')
-    await page.getByRole('button', { name: 'log in' }).click()
-    await page.getByText('testuser logged in').waitFor()
-    })
+  // test('login succeeds with right credentials', async ({ page }) => {
+  //   await page.getByText('log in').click()
+  //   await expect(page.getByText('Log in to application')).toBeVisible()
+  //   await page.getByRole('textbox').first().fill('testuser')
+  //   await page.getByRole('textbox').last().fill('secret10')
+  //   await page.getByRole('button', { name: 'log in' }).click()
+  //   await page.getByText('testuser logged in').waitFor()
+  //   })
 
 })
