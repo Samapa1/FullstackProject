@@ -5,7 +5,7 @@ const app = require("../app");
 const { disconnectFromDatabase } = require("../utils/db");
 const api = supertest(app);
 
-test("there are five books", async () => {
+test("there are fifty books", async () => {
   const response = await api.get("/api/books");
 
   assert.strictEqual(response.body.length, 50);
