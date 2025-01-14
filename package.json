@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test /tests/bookApp.spec.js",
+    "test": "playwright test --project=chromium /tests/bookApp.spec.js",
     "test:e2e": "playwright test",
     "test:report": "playwright show-report",
     "start:test": "NODE_ENV=test node index.js"
