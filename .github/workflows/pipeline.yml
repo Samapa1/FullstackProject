@@ -30,6 +30,7 @@ jobs:
         working-directory: ./backend
       - name: Check style
         run: npm run lint
+        working-directory: ./backend
       - name: Run migrations
         run: npm run migrate
         working-directory: ./backend
