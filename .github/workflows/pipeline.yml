@@ -31,9 +31,9 @@ jobs:
       - name: Check style
         run: npm run lint
         working-directory: ./backend
-      # - name: Unit test
-      #   run: npm run test
-      #   working-directory: ./backend
+      - name: Unit tests
+        run: npm run test
+        working-directory: ./backend
       - name: Install dependencies frontend
         run: npm install
         working-directory: ./frontend
