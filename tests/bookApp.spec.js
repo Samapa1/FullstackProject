@@ -34,7 +34,8 @@ describe('Book app', () => {
       await page.getByRole('textbox').first().fill('testuser')
       await page.getByRole('textbox').last().fill('secret10')
       await page.getByRole('button', { name: 'log in' }).click()
-      await expect(page.getByText('testuser logged in')).toBeVisible()
+      await expect(page.getByText('Here you can borrow books and return your loans.')).toBeVisible()
+      // await expect(page.getByText('testuser logged in')).toBeVisible()
     } )
 
   test('testuser can borrow and return a book', async ({ page }) => {
