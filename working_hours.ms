@@ -103,3 +103,6 @@ Date              Hours                    Tasks
 8.1.25            3                        Learning about Render Blueprints
 8.1.25            1                        Configuring render.yaml
 9.1.25            4                        Setting the app on render and fixing logi nrouter (backend)
+13.1.25           5                        Setting up CI/CD -pipeline
+14.1.25           4                        Fixing playwright tests
+15.1.25           2                        Adding deployment to CI/CD pipeline
