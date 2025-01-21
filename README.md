@@ -10,7 +10,7 @@ Node JS and Docker are needed.
 
 Start by cloning the project and ``run npm install`` inside frontend and backend folders.  
 
-### How to run app in development mode: 
+### How to run app in a development mode: 
 
 In the root folder run ``docker compose -f docker-compose.dev.yml up --build`` to set upp databases. 
 Then go to the frontend and backend folders and run ``npm run dev`` in each.
