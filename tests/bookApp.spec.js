@@ -31,7 +31,6 @@ describe("Book app", () => {
     await page.getByText("register", { exact: true }).click();
     await page.waitForTimeout(3000);
     await expect(page.getByText("Registration ok")).toBeVisible();
-    // await expect(page.getByText('Log in to application')).toBeVisible()
     await page.getByRole("textbox").first().fill("timothy");
     await page.getByRole("textbox").last().fill("mysecret12");
     await page.getByRole("button", { name: "log in" }).click();

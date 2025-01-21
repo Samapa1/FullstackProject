@@ -10,8 +10,6 @@ services:
     build:
       context: ./backend/. 
       dockerfile: Dockerfile 
-    # ports:
-    #   - 3003:3003
     container_name: project-back-prod
     environment: 
       - REDIS_URL=redis://redis:6379
