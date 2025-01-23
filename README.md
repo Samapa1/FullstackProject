@@ -8,7 +8,8 @@ manage books and users.
 
 Node JS and Docker are needed.
 
-Start by cloning the project and ``run npm install`` inside frontend and backend folders.  
+Start by cloning the project and ``run npm install`` inside frontend and backend folders. 
+Then copy all env.dist files into env files.  
 
 ### How to run app in a development mode: 
 
