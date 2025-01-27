@@ -1,3 +1,6 @@
+In total 203 working hours used for the project. 
+
+
 Date              Hours                    Tasks
 
 30.9.24           1                        Setting up frontend and backend
@@ -102,7 +105,8 @@ Date              Hours                    Tasks
 7.1.25            3                        Learning about Docker & Render, configuring render.yaml
 8.1.25            3                        Learning about Render Blueprints
 8.1.25            1                        Configuring render.yaml
-9.1.25            4                        Setting the app on render and fixing logi nrouter (backend)
+9.1.25            4                        Setting the app on render and fixing loginn router (backend)
 13.1.25           5                        Setting up CI/CD -pipeline
 14.1.25           4                        Fixing playwright tests
 15.1.25           2                        Adding deployment to CI/CD pipeline
+22.1.25           1                        Adding instructions to README -file
