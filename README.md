@@ -1,7 +1,7 @@
 # Full Stack project (book app)
 
 The project demonstrates book app, where users can borrow, return, reserve and rate books. There are also admin users who can
-manage books and users. Working hours are listed on working_hours.md file. 
+manage books and users. Working hours are listed on [working_hours.md](./working_hours.md) file. 
 
 
 ## Instructions: 
